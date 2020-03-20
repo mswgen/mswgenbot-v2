@@ -1,0 +1,23 @@
+{
+  "author": {
+    "name": "mswgen"
+  },
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0",
+    "google-translate-api": "^2.3.0",
+    "isgd": "^1.1.3",
+    "node-fetch": "^2.6.0",
+    "util": "^0.12.2"
+  },
+  "description": "modulebot",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "bot.js",
+  "name": "modulebot",
+  "version": "1.0.0"
+}

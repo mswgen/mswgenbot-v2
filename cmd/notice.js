@@ -60,7 +60,7 @@ module.exports = {
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true
                 }))
-                .addField('전송한 내용', toSend)
+                .addField('공지 내용', toSend)
                 .addField('전송한 채널 수', `${i}개`)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true

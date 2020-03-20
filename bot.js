@@ -136,6 +136,9 @@ API 지연 시간: ${client.ws.ping}
 <img src=${client.user.displayAvatarURL({
     dynamic: true
 })}>
+<p>
+<iframe src="https://discordapp.com/widget?id=688681923698229294&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+</p>
 </body>
 </html>
                 `);

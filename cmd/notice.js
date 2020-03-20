@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 module.exports = {
     name: 'notice',
-    alises: ['공지', 'notice'],
+    alises: ['공지', 'notice', 'ㅜㅐ샻ㄷ'],
     description: '공지 채널로 등록된 모든 채널에 공지를 보냅니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         var toSend = args.slice(1).join(' ');

@@ -98,8 +98,27 @@ const server = http.createServer(function (req, res) {
         if (req.method == 'GET') {
             if (url.parse(req.url, true).pathname == '/') {
                 res.writeHead(200);
-                res.end(`<h1>봇의 핑</h1>
+                res.end(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                </head>
+                <body>
+                <h1>${client.user.username}</h1>
+                <h2>봇의 핑</h2>
+                <p>
                 API 지연 시간: ${client.ws.ping}
+                </p>
+                <h2>초대 링크</h2>
+                <p>
+                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>관리자 권한</a>
+                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>관리자 권한</a>
+                </p>
+                <img src=${client.user.displayAvatarURL({
+                    dynamic:true
+                })}>
+                </body>
+                </html>
                 `);
             } else {
                 res.writeHead(404);

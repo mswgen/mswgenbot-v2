@@ -3,8 +3,10 @@ function stat(user) {
     var toReturn = '';
     for (var i = 0; i < user.presence.activities.length; i++) {
         if (user.presence.activities[i].name == 'Custom Status') {
-            toReturn += `
-            ${user.presence.activities[i].emoji.name}${user.presence.activities[i].state} (상태 메세지)`;
+          if(user.presence.activities[i].emoji){
+            toReturn += user.presence.activities[i].emoji.name;
+          }
+            toReturn += `${user.presence.activities[i].state} (상태 메세지)`;
         } else {
             toReturn += `
             ${user.presence.activities[i].name} (게임)`;

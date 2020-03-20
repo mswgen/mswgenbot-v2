@@ -103,13 +103,15 @@ const server = http.createServer(function (req, res) {
                 <html>
                 <head>
                 <meta charset='utf-8'>
+                <meta name='keywords' content=${client.user.username}>
+                <meta name='description' content=${client.user.username} + ' 봇 테스트 패이지'>
                 <title>
                 ${client.user.displayAvatarURL({
-                  dynamic:true
+                    dynamic: true
                 })}
                 </title>
                 <link rel='icon' href=${client.user.displayAvatarURL({
-                  dynamic:true
+                    dynamic: true
                 })}>
                 </head>
                 <body>
@@ -124,7 +126,7 @@ const server = http.createServer(function (req, res) {
                 <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
                 </p>
                 <img src=${client.user.displayAvatarURL({
-                    dynamic:true
+                    dynamic: true
                 })}>
                 </body>
                 </html>
@@ -137,7 +139,7 @@ const server = http.createServer(function (req, res) {
             res.writeHead(405);
             res.end('405 Method not allowed');
         }
-        
+
     } catch (err) {
         res.writeHead(500);
         res.end('500 Internal server error');
@@ -145,4 +147,5 @@ const server = http.createServer(function (req, res) {
 });
 server.listen(3000);
 client.login(process.env.TOKEN);
+
 

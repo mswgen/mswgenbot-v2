@@ -99,37 +99,45 @@ const server = http.createServer(function (req, res) {
             if (url.parse(req.url, true).pathname == '/') {
                 res.writeHead(200);
                 res.end(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                <meta charset='utf-8'>
-                <meta name='keywords' content=${client.user.username}>
-                <meta name='description' content=${client.user.username} + ' 봇 테스트 패이지'>
-                <title>
-                ${client.user.displayAvatarURL({
-                    dynamic: true
-                })}
-                </title>
-                <link rel='icon' href=${client.user.displayAvatarURL({
-                    dynamic: true
-                })}>
-                </head>
-                <body>
-                <h1>${client.user.username}</h1>
-                <h2>봇의 핑</h2>
-                <p>
-                API 지연 시간: ${client.ws.ping}
-                </p>
-                <h2>초대 링크</h2>
-                <p>
-                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>관리자 권한</a>
-                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
-                </p>
-                <img src=${client.user.displayAvatarURL({
-                    dynamic: true
-                })}>
-                </body>
-                </html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name='keywords' content='${client.user.username}'>
+<meta name='description' content='봇 테스트 패이지'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<style>
+body {
+font-family:'맑은 고딕', 'Malgun Gothic', sans-serif;
+text-color:black;
+}
+</style>
+<title>
+${client.user.displayAvatarURL({
+    dynamic: true
+})}
+</title>
+<link rel='icon' href=${client.user.displayAvatarURL({
+    dynamic: true
+})}>
+</head>
+<body>
+<h1>${client.user.username}</h1>
+<h2>봇의 핑</h2>
+<p>
+API 지연 시간: ${client.ws.ping}
+</p>
+<h2>초대 링크</h2>
+<p>
+<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>관리자 권한</a>
+<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
+</p>
+<img src=${client.user.displayAvatarURL({
+    dynamic: true
+})}>
+</body>
+</html>
                 `);
             } else {
                 res.writeHead(404);
@@ -147,5 +155,4 @@ const server = http.createServer(function (req, res) {
 });
 server.listen(3000);
 client.login(process.env.TOKEN);
-
 

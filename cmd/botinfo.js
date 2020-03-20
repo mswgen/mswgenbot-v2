@@ -79,6 +79,7 @@ module.exports = {
             .addField('현재 핑(지연 시간)', `${m.createdAt - message.createdAt}ms`)
             .addField('현재 핑(API 지연 시간)', `${client.ws.ping}ms`)
             .addField('봇 업타임', countTime(client.uptime))
+            .addField('실행 환경', process.platform)
             .addField('개발 언어', `${client.emojis.cache.find(x => x.name == 'js')} Javascript(Node.js)`)
             .addField(`Node.js 버전`, `${client.emojis.cache.find(x => x.name == 'node_js')} v.${process.versions.node}`)
             .addField('Discord.js 버전', `${client.emojis.cache.find(x => x.name == 'discord_js')} v.${Discord.version}`)

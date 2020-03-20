@@ -102,6 +102,15 @@ const server = http.createServer(function (req, res) {
                 <!DOCTYPE html>
                 <html>
                 <head>
+                <meta charset='utf-8'>
+                <title>
+                ${client.user.displayAvatarURL({
+                  dynamic:true
+                })}
+                </title>
+                <link rel='icon' href=${client.user.displayAvatarURL({
+                  dynamic:true
+                })}>
                 </head>
                 <body>
                 <h1>${client.user.username}</h1>
@@ -112,7 +121,7 @@ const server = http.createServer(function (req, res) {
                 <h2>초대 링크</h2>
                 <p>
                 <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>관리자 권한</a>
-                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>관리자 권한</a>
+                <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
                 </p>
                 <img src=${client.user.displayAvatarURL({
                     dynamic:true
@@ -136,3 +145,4 @@ const server = http.createServer(function (req, res) {
 });
 server.listen(3000);
 client.login(process.env.TOKEN);
+

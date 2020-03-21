@@ -74,7 +74,7 @@ module.exports = {
             .addField('봇 이름', client.user.tag)
             .addField('봇 id', client.user.id)
             .addField('봇 개발 시작일', parseDate(client.user.createdAt))
-            .addField('개발자', 'It\'s time to ditch Skype and ...#5458')
+            .addField('개발자', client.users.cache.get('647736678815105037').tag)
             .addField('함께하는 서버 개수', `${client.guilds.cache.size}개`)
             .addField('함께하는 유저 수', `${client.users.cache.size}명`)
             .addField('현재 핑(지연 시간)', `${m.createdAt - message.createdAt}ms`)

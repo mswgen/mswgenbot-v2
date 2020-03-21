@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'noticechannel',
-    alises: ['공지설정', '공지채널설정', 'noticechannel'],
+    alises: ['공지설정', '공지채널설정', 'noticechannel', '공지채널'],
     description: "봇의 공지 채널을 설정합니다.",
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('ADMINISTRATOR')) return;

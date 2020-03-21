@@ -1,13 +1,13 @@
 module.exports = {
-    parseDate: async function (date) {
+    parseDate: function (date) {
         var days = {
-            Sun: 'ÀÏ',
-            Mon: '¿ù',
-            Tue: 'È­',
-            Wed: '¼ö',
-            Thu: '¸ñ',
-            Fri: '±İ',
-            Sat: 'Åä'
+            Sun: 'ì¼',
+            Mon: 'ì›”',
+            Tue: 'í™”',
+            Wed: 'ìˆ˜',
+            Thu: 'ëª©',
+            Fri: 'ê¸ˆ',
+            Sat: 'í† '
         };
         var months = {
             Jan: '1',
@@ -25,20 +25,20 @@ module.exports = {
         };
         var toParse = date.toString().split(/ /g);
         var toReturn = new Array();
-        toReturn.push(toParse[3] + '³â');
-        toReturn.push(months[toParse[1]] + '¿ù');
-        toReturn.push(toParse[2] + 'ÀÏ');
-        toReturn.push(days[toParse[0]] + '¿äÀÏ');
+        toReturn.push(toParse[3] + 'ë…„');
+        toReturn.push(months[toParse[1]] + 'ì›”');
+        toReturn.push(toParse[2] + 'ì¼');
+        toReturn.push(days[toParse[0]] + 'ìš”ì¼');
         var time = toParse[4].split(':');
-        toReturn.push(time[0] + '½Ã');
-        toReturn.push(time[1] + 'ºĞ');
-        toReturn.push(time[2] + 'ÃÊ');
+        toReturn.push(time[0] + 'ì‹œ');
+        toReturn.push(time[1] + 'ë¶„');
+        toReturn.push(time[2] + 'ì´ˆ');
         var timeZone = toParse.slice(6).join(' ');
         toReturn.push(timeZone);
         var Final = toReturn.join(' ');
         return Final;
     },
-    countTime: async function (time) {
+    countTime: function (time) {
         var remaining = time;
         var day = 0;
         var hour = 0;
@@ -55,39 +55,39 @@ module.exports = {
         remaining -= second * 1000;
         ms = remaining;
         return (
-            day + "ÀÏ " + hour + "½Ã°£ " + minute + "ºĞ " + second + "ÃÊ " + ms + "ms"
+            day + "ì¼ " + hour + "ì‹œê°„ " + minute + "ë¶„ " + second + "ì´ˆ " + ms + "ms"
         );
     },
-    hasAFK: async function (guild) {
+    hasAFK: function (guild) {
         if (guild.afkChannel) {
             return guild.afkChannel.name;
         } else {
-            return '¾øÀ½';
+            return 'ì—†ìŒ';
         }
     },
-    isVerified: async function (guild) {
+    isVerified: function (guild) {
         if (guild.verified) {
-            return 'ÀÎÁõµÊ';
+            return 'ì¸ì¦ë¨';
         } else {
-            return 'ÀÎÁõµÇÁö ¾ÊÀ½';
+            return 'ì¸ì¦ë˜ì§€ ì•ŠìŒ';
         }
     },
-    stat: async function (user) {
+    stat: function (user) {
         var toReturn = '';
         for (var i = 0; i < user.presence.activities.length; i++) {
             if (user.presence.activities[i].name == 'Custom Status') {
                 if (user.presence.activities[i].emoji) {
                     toReturn += user.presence.activities[i].emoji.name;
                 }
-                toReturn += `${user.presence.activities[i].state} (»óÅÂ ¸Ş¼¼Áö)`;
+                toReturn += `${user.presence.activities[i].state} (ìƒíƒœ ë©”ì„¸ì§€)`;
             } else {
                 toReturn += `
-            ${user.presence.activities[i].name} (°ÔÀÓ)`;
+            ${user.presence.activities[i].name} (ê²Œì„)`;
             }
         }
         return toReturn;
     },
-    myRoles: async function (role, guild) {
+    myRoles: function (role, guild) {
         var r = new Array();
         role.forEach(function (x) {
             r.push(`${guild.roles.cache.find(a => a.name == x.name)}`);
@@ -95,19 +95,19 @@ module.exports = {
         var toReturn = r.join(', ');
         return toReturn;
     },
-    area: async function (user) {
+    area: function (user) {
         var toReturn = '';
         if (user.presence.clientStatus.desktop) {
             toReturn += `
-        µ¥½ºÅ©Åé ¾Û: ${user.presence.clientStatus.desktop}`;
+        ë°ìŠ¤í¬í†± ì•±: ${user.presence.clientStatus.desktop}`;
         }
         if (user.presence.clientStatus.web) {
             toReturn += `
-        µ¥½ºÅ©Åé À¥: ${user.presence.clientStatus.web}`;
+        ë°ìŠ¤í¬í†± ì›¹: ${user.presence.clientStatus.web}`;
         }
         if (user.presence.clientStatus.mobile) {
             toReturn += `
-        ¸ğ¹ÙÀÏ ¾Û: ${user.presence.clientStatus.mobile}`;
+        ëª¨ë°”ì¼ ì•±: ${user.presence.clientStatus.mobile}`;
         }
         return toReturn;
     }

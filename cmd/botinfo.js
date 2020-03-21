@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const os = require('os');
-const fn = require('./functions.js');
+const fn = require('../functions.js');
 module.exports = {
     name: 'botinfo', 
     alises: ['봇정보', 'botinfo', '정보봇', 'bot-info'],

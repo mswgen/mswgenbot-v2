@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const fn = require('./functions.js');
+const fn = require('../functions.js');
 module.exports = {
     name: 'myInfo',
     alises: ['내정보', 'myinfo', 'my-info', 'myinformation', 'my-information'],

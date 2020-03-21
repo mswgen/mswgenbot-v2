@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const fn = require('./functions.js')
+const fn = require('../functions.js')
 var verify = {
     NONE: '없음',
     LOW: '낮음',

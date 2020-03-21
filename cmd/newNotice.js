@@ -6,13 +6,19 @@ module.exports = {
     description: "봇의 공지 채널을 설정합니다.",
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('ADMINISTRATOR')) return;
+        var ch;
+        if (message.mentions.channels.first()) {
+            ch = message.mentions.channels.first();
+        } else {
+            ch = message.channel;
+        }
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 공지채널 등록 중`)
             .setThumbnail(client.user.displayAvatarURL({
                 dynamic: true
             }))
             .setColor(0xffff00)
-            .addField('공지 채널 이름', message.channel.name)
+            .addField('공지 채널 이름', ch.name)
             .addField('공지 채널이 속한 서버 이름', message.guild.name)
             .addField('진행 상황', '공지 파일을 가져오는 중')
             .setFooter(message.author.tag, message.author.avatarURL({
@@ -30,7 +36,7 @@ module.exports = {
                 dynamic: true
             }))
             .setColor(0xffff00)
-            .addField('공지 채널 이름', message.channel.name)
+            .addField('공지 채널 이름', ch.name)
             .addField('공지 채널이 속한 서버 이름', message.guild.name)
             .addField('진행 상황', '공지 파일을 수정하는 중')
             .setFooter(message.author.tag, message.author.avatarURL({
@@ -38,7 +44,7 @@ module.exports = {
             }))
             .setTimestamp()
         m.edit(imbed);
-        notice.channels[message.guild.id] = message.channel.id;
+        notice.channels[message.guild.id] = ch.id;
         fs.writeFile('./assets/notice.json', JSON.stringify(notice), function (err) {
             if (err) console.log(err);
             const ymbed = new Discord.MessageEmbed()
@@ -47,7 +53,7 @@ module.exports = {
                     dynamic: true
                 }))
                 .setColor(0x00ffff)
-                .addField('공지 채널 이름', message.channel.name)
+                .addField('공지 채널 이름', ch.name)
                 .addField('공지 채널이 속한 서버 이름', message.guild.name)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true

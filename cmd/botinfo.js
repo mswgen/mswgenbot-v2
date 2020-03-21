@@ -1,64 +1,6 @@
 const Discord = require('discord.js');
 const os = require('os');
-function parseDate(date) {
-    var days = {
-        Sun: '일',
-        Mon: '월',
-        Tue: '화',
-        Wed: '수',
-        Thu: '목',
-        Fri: '금',
-        Sat: '토'
-    };
-    var months = {
-        Jan: '1',
-        Feb: '2',
-        Mar: '3',
-        Apr: '4',
-        May: '5',
-        Jun: '6',
-        Jul: '7',
-        Aug: '8',
-        Sep: '9',
-        Oct: '10',
-        Nov: '11',
-        Dec: '12'
-    };
-    var toParse = date.toString().split(/ /g);
-    var toReturn = new Array();
-    toReturn.push(toParse[3] + '년');
-    toReturn.push(months[toParse[1]] + '월');
-    toReturn.push(toParse[2] + '일');
-    toReturn.push(days[toParse[0]] + '요일');
-    var time = toParse[4].split(':');
-    toReturn.push(time[0] + '시');
-    toReturn.push(time[1] + '분');
-    toReturn.push(time[2] + '초');
-    var timeZone = toParse.slice(6).join(' ');
-    toReturn.push(timeZone);
-    var Final = toReturn.join(' ');
-    return Final;
-}
-function countTime(time) {
-    var remaining = time;
-    var day = 0;
-    var hour = 0;
-    var minute = 0;
-    var second = 0;
-    var ms = 0;
-    day = parseInt(remaining / 86400000);
-    remaining -= day * 86400000;
-    hour = parseInt(remaining / 3600000);
-    remaining -= hour * 3600000;
-    minute = parseInt(remaining / 60000);
-    remaining -= minute * 60000;
-    second = parseInt(remaining / 1000);
-    remaining -= second * 1000;
-    ms = remaining;
-    return (
-        day + "일 " + hour + "시간 " + minute + "분 " + second + "초 " + ms + "ms"
-    );
-}
+const fn = require('./functions.js');
 module.exports = {
     name: 'botinfo', 
     alises: ['봇정보', 'botinfo', '정보봇', 'bot-info'],
@@ -73,13 +15,13 @@ module.exports = {
             .setColor(0x00ffff)
             .addField('봇 이름', client.user.tag)
             .addField('봇 id', client.user.id)
-            .addField('봇 개발 시작일', parseDate(client.user.createdAt))
+            .addField('봇 개발 시작일', fn.parseDate(client.user.createdAt))
             .addField('개발자', client.users.cache.get('647736678815105037').tag)
             .addField('함께하는 서버 개수', `${client.guilds.cache.size}개`)
             .addField('함께하는 유저 수', `${client.users.cache.size}명`)
             .addField('현재 핑(지연 시간)', `${m.createdAt - message.createdAt}ms`)
             .addField('현재 핑(API 지연 시간)', `${client.ws.ping}ms`)
-            .addField('봇 업타임', countTime(client.uptime))
+            .addField('봇 업타임', fn.countTime(client.uptime))
             .addField('플랫폼', process.platform)
             .addField('arch', process.arch)
             .addField('RAM 사용량', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB`)

@@ -54,19 +54,19 @@ module.exports = {
                 }))
                 .setTimestamp()
             m.edit(imbed);
-            const ymbed = new Discord.MessageEmbed()
-                .setTitle(`공지 전송 완료`)
-                .setColor(0x00ffff)
-                .setThumbnail(client.user.displayAvatarURL({
-                    dynamic: true
-                }))
-                .addField('공지 내용', toSend)
-                .addField('전송한 채널 수', `${i}개`)
-                .setFooter(message.author.tag, message.author.avatarURL({
-                    dynamic: true
-                }))
-                .setTimestamp()
-            m.edit(ymbed);
         }
+        const ymbed = new Discord.MessageEmbed()
+            .setTitle(`공지 전송 완료`)
+            .setColor(0x00ffff)
+            .setThumbnail(client.user.displayAvatarURL({
+                dynamic: true
+            }))
+            .addField('공지 내용', toSend)
+            .addField('전송한 채널 수', `${i}개`)
+            .setFooter(message.author.tag, message.author.avatarURL({
+                dynamic: true
+            }))
+            .setTimestamp()
+        m.edit(ymbed);
     }
 }

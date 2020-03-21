@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     name: 'restart',
     alises: ['재시작', 'restart', 'ㅈㅅㅈ', 'ㄱㄷㄴㅅㅁㄳ', 'wotlwkr'],
-    description: '봇을 재시작합니다.(디버깅 중일 경우 종료됨, 봇 제작자만 가능)',
+    description: '봇을 재시작합니다.(샤딩 없이 디버깅 중일 경우 종료됨, 봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (message.author.id != option.ownerId) return;
         const embed = new Discord.MessageEmbed()
@@ -18,7 +18,7 @@ module.exports = {
             }))
             .setTimestamp()
         let m = await message.channel.send(embed);
-        if (process.platform == 'linux') {
+        if (process.platform == 'linux' || client.shard) {
             const imbed = new Discord.MessageEmbed()
                 .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 재시작 중`)
                 .setColor(0xffff00)

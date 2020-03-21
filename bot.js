@@ -171,6 +171,6 @@ API 지연 시간: ${client.ws.ping}
                 `);
     }
 });
-server.listen(3000);
+server.listen(option.port);
 client.login(process.env.TOKEN);
 

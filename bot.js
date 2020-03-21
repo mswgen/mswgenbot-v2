@@ -144,16 +144,31 @@ API 지연 시간: ${client.ws.ping}
                 `);
             } else {
                 res.writeHead(404);
-                res.end('404 Not found');
+                res.end(`
+                    <h1>에러...</h1>
+                    <h2>에러 내용</h2>
+                    <p>404: 페이지를 찾을 수 없습니다.</p>
+                    <a href='/'>메인으로 돌아가기</a>
+                `);
             }
         } else {
             res.writeHead(405);
-            res.end('405 Method not allowed');
+            res.end(`
+                    <h1>에러...</h1>
+                    <h2>에러 내용</h2>
+                    <p>405: 허용되지 않은 메서드입니다. (허용된 메서드:GET)</p>
+                    <a href='/'>메인으로 돌아가기</a>
+                `);
         }
 
     } catch (err) {
         res.writeHead(500);
-        res.end('500 Internal server error');
+        res.end(`
+                    <h1>에러...</h1>
+                    <h2>에러 내용</h2>
+                    <p>500: 서버 코드에 오류가 있습니다.(오류 내용: ${err})</p>
+                    <a href='/'>메인으로 돌아가기</a>
+                `);
     }
 });
 server.listen(3000);

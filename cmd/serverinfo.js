@@ -62,7 +62,9 @@ module.exports = {
             }))
         var x = new Array();
         message.guild.roles.cache.forEach(function (i) {
-            x.push(`${i}`);
+            if (i.id != message.guild.roles.everyone.id) {
+                x.push(`${i}`);
+            }
         });
         x = x.join(', ');
         ymbed.setDescription(x);

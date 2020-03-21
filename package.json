@@ -15,7 +15,7 @@
   "engines": {
     "node": "12.x"
   },
-  "main": "bot.js",
+  "main": "start.js",
   "name": "modulebot",
   "version": "1.0.0"
 }

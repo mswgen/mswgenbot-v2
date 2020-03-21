@@ -77,20 +77,28 @@ module.exports = {
         for (var i = 0; i < user.presence.activities.length; i++) {
             if (user.presence.activities[i].name == 'Custom Status') {
                 if (user.presence.activities[i].emoji) {
-                    toReturn += user.presence.activities[i].emoji.name;
+                    toReturn += `${user.presence.activities[i].emoji}`;
                 }
-                toReturn += `${user.presence.activities[i].state} (상태 메세지)`;
-            } else {
-                toReturn += `
+                if (user.presence.activities[i].state) {
+                    toReturn += `${user.presence.activities[i].state}`;
+                }
+                toReturn += ' (상테 메세지)';
+            } else if (user.presence.activities[i].name) {
+            toReturn += `
             ${user.presence.activities[i].name} (게임)`;
             }
+        }
+        if (toReturn == '') {
+            toReturn = '없음';
         }
         return toReturn;
     },
     myRoles: function (role, guild) {
         var r = new Array();
         role.forEach(function (x) {
-            r.push(`${guild.roles.cache.find(a => a.name == x.name)}`);
+            if (x.id != guild.roles.everyone.id) {
+                r.push(`${x}`);
+            }
         });
         var toReturn = r.join(', ');
         return toReturn;

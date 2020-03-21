@@ -14,7 +14,7 @@ module.exports = {
             .addField('닉네임', message.author.username)
             .addField('상세 닉네임(태그 포함)', message.author.tag)
             .addField('유저 id', message.author.id)
-            .addField('서버 내 별명', message.member.name || message.author.username)
+            .addField('서버 내 별명', message.member.nickname || message.author.username)
             .addField('디스코드 가입일', fn.parseDate(message.author.createdAt))
             .addField('서버 참가일', fn.parseDate(message.member.joinedAt))
             .addField('봇 여부', message.author.bot)

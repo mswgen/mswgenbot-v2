@@ -18,7 +18,7 @@ module.exports = {
             .addField('닉네임', mention.username)
             .addField('상세 닉네임(태그 포함)', mention.tag)
             .addField('유저 id', mention.id)
-            .addField('서버 내 별명', member.name || mention.username)
+            .addField('서버 내 별명', member.nickname || mention.username)
             .addField('디스코드 가입일', fn.parseDate(mention.createdAt))
             .addField('서버 참가일', fn.parseDate(member.joinedAt))
             .addField('봇 여부', mention.bot)

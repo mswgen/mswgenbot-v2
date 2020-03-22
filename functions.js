@@ -82,7 +82,7 @@ module.exports = {
                 if (user.presence.activities[i].state) {
                     toReturn += `${user.presence.activities[i].state}`;
                 }
-                toReturn += ' (상테 메세지)';
+                toReturn += ' (상태 메세지)';
             } else if (user.presence.activities[i].name) {
             toReturn += `
             ${user.presence.activities[i].name} (게임)`;

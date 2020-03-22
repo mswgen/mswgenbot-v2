@@ -3,14 +3,30 @@ var client = new Discord.Client();
 var fs = require('fs');
 var restart = require('./assets/restart.json');
 var http = require('http');
+var ascii = require('ascii-table');
 var url = require('url');
 var dotenv = require('dotenv');
 var option = require('./assets/config.json');
 dotenv.config({
     path: __dirname + '/assets/.env'
 });
+fs.readdir('./cmd/', function (err, list) {
+    var table = new ascii();
+    table.setHeading('Command', 'Load status');
+    for (let file of list) {
+        try {
+            let pull = require(`./cmd/${file}`);
+            table.addRow(file, '✅');
+        } catch (err) {
+            table.addRow(file, `❌ -> ${err}`);
+            continue;
+        }
+    }
+    console.log(table.toString());
+});
 client.on('ready', function () {
-    console.log(`${client.user.tag}로 로그인됨`);
+    console.log(`Login ${client.user.username}
+-------------------------------`);
     setInterval(function () {
         var r = Math.floor(Math.random() * 3);
         if (r == 0) {

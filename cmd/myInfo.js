@@ -6,7 +6,7 @@ module.exports = {
     description: '나의 정보를 보여줍니다.',
     run: async function (client, message, args, option) {
         const embed = new Discord.MessageEmbed()
-            .setTitle(` ${message.author.username} 정보`)
+            .setTitle(`${message.author.username} 정보`)
             .setThumbnail(message.author.displayAvatarURL({
                 dynamic: true
             }))

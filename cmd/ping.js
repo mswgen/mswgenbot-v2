@@ -9,11 +9,11 @@ module.exports = {
             .setTimestamp()
         let m = await message.channel.send(embed);
         const embed2 = new Discord.MessageEmbed()
-            .setTitle('퐁!')
+            .setTitle('PONG!')
             .setColor(0x00ffff)
             .setThumbnail('https://i.imgur.com/1Gk4tOj.png')
-            .addField('지연 시간(ms)', m.createdAt - message.createdAt)
-            .addField('API 지연 시간(ms)', client.ws.ping)
+            .addField('Latency', `${m.createdAt - message.createdAt}ms`)
+            .addField('API Latency', `${client.ws.ping}ms`)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))

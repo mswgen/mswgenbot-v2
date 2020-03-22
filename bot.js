@@ -76,6 +76,7 @@ client.on('ready', function () {
 });
 client.on('message', function (message) {
     try {
+        if(!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
         var done = false;
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');

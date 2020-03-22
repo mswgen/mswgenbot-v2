@@ -16,9 +16,14 @@ fs.readdir('./cmd/', function (err, list) {
     for (let file of list) {
         try {
             let pull = require(`./cmd/${file}`);
-            table.addRow(file, '✅');
+            if(pull.name){
+                table.addRow(file, '✅');
+            } else {
+                table.addRow(file, `❌ -> Error`);
+            continue;
+            }
         } catch (err) {
-            table.addRow(file, `❌ -> ${err}`);
+            table.addRow(file, `❌ -> Error`);
             continue;
         }
     }

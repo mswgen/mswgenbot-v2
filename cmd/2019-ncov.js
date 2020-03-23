@@ -7,10 +7,12 @@ module.exports = {
     alises: ['코로나', '우한폐렴', '신종코로나', '코로나19', 'covid-19', 'covid19', '2019-ncov'],
     description: '코로나19 현황을 보여줍니다.',
     run: async function (client, message, args, option) {
-        const getFetch = await fetch('https://is.gd/hihhls', { method: 'POST' })
+        const getFetch = await fetch('https://is.gd/hihhls', {
+            method: 'POST'
+        });
         const getJSON = await getFetch.json();
 
-        await axios.get('https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%9819').then(res => {
+        await axios.get('https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%9819').then(function (res) {
             if (res.status === 200) {
                 const $ = cheerio.load(res.data)
                 let c = new Array()

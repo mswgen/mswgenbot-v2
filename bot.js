@@ -39,7 +39,7 @@ client.on('ready', function () {
     console.log(`Login ${client.user.username}
 -------------------------------`);
     setInterval(function () {
-        var r = Math.floor(Math.random() * 3);
+        var r = Math.floor(Math.random() * 5);
         if (r == 0) {
             client.user.setPresence({
                 activity: {
@@ -60,6 +60,20 @@ client.on('ready', function () {
                 activity: {
                     name: '/도움 명령어 입력',
                     type: 'PLAYING'
+                }
+            });
+        } else if (r == 3) {
+            client.user.setPresence({
+                activity: {
+                    name: `${client.users.cache.filter(x => !x.bot).size}명의 유저`,
+                    type: 'WATCHING'
+                }
+            });
+        } else if (r == 4) {
+            client.user.setPresence({
+                activity: {
+                    name: `${client.guilds.cache.size}개의 서버`,
+                    type: 'WATCHING'
                 }
             });
         }

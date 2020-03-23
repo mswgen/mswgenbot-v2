@@ -40,14 +40,13 @@ module.exports = {
             }
         });
         server.listen(option.port);
-    },
-    makeHTML: function (client) {
-        return `< !DOCTYPE html >
+        function makeHTML(client) {
+            return `< !DOCTYPE html >
 <html>
 <head>
 <meta charset='utf-8'>
 <meta name='keywords' content='${client.user.username}'>
-<meta name='description' content='봇 테스트 패이지'>
+<meta name='description' content='봇 테스트 페이지'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <style>
@@ -60,8 +59,8 @@ text-color:black;
 ${client.user.username}
 </title>
 <link rel='icon' href=${client.user.displayAvatarURL({
-dynamic: true
-})}>
+                dynamic: true
+            })}>
 </head>
 <body>
 <h1>${client.user.username}</h1>
@@ -75,13 +74,14 @@ API 지연 시간: ${client.ws.ping}
 <a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
 </p>
 <img src=${client.user.displayAvatarURL({
-dynamic: true
-})}>
+                dynamic: true
+            })}>
 <p>
 <iframe src="https://discordapp.com/widget?id=688681923698229294&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
 </p>
 </body>
 </html>
 `;
+        }
     }
 }

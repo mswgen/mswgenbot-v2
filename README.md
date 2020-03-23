@@ -1,1 +1,1 @@
-# modulebot
+# mswgenbot v2

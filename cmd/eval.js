@@ -18,7 +18,10 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 const fetch = require('node-fetch');
 const request = require('request');
-
+const http = require('http');
+const url = require('url');
+const qs = require('queryString');
+const path = require('path');
 ${input}`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)

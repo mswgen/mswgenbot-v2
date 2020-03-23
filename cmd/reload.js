@@ -19,11 +19,15 @@ module.exports = {
             .setTimestamp()
         let m = await message.channel.send(embed);
         fs.readdir('./cmd/', function (err, list) {
-            var i = 0;
+            client.commands.clear();
+            client.alises.clear();
             for (let x of list) {
-                i++;
                 delete require.cache[require.resolve(`${__dirname}/${x}`)];
                 let pull = require(`./${x}`);
+                for (let alises of pull.alises) {
+                    client.alises.set(alises, pull.name);
+                    }
+                client.commands.set(pull.name, pull);
                 const imbed = new Discord.MessageEmbed()
                     .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 리로드 중`)
                     .setColor(0xffff00)
@@ -31,13 +35,15 @@ module.exports = {
                         dynamic: true
                     }))
                     .addField('진행 상황', '리로드 중')
-                    .addField('진행도', `${i}/${list.length}개 파일 리로드 중`)
+                    .addField('진행도', `${client.commands.size}/${list.length}개 파일 리로드 중`)
                     .addField('현재 파일', x)
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true
                     }))
                     .setTimestamp()
-                m.edit(imbed);
+                if (args[1] != 'quickly' && args[1] != '벼ㅑ차ㅣㅛ') {
+                    m.edit(imbed);
+                }
             }
             const ymbed = new Discord.MessageEmbed()
                 .setTitle(`리로드 완료`)

@@ -8,6 +8,18 @@ module.exports = {
         if (message.author.id != option.ownerId) return;
         const arg = message.content.split(" ").slice(1);
         const input = arg.join(" ");
+        const code = `const Discord = require('discord.js');
+const fs = require('fs');
+const util = require('util');
+const ascii = require('ascii-table');
+const cheerio = require('cheerio');
+const os = require('os');
+const dotenv = require('dotenv');
+const axios = require('axios');
+const fetch = require('node-fetch');
+const request = require('request');
+
+${input}`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)
             .setColor(0xffff00)
@@ -18,7 +30,7 @@ module.exports = {
             .setTimestamp()
         let m = await message.channel.send(embed);
         try {
-            let output = eval(input);
+            let output = eval(code);
             if (typeof output !== "string") {
                 output = util.inspect(output);
             }

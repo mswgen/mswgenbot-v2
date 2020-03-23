@@ -7,6 +7,8 @@ var ascii = require('ascii-table');
 var url = require('url');
 var dotenv = require('dotenv');
 var option = require('./assets/config.json');
+client.commands = new Discord.Collection();
+client.alises = new Discord.Collection();
 dotenv.config({
     path: __dirname + '/assets/.env'
 });
@@ -16,7 +18,11 @@ fs.readdir('./cmd/', function (err, list) {
     for (let file of list) {
         try {
             let pull = require(`./cmd/${file}`);
-            if(pull.name){
+            if (pull.name) {
+                for (let alises of pull.alises) {
+                    client.alises.set(alises, pull.name);
+                }
+                client.commands.set(pull.name, pull);
                 table.addRow(file, '✅');
             } else {
                 table.addRow(file, `❌ -> Error`);
@@ -82,22 +88,11 @@ client.on('ready', function () {
 client.on('message', function (message) {
     try {
         if(!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
-        var done = false;
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');
-        fs.readdir('./cmd/', function (err, list) {
-            for (var i = 0; i < list.length; i++) {
-                var cmds = require(`./cmd/${list[i]}`);
-                for (var x = 0; x < cmds.alises.length; x++) {
-                    for (var a = 0; a < args.length; a++) {
-                        if (args[a] == cmds.alises[x] && !done) {
-                            cmds.run(client, message, args, option);
-                            done = true;
-                        }
-                    }
-                }
-            }
-        });
+        if (client.alises.get(args[0].toLowerCase())) {
+            client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
+        }
     } catch (err) {
         const embed = new Discord.MessageEmbed()
             .setTitle('❌에러...')
@@ -112,7 +107,7 @@ client.on('message', function (message) {
         message.channel.send(embed);
         embed.addField('에러 발생 채널', `${message.channel.name}(${message.channel.id})`);
         embed.addField('에러 발생 서버', `${message.guild.name}(${message.guild.id})`);
-        client.users.get('647736678815105037').send(embed);
+        client.users.cache.get('647736678815105037').send(embed);
     }
 });
 const server = http.createServer(function (req, res) {

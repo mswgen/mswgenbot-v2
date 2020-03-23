@@ -43,7 +43,7 @@ module.exports = {
             .addField('서버 인증 여부', fn.isVerified(message.guild))
             .addField('시스템 메세지 채널', `${message.guild.systemChannel}` || '없음')
             .addField('잠수 채널 이름', fn.hasAFK(message.guild))
-            .addField('잠수 시간', `${message.guild.afkTimeout}초`)
+            .addField('잠수 시간', `${message.guild.afkTimeout / 60}분`)
             .addField('유해 미디어 콘텐츠 필터', filter[message.guild.explicitContentFilter])
             .setImage(message.guild.splashURL({
                 dynamic: true

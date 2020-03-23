@@ -2,7 +2,7 @@
   "name": "modulebot",
   "version": "1.0.0",
   "description": "discord bot",
-  "main": "bot.js",
+  "main": "start.js",
   "scripts": {
     "start": "node start.js"
   },

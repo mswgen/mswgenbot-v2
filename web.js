@@ -7,7 +7,7 @@ module.exports = {
                 if (req.method == 'GET') {
                     if (url.parse(req.url, true).pathname == '/') {
                         res.writeHead(200);
-                        res.end(makeHTML(client));
+                        res.end(makeHTML(client).toString());
                     } else {
                         res.writeHead(404);
                         res.end(`
@@ -42,7 +42,7 @@ module.exports = {
         });
         server.listen(option.port);
         function makeHTML(client) {
-            return `< !DOCTYPE html >
+            return `<!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>

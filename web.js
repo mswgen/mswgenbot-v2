@@ -10,6 +10,7 @@ module.exports = {
                     } else {
                         res.writeHead(404);
                         res.end(`
+                    <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
                     <p>404: 페이지를 찾을 수 없습니다.</p>
@@ -19,6 +20,7 @@ module.exports = {
                 } else {
                     res.writeHead(405);
                     res.end(`
+                    <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
                     <p>405: 허용되지 않은 메서드입니다. (허용된 메서드:GET)</p>
@@ -29,6 +31,7 @@ module.exports = {
             } catch (err) {
                 res.writeHead(500);
                 res.end(`
+                    <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
                     <p>500: 서버 코드에 오류가 있습니다.(오류 내용: ${err})</p>

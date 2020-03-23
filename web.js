@@ -7,7 +7,7 @@ module.exports = {
                 if (req.method == 'GET') {
                     if (url.parse(req.url, true).pathname == '/') {
                         res.writeHead(200);
-                        res.end(this.makeHTML(client));
+                        res.end(makeHTML(client));
                     } else {
                         res.writeHead(404);
                         res.end(`

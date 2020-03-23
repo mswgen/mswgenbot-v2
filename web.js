@@ -10,29 +10,29 @@ module.exports = {
                     } else {
                         res.writeHead(404);
                         res.end(`
-                    <h1>¿¡·¯...</h1>
-                    <h2>¿¡·¯ ³»¿ë</h2>
-                    <p>404: ÆäÀÌÁö¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.</p>
-                    <a href='/'>¸ŞÀÎÀ¸·Î µ¹¾Æ°¡±â</a>
+                    <h1>ì—ëŸ¬...</h1>
+                    <h2>ì—ëŸ¬ ë‚´ìš©</h2>
+                    <p>404: í˜ì´ì§€ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.</p>
+                    <a href='/'>ë©”ì¸ìœ¼ë¡œ ëŒì•„ê°€ê¸°</a>
                 `);
                     }
                 } else {
                     res.writeHead(405);
                     res.end(`
-                    <h1>¿¡·¯...</h1>
-                    <h2>¿¡·¯ ³»¿ë</h2>
-                    <p>405: Çã¿ëµÇÁö ¾ÊÀº ¸Ş¼­µåÀÔ´Ï´Ù. (Çã¿ëµÈ ¸Ş¼­µå:GET)</p>
-                    <a href='/'>¸ŞÀÎÀ¸·Î µ¹¾Æ°¡±â</a>
+                    <h1>ì—ëŸ¬...</h1>
+                    <h2>ì—ëŸ¬ ë‚´ìš©</h2>
+                    <p>405: í—ˆìš©ë˜ì§€ ì•Šì€ ë©”ì„œë“œì…ë‹ˆë‹¤. (í—ˆìš©ëœ ë©”ì„œë“œ:GET)</p>
+                    <a href='/'>ë©”ì¸ìœ¼ë¡œ ëŒì•„ê°€ê¸°</a>
                 `);
                 }
 
             } catch (err) {
                 res.writeHead(500);
                 res.end(`
-                    <h1>¿¡·¯...</h1>
-                    <h2>¿¡·¯ ³»¿ë</h2>
-                    <p>500: ¼­¹ö ÄÚµå¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.(¿À·ù ³»¿ë: ${err})</p>
-                    <a href='/'>¸ŞÀÎÀ¸·Î µ¹¾Æ°¡±â</a>
+                    <h1>ì—ëŸ¬...</h1>
+                    <h2>ì—ëŸ¬ ë‚´ìš©</h2>
+                    <p>500: ì„œë²„ ì½”ë“œì— ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤.(ì˜¤ë¥˜ ë‚´ìš©: ${err})</p>
+                    <a href='/'>ë©”ì¸ìœ¼ë¡œ ëŒì•„ê°€ê¸°</a>
                 `);
             }
         });
@@ -44,12 +44,12 @@ module.exports = {
 <head>
 <meta charset='utf-8'>
 <meta name='keywords' content='${client.user.username}'>
-<meta name='description' content='º¿ Å×½ºÆ® ÆĞÀÌÁö'>
+<meta name='description' content='ë´‡ í…ŒìŠ¤íŠ¸ íŒ¨ì´ì§€'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <style>
 body {
-font - family:'¸¼Àº °íµñ', 'Malgun Gothic', sans-serif;
+font - family:'ë§‘ì€ ê³ ë”•', 'Malgun Gothic', sans-serif;
 text-color:black;
 }
 </style>
@@ -62,14 +62,14 @@ dynamic: true
 </head>
 <body>
 <h1>${client.user.username}</h1>
-<h2>º¿ÀÇ ÇÎ</h2>
+<h2>ë´‡ì˜ í•‘</h2>
 <p>
-API Áö¿¬ ½Ã°£: ${client.ws.ping}
+API ì§€ì—° ì‹œê°„: ${client.ws.ping}
 </p>
-<h2>ÃÊ´ë ¸µÅ©</h2>
+<h2>ì´ˆëŒ€ ë§í¬</h2>
 <p>
-<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>°ü¸®ÀÚ ±ÇÇÑ</a>
-<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>±âº» ±ÇÇÑ</a>
+<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>ê´€ë¦¬ì ê¶Œí•œ</a>
+<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>ê¸°ë³¸ ê¶Œí•œ</a>
 </p>
 <img src=${client.user.displayAvatarURL({
 dynamic: true

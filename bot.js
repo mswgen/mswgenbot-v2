@@ -1,4 +1,4 @@
-var Discord = require('discord.js');
+﻿var Discord = require('discord.js');
 var client = new Discord.Client();
 var fs = require('fs');
 var restart = require('./assets/restart.json');
@@ -6,6 +6,8 @@ var http = require('http');
 var ascii = require('ascii-table');
 var url = require('url');
 var dotenv = require('dotenv');
+const request = require('request');
+const fetch = require('node-fetch');
 var web = require('./web.js');
 var option = require('./assets/config.json');
 client.commands = new Discord.Collection();
@@ -107,6 +109,85 @@ client.on('message', function (message) {
         var args = message.content.substr(1).split(' ');
         if (client.alises.get(args[0].toLowerCase())) {
             client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
+        } else if (args[0] == '핑퐁' || args[0] == 'pingpong') {
+            /*
+            const headers = {
+                Authorization: process.env.PINGPONG_AUTH,
+                "Content-Type": "application/json"
+            };
+            const dataString = {
+                request: {
+                    query: args.slice(1).join(' ')
+                }
+            };
+            const options = {
+                url:
+                    `https://builder.pingpong.us/api/builder/${process.env.PINGPONG_URL}/integration/v0.2/custom/${message.author.id}`,
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(dataString)
+            };
+            request(options, function (error, response, body) {
+                var res = JSON.parse(body, null, 1).response.replies;
+                if (!error && response.statusCode == 200) {
+                    if (res[0].toString().startsWith('아무말에도 곧잘 대답하는 이 봇은')) {
+                        res = res.slice(1);
+                    }
+                    message.channel.send(res[0].text);
+                    if (!res[1]) return;
+                    let msg2 = res[1];
+                    if (msg2) {
+                        message.channel.send(msg2.text);
+                    }
+                    let img = res[1].image;
+                    if (img) {
+                        message.channel.send(img.url);
+                    }
+                    if (!res[2]) return;
+                    let img2 = res[2].image;
+                    if (img2) {
+                        message.channel.send(img2.url);
+                    }
+                }
+            });
+            */
+            const body = {
+                request: {
+                    query: args.slice(1).join(' ')
+                }
+            };
+            fetch(`https://builder.pingpong.us/api/builder/${process.env.PINGPONG_URL}/integration/v0.2/custom/${message.author.id}`, {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    Authorization: process.env.PINGPONG_AUTH,
+                    "Content-Type": "application/json"
+
+                },
+            }).then(function (response) {
+                response.json().then(function (response) {
+                    var res = response.response.replies;
+                    console.log(res);
+                    if (res[0].toString().startsWith('아무말에도 곧잘 대답하는 이 봇은')) {
+                        res = res.slice(1);
+                    }
+                    message.channel.send(res[0].text);
+                    if (!res[1]) return;
+                    let msg2 = res[1];
+                    if (msg2) {
+                        message.channel.send(msg2.text);
+                    }
+                    let img = res[1].image;
+                    if (img) {
+                        message.channel.send(img.url);
+                    }
+                    if (!res[2]) return;
+                    let img2 = res[2].image;
+                    if (img2) {
+                        message.channel.send(img2.url);
+                    }
+                });
+            });
         }
     } catch (err) {
         const embed = new Discord.MessageEmbed()
@@ -127,3 +208,7 @@ client.on('message', function (message) {
 });
 web.create(client, option);
 client.login(process.env.TOKEN);
+
+/*
+ 
+ */

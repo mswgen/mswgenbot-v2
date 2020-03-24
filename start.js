@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config({
     path: './assets/.env'
@@ -8,5 +8,5 @@ const manager = new Discord.ShardingManager('./bot.js', {
 });
 manager.spawn();
 manager.on('shardCreate', function (shard) {
-    console.log(`샤드 ${shard.id} 생성됨`);
+    console.log(`New shard ${shard.id}`);
 });

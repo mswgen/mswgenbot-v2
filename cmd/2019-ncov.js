@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const cheerio = require('cheerio');
 const fetch = require("node-fetch")
 const axios = require('axios');

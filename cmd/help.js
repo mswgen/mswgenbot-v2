@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'help',
@@ -26,6 +26,7 @@ module.exports = {
         var i = 0;
         client.commands.forEach(function (cmd) {
             i++;
+            if (!cmd.name) return;
             message.author.send(new Discord.MessageEmbed()
                 .setTitle(cmd.name)
                 .setColor(0x00ffff)

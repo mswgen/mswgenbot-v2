@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'reload',
@@ -21,28 +21,32 @@ module.exports = {
         fs.readdir('./cmd/', function (err, list) {
             client.commands.clear();
             client.alises.clear();
+            var i = 0;
             for (let x of list) {
+                i++;
                 delete require.cache[require.resolve(`${__dirname}/${x}`)];
                 let pull = require(`./${x}`);
-                for (let alises of pull.alises) {
-                    client.alises.set(alises, pull.name);
+                if (pull.name) {
+                    for (let alises of pull.alises) {
+                        client.alises.set(alises, pull.name);
                     }
-                client.commands.set(pull.name, pull);
-                const imbed = new Discord.MessageEmbed()
-                    .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 리로드 중`)
-                    .setColor(0xffff00)
-                    .setThumbnail(client.user.displayAvatarURL({
-                        dynamic: true
-                    }))
-                    .addField('진행 상황', '리로드 중')
-                    .addField('진행도', `${client.commands.size}/${list.length}개 파일 리로드 중`)
-                    .addField('현재 파일', x)
-                    .setFooter(message.author.tag, message.author.avatarURL({
-                        dynamic: true
-                    }))
-                    .setTimestamp()
-                if (args[1] != 'quickly' && args[1] != '벼ㅑ차ㅣㅛ') {
-                    m.edit(imbed);
+                    client.commands.set(pull.name, pull);
+                    const imbed = new Discord.MessageEmbed()
+                        .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 리로드 중`)
+                        .setColor(0xffff00)
+                        .setThumbnail(client.user.displayAvatarURL({
+                            dynamic: true
+                        }))
+                        .addField('진행 상황', '리로드 중')
+                        .addField('진행도', `${i}/${list.length}개 파일 리로드 중`)
+                        .addField('현재 파일', x)
+                        .setFooter(message.author.tag, message.author.avatarURL({
+                            dynamic: true
+                        }))
+                        .setTimestamp()
+                    if (args[1] == 'edit' || args[1] == 'ㄷ얏' || args[1] == '수정') {
+                        m.edit(imbed);
+                    }
                 }
             }
             const ymbed = new Discord.MessageEmbed()
@@ -51,7 +55,7 @@ module.exports = {
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true
                 }))
-                .addField('리로드한 파일 개수', list.length)
+                .addField('리로드한 파일 개수', i)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))

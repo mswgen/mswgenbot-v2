@@ -1,3 +1,5 @@
+﻿const ytdl = require('ytdl-core');
+const fn = require('./functions.js');
 module.exports = {
     parseDate: function (date) {
         var days = {
@@ -104,19 +106,158 @@ module.exports = {
         return toReturn;
     },
     area: function (user) {
+        var stats = {
+            online: '🟢 온라인',
+            idle: '🌙 자리 비움',
+            dnd: '⛔ 다른 용무 중'
+        };
         var toReturn = '';
         if (user.presence.clientStatus.desktop) {
             toReturn += `
-        데스크톱 앱: ${user.presence.clientStatus.desktop}`;
+        🖥 데스크톱 앱: ${stats[user.presence.clientStatus.desktop]}`;
         }
         if (user.presence.clientStatus.web) {
             toReturn += `
-        데스크톱 웹: ${user.presence.clientStatus.web}`;
+        💻 데스크톱 웹: ${stats[user.presence.clientStatus.web]}`;
         }
         if (user.presence.clientStatus.mobile) {
             toReturn += `
-        모바일 앱: ${user.presence.clientStatus.mobile}`;
+        📱 모바일 앱: ${stats[user.presence.clientStatus.mobile]}`;
+        }
+        if (toReturn == null || toReturn == undefined || toReturn == '') {
+            toReturn = '⚪ 오프라인';
         }
         return toReturn;
+    },
+    skip: function (message) {
+    if (!message.member.voice.channel)
+        return message.channel.send(
+            "음악을 스킵하려면 음성 채널에 들어가야 합니다."
+        );
+    if (!message.serverQueue)
+        return message.channel.send("현재 재생 중인 노래가 없습니다.");
+        message.serverQueue.connection.dispatcher.end();
+    },
+    stop: function (message) {
+        if (!message.member.voice.channel) {
+            return message.channel.send(
+                "음악을 멈추려면 음성 채널에 들어가야 합니다."
+            );
+        }
+    message.serverQueue.songs = [];
+        message.serverQueue.connection.dispatcher.end();
+    },
+    play: function (client, guild, song) {
+    const serverQueue = client.queue.get(guild.id);
+    if (!song) {
+        serverQueue.voiceChannel.leave();
+        client.queue.delete(guild.id);
+        return;
     }
+        const dispatcher = serverQueue.connection;
+        console.log(serverQueue + '\n\n\n\n\n');
+        console.log(song + '\n\n\n\n\n');
+        console.log(ytdl(song.url));
+        dispatcher.play(ytdl(song.url));
+        dispatcher.on("finish", () => {
+            serverQueue.songs.shift();
+            fn.play(guild, serverQueue.songs[0]);
+        });
+        dispatcher.on("error", error => {
+            console.log(error);
+        });
+    //dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+    serverQueue.textChannel.send(`${song.title}이 곧 재생됩니다.`);
 }
+}
+/*
+{
+  textChannel: TextChannel,
+  voiceChannel: VoiceChannel,
+  connection: VoiceConnection {
+    _events: [Object: null prototype] {
+      closing: [Array],
+      debug: [Function],
+      failed: [Function],
+      disconnect: [Function]
+    },
+    _eventsCount: 4,
+    _maxListeners: undefined,
+    voiceManager: ClientVoiceManager {
+      connections: [Collection [Map]],
+      broadcasts: []
+    },
+    channel: VoiceChannel {
+      type: 'voice',
+      deleted: false,
+      id: '688681923702423642',
+      name: '64kb/s',
+      rawPosition: 0,
+      parentID: '688681923702423594',
+      permissionOverwrites: [Collection [Map]],
+      bitrate: 64000,
+      userLimit: 0,
+      guild: [Guild]
+    },
+    status: 0,
+    speaking: Speaking { bitfield: 0 },
+    authentication: {
+      sessionID: 'd4e5da0bfec947cb24d137ac3ffad09a',
+      token: 'd19264306c677f3f',
+      endpoint: 'south-korea586.discord.media',
+      ssrc: 1610827,
+      port: 50002,
+      modes: [Array],
+      ip: '107.155.37.186',
+      experiments: [Array],
+      mode: 'xsalsa20_poly1305_lite',
+      video_codec: 'VP8',
+      secret_key: [Uint8Array],
+      media_session_id: '032c892f4b18025f3623a82e04b78b0d',
+      audio_codec: 'opus'
+    },
+    player: AudioPlayer {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      dispatcher: null,
+      streamingData: [Object],
+      voiceConnection: [Circular],
+      [Symbol(kCapture)]: false
+    },
+    ssrcMap: Map {},
+    _speaking: Map {},
+    sockets: { ws: [VoiceWebSocket], udp: [VoiceConnectionUDPClient] },
+    receiver: VoiceReceiver {
+      _events: [Object: null prototype] {},
+      _eventsCount: 0,
+      _maxListeners: undefined,
+      connection: [Circular],
+      packets: [PacketHandler],
+      [Symbol(kCapture)]: false
+    },
+    connectTimeout: Timeout {
+      _idleTimeout: -1,
+      _idlePrev: null,
+      _idleNext: null,
+      _idleStart: 15110,
+      _onTimeout: null,
+      _timerArgs: undefined,
+      _repeat: null,
+      _destroyed: true,
+      [Symbol(refed)]: true,
+      [Symbol(asyncId)]: 4541,
+      [Symbol(triggerId)]: 0
+    },
+    [Symbol(kCapture)]: false
+  },
+  songs: [
+    {
+      title: 'SRT 로고송 - 우리 곁에 SRT (오리지널 ver)',
+      url: 'https://www.youtube.com/watch?v=sBlMT_pin_w'
+    }
+  ],
+  volume: 5,
+  playing: true
+}
+*/

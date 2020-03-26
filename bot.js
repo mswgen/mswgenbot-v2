@@ -30,7 +30,7 @@ fs.readdir('./cmd/', function (err, list) {
             continue;
             }
         } catch (err) {
-            table.addRow(file, `❌ -> Error`);
+            table.addRow(file, `❌ -> ${err}`);
             continue;
         }
     }

@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const util = require('util');
 module.exports = {
     name: 'eval', 
@@ -18,6 +18,8 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 const fetch = require('node-fetch');
 const request = require('request');
+const ytdl = require('ytdl-core');
+const isgd = require('isgd');
 
 ${input}`;
         const embed = new Discord.MessageEmbed()

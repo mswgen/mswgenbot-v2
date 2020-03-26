@@ -1,4 +1,5 @@
 ﻿const ytdl = require('ytdl-core');
+const Discord = require('discord.js');
 const fn = require('./functions.js');
 module.exports = {
     parseDate: function (date) {
@@ -155,9 +156,6 @@ module.exports = {
         return;
     }
         const dispatcher = serverQueue.connection;
-        console.log(serverQueue + '\n\n\n\n\n');
-        console.log(song + '\n\n\n\n\n');
-        console.log(ytdl(song.url));
         dispatcher.play(ytdl(song.url));
         dispatcher.on("finish", () => {
             serverQueue.songs.shift();
@@ -166,98 +164,52 @@ module.exports = {
         dispatcher.on("error", error => {
             console.log(error);
         });
-    //dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+        //dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     serverQueue.textChannel.send(`${song.title}이 곧 재생됩니다.`);
 }
 }
 /*
-{
-  textChannel: TextChannel,
-  voiceChannel: VoiceChannel,
-  connection: VoiceConnection {
-    _events: [Object: null prototype] {
-      closing: [Array],
-      debug: [Function],
-      failed: [Function],
-      disconnect: [Function]
-    },
-    _eventsCount: 4,
-    _maxListeners: undefined,
-    voiceManager: ClientVoiceManager {
-      connections: [Collection [Map]],
-      broadcasts: []
-    },
-    channel: VoiceChannel {
-      type: 'voice',
-      deleted: false,
-      id: '688681923702423642',
-      name: '64kb/s',
-      rawPosition: 0,
-      parentID: '688681923702423594',
-      permissionOverwrites: [Collection [Map]],
-      bitrate: 64000,
-      userLimit: 0,
-      guild: [Guild]
-    },
-    status: 0,
-    speaking: Speaking { bitfield: 0 },
-    authentication: {
-      sessionID: 'd4e5da0bfec947cb24d137ac3ffad09a',
-      token: 'd19264306c677f3f',
-      endpoint: 'south-korea586.discord.media',
-      ssrc: 1610827,
-      port: 50002,
-      modes: [Array],
-      ip: '107.155.37.186',
-      experiments: [Array],
-      mode: 'xsalsa20_poly1305_lite',
-      video_codec: 'VP8',
-      secret_key: [Uint8Array],
-      media_session_id: '032c892f4b18025f3623a82e04b78b0d',
-      audio_codec: 'opus'
-    },
-    player: AudioPlayer {
-      _events: [Object: null prototype],
-      _eventsCount: 2,
-      _maxListeners: undefined,
-      dispatcher: null,
-      streamingData: [Object],
-      voiceConnection: [Circular],
-      [Symbol(kCapture)]: false
-    },
-    ssrcMap: Map {},
-    _speaking: Map {},
-    sockets: { ws: [VoiceWebSocket], udp: [VoiceConnectionUDPClient] },
-    receiver: VoiceReceiver {
-      _events: [Object: null prototype] {},
-      _eventsCount: 0,
-      _maxListeners: undefined,
-      connection: [Circular],
-      packets: [PacketHandler],
-      [Symbol(kCapture)]: false
-    },
-    connectTimeout: Timeout {
-      _idleTimeout: -1,
-      _idlePrev: null,
-      _idleNext: null,
-      _idleStart: 15110,
-      _onTimeout: null,
-      _timerArgs: undefined,
-      _repeat: null,
-      _destroyed: true,
-      [Symbol(refed)]: true,
-      [Symbol(asyncId)]: 4541,
-      [Symbol(triggerId)]: 0
-    },
-    [Symbol(kCapture)]: false
-  },
-  songs: [
-    {
-      title: 'SRT 로고송 - 우리 곁에 SRT (오리지널 ver)',
-      url: 'https://www.youtube.com/watch?v=sBlMT_pin_w'
+ {
+  player_response: {
+    videoDetails: {
+      videoId: 'nCg-xKHlJn0',
+      title: 'SRT 로고송 언제나 우리곁에 SRT',
+      lengthSeconds: '84',
+      channelId: 'UCP_O46lKmQpvdXmzD8lfsBw',
+      isOwnerViewing: false,
+      shortDescription: '#SR #SRT #로고송',
+      isCrawlable: true,
+      thumbnail: [Object],
+      averageRating: 5,
+      allowRatings: true,
+      viewCount: '1197',
+      author: '철떡TV',
+      isPrivate: false,
+      isUnpluggedCorpus: false,
+      isLiveContent: false
     }
-  ],
-  volume: 5,
-  playing: true
+  },
+  author: {
+    id: 'UCP_O46lKmQpvdXmzD8lfsBw',
+    name: '철떡TV',
+    avatar: 'https://yt3.ggpht.com/a/AATXAJwjBtNPk7ngmXYDD1INGQWLNK3x64MNQgX0mQ=s48-c-k-c0xffffffff-no-rj-mo',
+    verified: false,
+    user: '',
+    channel_url: 'https://www.youtube.com/channel/UCP_O46lKmQpvdXmzD8lfsBw',
+    user_url: 'https://www.youtube.com/user/'
+  },
+  published: 1566777600000,
+  description: '#SR #SRT #로고송',
+  media: {
+    category_url: 'https://www.youtube.com/channel/UCi-g4cjqGV7jvU8aeSuj0jQ',
+    category: 'Entertainment'
+  },
+  video_id: 'nCg-xKHlJn0',
+  video_url: 'https://www.youtube.com/watch?v=nCg-xKHlJn0',
+  title: 'SRT 로고송 언제나 우리곁에 SRT',
+  length_seconds: '84',
+  age_restricted: false,
+  html5player: '/yts/jsbin/player_ias-vflJSBrYd/en_US/base.js',
+  full: true
 }
 */

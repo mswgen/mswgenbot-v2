@@ -46,7 +46,7 @@ function play(client, guild, song, info, m, message) {
             .setTimestamp()
         m.edit(ymbed);
 			serverQueue.songs.shift();
-			play(client, guild, serverQueue.songs[0]);
+			play(client, guild, serverQueue.songs[0], info, m, message);
 		});
 		dispatcher.on('error', error => {
 			console.error(error);

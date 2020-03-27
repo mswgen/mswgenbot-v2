@@ -22,7 +22,6 @@ module.exports = {
         }).then(function (response) {
             response.json().then(function (response) {
                 var res = response.response.replies;
-                console.log(res);
                 if (res[0].text.startsWith('아무말에도 곧잘 대답하는 이 봇은')) {
                     res = res.slice(1);
                 }

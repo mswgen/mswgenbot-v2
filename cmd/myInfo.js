@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fn = require('../functions.js');
 module.exports = {
     name: 'myInfo',
@@ -20,9 +20,13 @@ module.exports = {
             .addField('봇 여부', message.author.bot)
             .addField('디스코드 클라이언트 상태', fn.area(message.author))
             .addField('현재 상태 메세지, 게임 목록', fn.stat(message.author))
-            .addField('서버 내 역할', fn.myRoles(message.member.roles.cache, message.guild))
-            .addField('가장 높은 역할', `${message.member.roles.highest}`)
-            .setFooter(message.author.tag, message.author.displayAvatarURL({
+            .addField('서버 내 역할', fn.myRoles(message.member.roles.cache, message.guild) || '없음');
+        if (message.member.roles.highest.id == message.guild.roles.everyone.id) {
+            embed.addField('가장 높은 역할', '없음');
+        } else {
+            embed.addField('가장 높은 역할', message.member.roles.highest || '없음');
+        }
+            embed.setFooter(message.author.tag, message.author.displayAvatarURL({
                 dynamic: true
             }))
             .setTimestamp()

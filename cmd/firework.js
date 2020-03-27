@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 module.exports = {
     name: 'firework',
     alises: ['전체전송', 'firework', '파이어워크', '불꽃놀이', '략ㄷ재가'],
@@ -8,7 +8,9 @@ module.exports = {
         var toSend = args.slice(1).join(' ').toString();
         message.guild.channels.cache.forEach(function (x) {
             if (x.type == 'text') {
-                x.send(toSend);
+                setTimeout(function () {
+                    x.send(toSend);
+                }, 500);
             }
         });
     }

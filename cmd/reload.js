@@ -9,13 +9,16 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 리로드 중`)
             .setColor(0xffff00)
-            .setThumbnail(client.user.displayAvatarURL({
-                dynamic: true
-            }))
-            .addField('진행 상황', '리로드할 파일을 읽는 중')
-            .setFooter(message.author.tag, message.author.avatarURL({
-                dynamic: true
-            }))
+            
+        if (args[1] == 'edit' || args[1] == 'ㄷ얏' || args[1] == '수정') {
+            embed.addField('진행 상황', '리로드할 파일을 읽는 중');
+                embed.setThumbnail(client.user.displayAvatarURL({
+                    dynamic: true
+                }));
+        }
+        embed.setFooter(message.author.tag, message.author.avatarURL({
+            dynamic: true
+         }))
             .setTimestamp()
         let m = await message.channel.send(embed);
         fs.readdir('./cmd/', function (err, list) {

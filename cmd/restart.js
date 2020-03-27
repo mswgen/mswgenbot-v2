@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'restart',
@@ -75,7 +75,9 @@ module.exports = {
                 }))
                 .setTimestamp()
             m.edit(ymbed).then(function () {
-                process.exit();
+                console.clear().then(function () {
+                    process.exit();
+                });
             });
         }
     }

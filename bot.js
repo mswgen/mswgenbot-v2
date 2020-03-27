@@ -101,6 +101,7 @@ client.on('ready', function () {
     }
 });
 client.on('message', function (message) {
+    if (message.channel.type != 'text') return;
     try {
         message.serverQueue = client.queue.get(message.guild.id);
         if(!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)

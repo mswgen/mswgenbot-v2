@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "modulebot",
   "version": "1.0.0",
   "description": "discord bot",
@@ -25,6 +25,8 @@
     "node-fetch": "^2.6.0",
     "opusscript": "0.0.7",
     "slyrics": "^0.1.42",
-    "util": "^0.12.2"
+    "util": "^0.12.2",
+    "ytdl-core": "^2.0.1",
+    "yt-search": "^1.1.2"
   }
 }

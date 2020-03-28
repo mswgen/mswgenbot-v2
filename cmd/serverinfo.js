@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fn = require('../functions.js')
 var verify = {
     NONE: '없음',
@@ -32,19 +32,19 @@ module.exports = {
             .setThumbnail(message.guild.iconURL({
                 dynamic: true
             }))
-            .addField('서버 이름', message.guild.name)
-            .addField('서버 주인', `${message.guild.owner.user}`)
-            .addField('서버 생성일', fn.parseDate(message.guild.createdAt))
-            .addField('서버 인원 수', message.guild.memberCount)
-            .addField('서버 부스트 레벨', message.guild.premiumTier)
-            .addField('서버 위치', message.guild.region)
-            .addField('서버 보안 레벨', verify[message.guild.verificationLevel])
-            .addField('기본 알림 설정', notify[message.guild.defaultMessageNotifications])
-            .addField('서버 인증 여부', fn.isVerified(message.guild))
-            .addField('시스템 메세지 채널', `${message.guild.systemChannel}` || '없음')
-            .addField('잠수 채널 이름', fn.hasAFK(message.guild))
-            .addField('잠수 시간', `${message.guild.afkTimeout / 60}분`)
-            .addField('유해 미디어 콘텐츠 필터', filter[message.guild.explicitContentFilter])
+            .addField('서버 이름', message.guild.name, true)
+            .addField('서버 주인', `${message.guild.owner.user}`, true)
+            .addField('서버 생성일', fn.parseDate(message.guild.createdAt), true)
+            .addField('서버 인원 수', message.guild.memberCount, true)
+            .addField('서버 부스트 레벨', message.guild.premiumTier, true)
+            .addField('서버 위치', message.guild.region, true)
+            .addField('서버 보안 레벨', verify[message.guild.verificationLevel], true)
+            .addField('기본 알림 설정', notify[message.guild.defaultMessageNotifications], true)
+            .addField('서버 인증 여부', fn.isVerified(message.guild), true)
+            .addField('시스템 메세지 채널', `${message.guild.systemChannel}` || '없음', true)
+            .addField('잠수 채널 이름', fn.hasAFK(message.guild), true)
+            .addField('잠수 시간', `${message.guild.afkTimeout / 60}분`, true)
+            .addField('유해 미디어 콘텐츠 필터', filter[message.guild.explicitContentFilter], true)
             .setImage(message.guild.splashURL({
                 dynamic: true
             }))
@@ -67,6 +67,9 @@ module.exports = {
             }
         });
         x = x.join(', ');
+        if (x.length > 1900) {
+            x = `${x.substr(0, 1900)}...`
+        }
         ymbed.setDescription(x);
         message.channel.send(ymbed);
         const emved = new Discord.MessageEmbed()

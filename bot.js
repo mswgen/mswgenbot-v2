@@ -52,7 +52,7 @@ client.on('ready', function () {
         } else if (r == 1) {
             client.user.setPresence({
                 activity: {
-                    name: '테스트 중...',
+                    name: '테스트',
                     type: 'PLAYING'
                 }
             });

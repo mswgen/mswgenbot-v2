@@ -113,20 +113,24 @@ module.exports = {
             dnd: '⛔ 다른 용무 중'
         };
         var toReturn = '';
-        if (user.presence.clientStatus.desktop) {
-            toReturn += `
+        if (user.presence.clientStatus) {
+            if (user.presence.clientStatus.desktop) {
+                toReturn += `
         🖥 데스크톱 앱: ${stats[user.presence.clientStatus.desktop]}`;
-        }
-        if (user.presence.clientStatus.web) {
-            toReturn += `
+            }
+            if (user.presence.clientStatus.web) {
+                toReturn += `
         💻 데스크톱 웹: ${stats[user.presence.clientStatus.web]}`;
-        }
-        if (user.presence.clientStatus.mobile) {
-            toReturn += `
+            }
+            if (user.presence.clientStatus.mobile) {
+                toReturn += `
         📱 모바일 앱: ${stats[user.presence.clientStatus.mobile]}`;
-        }
-        if (toReturn == null || toReturn == undefined || toReturn == '') {
-            toReturn = '⚪ 오프라인';
+            }
+            if (toReturn == null || toReturn == undefined || toReturn == '') {
+                toReturn = '⚪ 오프라인';
+            }
+        } else {
+            toReturn = '없음';
         }
         return toReturn;
     },

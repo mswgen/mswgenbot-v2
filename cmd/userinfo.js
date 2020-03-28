@@ -15,20 +15,20 @@ module.exports = {
                 dynamic: true
             }))
             .setColor(0x00ffff)
-            .addField('닉네임', mention.username)
-            .addField('상세 닉네임(태그 포함)', mention.tag)
-            .addField('유저 id', mention.id)
-            .addField('서버 내 별명', member.nickname || mention.username)
-            .addField('디스코드 가입일', fn.parseDate(mention.createdAt))
-            .addField('서버 참가일', fn.parseDate(member.joinedAt))
-            .addField('봇 여부', mention.bot)
-            .addField('디스코드 클라이언트 상태', fn.area(mention) || '없음')
+            .addField('닉네임', mention.username, true)
+            .addField('상세 닉네임(태그 포함)', mention.tag, true)
+            .addField('유저 id', mention.id, true)
+            .addField('서버 내 별명', member.nickname || mention.username, true)
+            .addField('디스코드 가입일', fn.parseDate(mention.createdAt), true)
+            .addField('서버 참가일', fn.parseDate(member.joinedAt), true)
+            .addField('봇 여부', mention.bot, true)
+            .addField('디스코드 클라이언트 상태', fn.area(mention) || '없음', true)
             .addField('현재 상태 메세지, 게임 목록', fn.stat(mention) || '없음')
-            .addField('서버 내 역할', fn.myRoles(member.roles.cache, message.guild) || '없음');
+            .addField('서버 내 역할', fn.myRoles(member.roles.cache, message.guild) || '없음', true);
         if (member.roles.highest.id == member.guild.roles.everyone.id) {
-            embed.addField('가장 높은 역할', '없음');
+            embed.addField('가장 높은 역할', '없음', true);
         } else {
-            embed.addField('가장 높은 역할', member.roles.highest || '없음');
+            embed.addField('가장 높은 역할', member.roles.highest || '없음', true);
         }
             embed.setFooter(mention.tag, mention.displayAvatarURL({
                 dynamic: true

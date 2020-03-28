@@ -1,11 +1,12 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 module.exports = {
     name: "ping",
     alises: ['핑', 'ping'],
     description: '봇의 현재 핑(지연 시간)을 보여줍니다.',
     run: async function (client, message, args, option) {
         const embed = new Discord.MessageEmbed()
-            .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 핑 측정 중...`)
+            .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Pinging...`)
+            .setColor(0xffff00)
             .setTimestamp()
         let m = await message.channel.send(embed);
         const embed2 = new Discord.MessageEmbed()

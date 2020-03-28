@@ -1,5 +1,5 @@
 ﻿{
-  "name": "modulebot",
+  "name": "mswgenbot-v2",
   "version": "1.0.0",
   "description": "discord bot",
   "main": "start.js",

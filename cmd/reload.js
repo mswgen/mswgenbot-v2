@@ -5,7 +5,7 @@ module.exports = {
     alises: ['reload', '리로드', 'ㄱ디ㅐㅁㅇ', 'ㄹㄹㄷ', 'ffe', 'flfhem'],
     description: '봇의 모든 커멘드 파일을 리로드합니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
-        if (message.author.id != option.ownerId) return;
+        if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 리로드 중`)
             .setColor(0xffff00)

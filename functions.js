@@ -116,15 +116,15 @@ module.exports = {
         if (user.presence.clientStatus) {
             if (user.presence.clientStatus.desktop) {
                 toReturn += `
-        🖥 데스크톱 앱: ${stats[user.presence.clientStatus.desktop]}`;
+🖥 데스크톱 앱: ${stats[user.presence.clientStatus.desktop]}`;
             }
             if (user.presence.clientStatus.web) {
                 toReturn += `
-        💻 데스크톱 웹: ${stats[user.presence.clientStatus.web]}`;
+💻 데스크톱 웹: ${stats[user.presence.clientStatus.web]}`;
             }
             if (user.presence.clientStatus.mobile) {
                 toReturn += `
-        📱 모바일 앱: ${stats[user.presence.clientStatus.mobile]}`;
+📱 모바일 앱: ${stats[user.presence.clientStatus.mobile]}`;
             }
             if (toReturn == null || toReturn == undefined || toReturn == '') {
                 toReturn = '⚪ 오프라인';
@@ -139,8 +139,8 @@ module.exports = {
         return message.channel.send(
             "음악을 스킵하려면 음성 채널에 들어가야 합니다."
         );
-    if (!message.serverQueue)
-        return message.channel.send("현재 재생 중인 노래가 없습니다.");
+        if (!message.serverQueue) return message.channel.send("현재 재생 중인 노래가 없습니다.");
+        if (message.serverQueue.songs[0].author.id != message.author.id) return message.channel.send('음악을 재생한 유저만 음악을 스킵할 수 있습니다.');
         message.serverQueue.connection.dispatcher.end();
     },
     stop: function (message) {
@@ -168,52 +168,6 @@ module.exports = {
         dispatcher.on("error", error => {
             console.log(error);
         });
-        //dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     serverQueue.textChannel.send(`${song.title}이 곧 재생됩니다.`);
 }
 }
-/*
- {
-  player_response: {
-    videoDetails: {
-      videoId: 'nCg-xKHlJn0',
-      title: 'SRT 로고송 언제나 우리곁에 SRT',
-      lengthSeconds: '84',
-      channelId: 'UCP_O46lKmQpvdXmzD8lfsBw',
-      isOwnerViewing: false,
-      shortDescription: '#SR #SRT #로고송',
-      isCrawlable: true,
-      thumbnail: [Object],
-      averageRating: 5,
-      allowRatings: true,
-      viewCount: '1197',
-      author: '철떡TV',
-      isPrivate: false,
-      isUnpluggedCorpus: false,
-      isLiveContent: false
-    }
-  },
-  author: {
-    id: 'UCP_O46lKmQpvdXmzD8lfsBw',
-    name: '철떡TV',
-    avatar: 'https://yt3.ggpht.com/a/AATXAJwjBtNPk7ngmXYDD1INGQWLNK3x64MNQgX0mQ=s48-c-k-c0xffffffff-no-rj-mo',
-    verified: false,
-    user: '',
-    channel_url: 'https://www.youtube.com/channel/UCP_O46lKmQpvdXmzD8lfsBw',
-    user_url: 'https://www.youtube.com/user/'
-  },
-  published: 1566777600000,
-  description: '#SR #SRT #로고송',
-  media: {
-    category_url: 'https://www.youtube.com/channel/UCi-g4cjqGV7jvU8aeSuj0jQ',
-    category: 'Entertainment'
-  },
-  video_id: 'nCg-xKHlJn0',
-  video_url: 'https://www.youtube.com/watch?v=nCg-xKHlJn0',
-  title: 'SRT 로고송 언제나 우리곁에 SRT',
-  length_seconds: '84',
-  age_restricted: false,
-  html5player: '/yts/jsbin/player_ias-vflJSBrYd/en_US/base.js',
-  full: true
-}
-*/

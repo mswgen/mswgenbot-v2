@@ -5,7 +5,7 @@ module.exports = {
     description: '공지 채널로 등록된 모든 채널에 공지를 보냅니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         var toSend = args.slice(1).join(' ');
-        if (message.author.id != option.ownerId) return;
+        if (!option.ownerId.includes(message.author.id)) return;
         const prompt = new Discord.MessageEmbed()
             .setTitle('공지 전송 확인')
             .setThumbnail(client.user.displayAvatarURL({

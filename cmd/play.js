@@ -97,7 +97,10 @@ module.exports = {
                         volume: 5,
                         playing: true
                     };
-                    queueContruct.songs.push(song);
+                    queueContruct.songs.push({
+                        song: song,
+                        author: message.author
+                    });
                     try {
                         var connect = await voiceChannel.join();
                         queueContruct.connection = connect;
@@ -145,7 +148,10 @@ module.exports = {
                     volume: 5,
                     playing: true
                 };
-                queueContruct.songs.push(song);
+                queueContruct.songs.push({
+                    song: song,
+                    author: message.author
+                });
                 try {
                     var connect = await voiceChannel.join();
                     queueContruct.connection = connect;

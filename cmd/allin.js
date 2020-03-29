@@ -30,42 +30,46 @@ module.exports = {
             time: 10000,
             max: 1
         });
-        collector.on('end', function (collected) {
+        collector.on('end', async function (collected) {
             if (collected && collected.first().emoji.name == '✅') {
                 var random = Math.floor(Math.random() * 2);
-                if (random == 0) {
-                    money[message.author.id] *= 2;
-                    fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
-                        const embed = new Discord.MessageEmbed()
-                            .setTitle('올인 성공!')
-                            .setColor(0x00ffff)
-                            .setThumbnail(message.author.avatarURL({
-                                dynamic: true
-                            }))
-                            .addField('현재 가진 돈', `${money[message.author.id]}원`)
-                            .setFooter(message.author.tag, message.author.avatarURL({
-                                dynamic: true
-                            }))
-                            .setTimestamp()
-                        prompt.edit(embed);
-                    });
-                } else {
-                    money[message.author.id] = 0;
-                    fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
-                        const embed = new Discord.MessageEmbed()
-                            .setTitle('올인 실패...')
-                            .setColor(0xff0000)
-                            .setThumbnail(message.author.avatarURL({
-                                dynamic: true
-                            }))
-                            .addField('현재 가진 돈', `${money[message.author.id]}원`)
-                            .setFooter(message.author.tag, message.author.avatarURL({
-                                dynamic: true
-                            }))
-                            .setTimestamp()
-                        prompt.edit(embed);
-                    });
-                }
+                var ing = await message.channel.send('올인 중...');
+                await setTimeout(function () {
+                    ing.delete();
+                    if (random == 0) {
+                        money[message.author.id] *= 2;
+                        fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle('올인 성공!')
+                                .setColor(0x00ffff)
+                                .setThumbnail(message.author.avatarURL({
+                                    dynamic: true
+                                }))
+                                .addField('현재 가진 돈', `${money[message.author.id]}원`)
+                                .setFooter(message.author.tag, message.author.avatarURL({
+                                    dynamic: true
+                                }))
+                                .setTimestamp()
+                            prompt.edit(embed);
+                        });
+                    } else {
+                        money[message.author.id] = 0;
+                        fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle('올인 실패...')
+                                .setColor(0xff0000)
+                                .setThumbnail(message.author.avatarURL({
+                                    dynamic: true
+                                }))
+                                .addField('현재 가진 돈', `${money[message.author.id]}원`)
+                                .setFooter(message.author.tag, message.author.avatarURL({
+                                    dynamic: true
+                                }))
+                                .setTimestamp()
+                            prompt.edit(embed);
+                        });
+                    }
+                }, 5000)
             } else {
                 prompt.edit(new Discord.MessageEmbed()
                     .setTitle('올인 포기')

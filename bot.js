@@ -66,14 +66,14 @@ client.on('ready', function () {
         } else if (r == 3) {
             client.user.setPresence({
                 activity: {
-                    name: `${client.users.cache.filter(x => !x.bot).size}명의 유저`,
+                    name: `${client.users.cache.filter(x => !x.bot).size} users`,
                     type: 'WATCHING'
                 }
             });
         } else if (r == 4) {
             client.user.setPresence({
                 activity: {
-                    name: `${client.guilds.cache.size}개의 서버`,
+                    name: `${client.guilds.cache.size} servers`,
                     type: 'WATCHING'
                 }
             });

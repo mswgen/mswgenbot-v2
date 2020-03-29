@@ -1,10 +1,10 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 module.exports = {
     name: 'username',
     alises: ['이름변경', '닉네임변경', 'username', 'nickname', 'ㅕㄴㄷ구믇', 'ㅜㅑ차ㅜ믇', '닉네임', 'slrspdla', 'dlfmaqusrud', 'slrspdlaqusrud'],
     description: '봇의 닉네임을 변경합니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
-        if (message.author.id != option.ownerId) return;
+        if (!option.ownerId.includes(message.author.id)) return;
         var arg = args.slice(1).join(' ');
         var olderName = client.user.username;
         const embed = new Discord.MessageEmbed()

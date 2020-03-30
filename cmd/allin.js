@@ -16,8 +16,8 @@ module.exports = {
             .setThumbnail(message.author.avatarURL({
                 dynamic: true
             }))
-            .addField('성공 확률', '50%')
-            .addField('성공 시 받는 돈의 배수', '2배')
+            .addField('성공 확률', '50%', true)
+            .addField('성공 시 받는 돈의 배수', '2배', true)
             .setColor(0xffff00)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
@@ -45,7 +45,7 @@ module.exports = {
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .addField('현재 가진 돈', `${money[message.author.id]}원`)
+                                .addField('현재 가진 돈', `${money[message.author.id]}원`, true)
                                 .setFooter(message.author.tag, message.author.avatarURL({
                                     dynamic: true
                                 }))
@@ -61,7 +61,7 @@ module.exports = {
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .addField('현재 가진 돈', `${money[message.author.id]}원`)
+                                .addField('현재 가진 돈', `${money[message.author.id]}원`, true)
                                 .setFooter(message.author.tag, message.author.avatarURL({
                                     dynamic: true
                                 }))
@@ -73,7 +73,7 @@ module.exports = {
             } else {
                 prompt.edit(new Discord.MessageEmbed()
                     .setTitle('올인 포기')
-                    .addField('가진 돈', money[message.author.id])
+                    .addField('가진 돈', money[message.author.id], true)
                     .setColor(0xffff00)
                     .setThumbnail(message.author.avatarURL({
                         dynamic: true

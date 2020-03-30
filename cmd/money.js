@@ -8,7 +8,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setTitle(`${message.author.username}님의 돈`)
             .setColor(0x00ffff)
-            .addField('소유 중인 돈', `${money[message.author.id] || 0}원`)
+            .addField('소유 중인 돈', `${money[message.author.id] || 0}원`, true)
             .setThumbnail(message.author.avatarURL({
                 dynamic: true
             }))

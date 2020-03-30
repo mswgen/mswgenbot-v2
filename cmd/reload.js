@@ -52,6 +52,8 @@ module.exports = {
                     }
                 }
             }
+            delete require.cache[require.resolve('../functions.js')];
+            delete require.cache[require.resolve('../web.js')];
             const ymbed = new Discord.MessageEmbed()
                 .setTitle(`리로드 완료`)
                 .setColor(0x00ffff)

@@ -1,5 +1,6 @@
-const http = require('http');
+﻿const http = require('http');
 const url = require('url');
+const qs = require('querystring');
 module.exports = {
     create: function (client, option) {
         const server = http.createServer(function (req, res) {
@@ -18,17 +19,34 @@ module.exports = {
                     <a href='/'>메인으로 돌아가기</a>
                 `);
                     }
+                } else if (req.method == 'POST') {
+                    var post = '';
+                    req.on('data', function (data) {
+                        post += data;
+                    });
+                    req.on('end', function () {
+                        res.writeHead(200);
+                            res.end(JSON.stringify({
+                                ping: client.ws.ping,
+                                displayAvatarURL: client.user.displayAvatarURL({
+                                    dynamic: true,
+                                    size: 2048,
+                                    format: 'jpg'
+                                }),
+                                uptime: client.uptime,
+                                user: client.user
+                            }));
+                    });
                 } else {
                     res.writeHead(405);
                     res.end(`
                     <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
-                    <p>405: 허용되지 않은 메서드입니다. (허용된 메서드:GET)</p>
+                    <p>405: 허용되지 않은 메서드입니다. (허용된 메서드:GET, POST)</p>
                     <a href='/'>메인으로 돌아가기</a>
                 `);
                 }
-
             } catch (err) {
                 res.writeHead(500);
                 res.end(`

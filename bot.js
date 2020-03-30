@@ -104,7 +104,8 @@ client.on('message', function (message) {
     if (message.channel.type != 'text') return;
     try {
         message.serverQueue = client.queue.get(message.guild.id);
-        if(!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
+        if (!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
+        if (message.mentios.users.some(x => x.id == client.user.id)) message.channel.send('엌 멘션...');
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');
         if (args[0] == '핑퐁' || args[0] == 'pingpong') {

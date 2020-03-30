@@ -13,8 +13,8 @@ module.exports = {
             .setThumbnail(client.user.displayAvatarURL({
                 dynamic: true
             }))
-            .addField('기존 닉네임', olderName)
-            .addField('새 닉네임', arg)
+            .addField('기존 닉네임', olderName, true)
+            .addField('새 닉네임', arg, true)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -27,8 +27,8 @@ module.exports = {
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true
                 }))
-                .addField('기존 닉네임', olderName)
-                .addField('새 닉네임', client.user.username)
+                .addField('기존 닉네임', olderName, true)
+                .addField('새 닉네임', client.user.username, true)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))

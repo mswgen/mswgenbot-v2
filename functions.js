@@ -141,7 +141,9 @@ module.exports = {
         );
         if (!message.serverQueue) return message.channel.send("현재 재생 중인 노래가 없습니다.");
         if (message.serverQueue.songs[0].author.id != message.author.id) return message.channel.send('음악을 재생한 유저만 음악을 스킵할 수 있습니다.');
-        message.serverQueue.connection.dispatcher.end();
+        message.channel.send(`${message.serverQueue.songs[0].song.title}을/를 스킵했습니다. `).then(function () {
+            message.serverQueue.connection.dispatcher.end();
+        });
     },
     stop: function (message) {
         if (!message.member.voice.channel) {
@@ -151,23 +153,5 @@ module.exports = {
         }
     message.serverQueue.songs = [];
         message.serverQueue.connection.dispatcher.end();
-    },
-    play: function (client, guild, song) {
-    const serverQueue = client.queue.get(guild.id);
-    if (!song) {
-        serverQueue.voiceChannel.leave();
-        client.queue.delete(guild.id);
-        return;
     }
-        const dispatcher = serverQueue.connection;
-        dispatcher.play(ytdl(song.url));
-        dispatcher.on("finish", () => {
-            serverQueue.songs.shift();
-            fn.play(guild, serverQueue.songs[0]);
-        });
-        dispatcher.on("error", error => {
-            console.log(error);
-        });
-    serverQueue.textChannel.send(`${song.title}이 곧 재생됩니다.`);
-}
 }

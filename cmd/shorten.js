@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const isgd = require('isgd');
 module.exports = {
     name: 'shorten', 
@@ -11,8 +11,8 @@ module.exports = {
                 const embed = new Discord.MessageEmbed()
                     .setTitle('URL 단축 완료!')
                     .setColor(0x00ffff)
-                    .addField('원본 URL', args[1])
-                    .addField('단축된 URL', res)
+                    .addField('원본 URL', args[1], true)
+                    .addField('단축된 URL', res, true)
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true
                     }))
@@ -25,9 +25,9 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setTitle('URL 단축 실패...')
                         .setColor(0xff0000)
-                        .addField('원본 URL', args[1])
-                        .addField('커스텀 URL 이름', args[2])
-                        .addField('에러 내용', res)
+                        .addField('원본 URL', args[1], true)
+                        .addField('커스텀 URL 이름', args[2], true)
+                        .addField('에러 내용', res, true)
                         .setFooter(message.author.tag, message.author.avatarURL({
                             dynamic: true
                         }))
@@ -37,9 +37,9 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setTitle('URL 단축 완료!')
                         .setColor(0x00ffff)
-                        .addField('원본 URL', args[1])
-                        .addField('커스텀 URL 이름', args[2])
-                        .addField('단축된 URL', res)
+                        .addField('원본 URL', args[1], true)
+                        .addField('커스텀 URL 이름', args[2], true)
+                        .addField('단축된 URL', res, true)
                         .setFooter(message.author.tag, message.author.avatarURL({
                             dynamic: true
                         }))

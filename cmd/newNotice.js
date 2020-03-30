@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const fs = require('fs');
 module.exports = {
     name: 'noticechannel',
@@ -18,9 +18,9 @@ module.exports = {
                 dynamic: true
             }))
             .setColor(0xffff00)
-            .addField('공지 채널 이름', ch.name)
-            .addField('공지 채널이 속한 서버 이름', message.guild.name)
-            .addField('진행 상황', '공지 파일을 가져오는 중')
+            .addField('공지 채널 이름', ch.name, true)
+            .addField('공지 채널이 속한 서버 이름', message.guild.name, true)
+            .addField('진행 상황', '공지 파일을 가져오는 중', true)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -36,9 +36,9 @@ module.exports = {
                 dynamic: true
             }))
             .setColor(0xffff00)
-            .addField('공지 채널 이름', ch.name)
-            .addField('공지 채널이 속한 서버 이름', message.guild.name)
-            .addField('진행 상황', '공지 파일을 수정하는 중')
+            .addField('공지 채널 이름', ch.name, true)
+            .addField('공지 채널이 속한 서버 이름', message.guild.name, true)
+            .addField('진행 상황', '공지 파일을 수정하는 중', true)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -53,8 +53,8 @@ module.exports = {
                     dynamic: true
                 }))
                 .setColor(0x00ffff)
-                .addField('공지 채널 이름', ch.name)
-                .addField('공지 채널이 속한 서버 이름', message.guild.name)
+                .addField('공지 채널 이름', ch.name, true)
+                .addField('공지 채널이 속한 서버 이름', message.guild.name, true)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))

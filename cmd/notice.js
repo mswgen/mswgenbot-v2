@@ -12,8 +12,8 @@ module.exports = {
                 dynamic: true
             }))
             .setColor(0xffff00)
-            .addField('전송할 내용', toSend)
-            .addField('전송자', message.author.tag)
+            .addField('전송할 내용', toSend, true)
+            .addField('전송자', message.author.tag, true)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -34,8 +34,8 @@ module.exports = {
                     .setThumbnail(client.user.displayAvatarURL({
                         dynamic: true
                     }))
-                    .addField('전송할 내용', toSend)
-                    .addField('진행 중인 작업', '공지 채널을 불러오는 중')
+                    .addField('전송할 내용', toSend, true)
+                    .addField('진행 중인 작업', '공지 채널을 불러오는 중', true)
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true
                     }))
@@ -67,10 +67,10 @@ module.exports = {
                         .setThumbnail(client.user.displayAvatarURL({
                             dynamic: true
                         }))
-                        .addField('전송할 내용', toSend)
-                        .addField('진행 중인 작업', `전송 중`)
-                        .addField('현재 진행도', `${i}/${a}개 채널 전송 완료`)
-                        .addField('현재 전송 중인 채널', `${client.channels.cache.get(notice.channels[x]).name}(${client.channels.cache.get(notice.channels[x]).id})`)
+                        .addField('전송할 내용', toSend, true)
+                        .addField('진행 중인 작업', `전송 중`, true)
+                        .addField('현재 진행도', `${i}/${a}개 채널 전송 완료`, true)
+                        .addField('현재 전송 중인 채널', `${client.channels.cache.get(notice.channels[x]).name}(${client.channels.cache.get(notice.channels[x]).id})`, true)
                         .setFooter(message.author.tag, message.author.avatarURL({
                             dynamic: true
                         }))
@@ -83,8 +83,8 @@ module.exports = {
                     .setThumbnail(client.user.displayAvatarURL({
                         dynamic: true
                     }))
-                    .addField('공지 내용', toSend)
-                    .addField('전송한 채널 수', `${i}개`)
+                    .addField('공지 내용', toSend, true)
+                    .addField('전송한 채널 수', `${i}개`, true)
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true
                     }))
@@ -97,7 +97,7 @@ module.exports = {
                     .setThumbnail(client.user.displayAvatarURL({
                         dynamic: true
                     }))
-                    .addField('전송 예정이었던 내용', toSend)
+                    .addField('전송 예정이었던 내용', toSend, true)
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true
                     }))

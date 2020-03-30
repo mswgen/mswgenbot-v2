@@ -16,6 +16,10 @@ var notify = {
     ALL: '모든 알림',
     MENTIONS: '@mentions만'
 };
+var mfa = {
+    0: '필요하지 않음',
+    1: '필요함'
+}
 module.exports = {
     name: 'serverinfo',
     alises: ['서버정보', '정보서버', 'server-info', 'serverinfo'],
@@ -35,10 +39,11 @@ module.exports = {
             .addField('서버 이름', message.guild.name, true)
             .addField('서버 주인', `${message.guild.owner.user}`, true)
             .addField('서버 생성일', fn.parseDate(message.guild.createdAt), true)
-            .addField('서버 인원 수', message.guild.memberCount, true)
+            .addField('서버 인원 수', `${message.guild.memberCount}명(유저: ${message.guild.members.cache.filter(x => !x.user.bot).size}명, 봇: ${message.guild.members.cache.filter(x => x.user.bot).size}개)`, true)
             .addField('서버 부스트 레벨', message.guild.premiumTier, true)
             .addField('서버 위치', message.guild.region, true)
             .addField('서버 보안 레벨', verify[message.guild.verificationLevel], true)
+            .addField('서버 관리 2단계 인증 필수 여부', mfa[message.guild.mfaLevel], true)
             .addField('기본 알림 설정', notify[message.guild.defaultMessageNotifications], true)
             .addField('서버 인증 여부', fn.isVerified(message.guild), true)
             .addField('시스템 메세지 채널', `${message.guild.systemChannel}` || '없음', true)
@@ -54,7 +59,7 @@ module.exports = {
             .setTimestamp()
         m.edit(embed);
         const ymbed = new Discord.MessageEmbed()
-            .setTitle(`${message.guild.name} 서버의 역할(${message.guild.roles.cache.size}개)`)
+            .setTitle(`${message.guild.name} 서버의 역할(${message.guild.roles.cache.size - 1}개)`)
             .setColor(0x00ffff)
             .setTimestamp()
             .setFooter(message.author.tag, message.author.avatarURL({

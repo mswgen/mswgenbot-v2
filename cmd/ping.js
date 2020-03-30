@@ -13,8 +13,8 @@ module.exports = {
             .setTitle('PONG!')
             .setColor(0x00ffff)
             .setThumbnail('https://i.imgur.com/1Gk4tOj.png')
-            .addField('Latency', `${m.createdAt - message.createdAt}ms`)
-            .addField('API Latency', `${client.ws.ping}ms`)
+            .addField('Latency', `${m.createdAt - message.createdAt}ms`, true)
+            .addField('API Latency', `${client.ws.ping}ms`, true)
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))

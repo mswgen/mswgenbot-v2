@@ -20,6 +20,9 @@ const fetch = require('node-fetch');
 const request = require('request');
 const ytdl = require('ytdl-core');
 const isgd = require('isgd');
+const http = require('http');
+const qs = require('querystring');
+const url = require('url');
 
 ${input}`;
         const embed = new Discord.MessageEmbed()

@@ -7,7 +7,9 @@ module.exports = {
     run: async function (client, message, args, option) {
         fetch('http://hangang.dkserver.wo.tc/', {
             method: 'POST'
-        }).then(e => e.json()).then(function (x) {
+        }).then(e => {
+            return e.json();
+        }).then(function (x) {
             message.channel.send(
                 new Discord.MessageEmbed()
                     .setTitle('한강 수온')

@@ -19,8 +19,8 @@ module.exports = {
         fs.writeFile('../assets/money.json', JSON.stringify(money), function (err) {
             const embed = new Discord.MessageEmbed()
                 .setTitle('돈 받기 완료!')
-                .addField('받은 돈', `${add}원`)
-                .addField('현재 돈', `${money[message.author.id]}원`)
+                .addField('받은 돈', `${add}원`, true)
+                .addField('현재 돈', `${money[message.author.id]}원`, true)
                 .setColor(0x00ffff)
                 .setThumbnail(message.author.avatarURL({
                     dynamic: true

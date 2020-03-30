@@ -6,7 +6,7 @@ module.exports = {
     description: '자바스크립트 코드를 바로 실행합니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
-        const arg = message.content.split(" ").slice(1);
+        const arg = args.slice(1);
         const input = arg.join(" ");
         const code = `const Discord = require('discord.js');
 const fs = require('fs');

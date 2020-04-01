@@ -105,9 +105,10 @@ client.on('message', function (message) {
     try {
         message.serverQueue = client.queue.get(message.guild.id);
         if (!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
-        if (message.mentios.users.some(x => x.id == client.user.id)) message.channel.send('엌 멘션...');
+        if (message.mentions.users.some(x => x.id == client.user.id)) message.channel.send('엌 멘션...');
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');
+        message.channel.startTyping(1);
         if (args[0] == '핑퐁' || args[0] == 'pingpong') {
             pingpong.run(message, args);
         } else if (client.alises.get(args[0].toLowerCase())) {
@@ -131,6 +132,7 @@ client.on('message', function (message) {
         embed.addField('에러 발생 서버', `${message.guild.name}(${message.guild.id})`);
         client.users.cache.get('647736678815105037').send(embed);
     }
+    message.channel.stopTyping(true);
 });
 web.create(client, option);
 client.login(process.env.TOKEN);

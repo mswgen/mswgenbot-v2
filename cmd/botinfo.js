@@ -8,7 +8,8 @@ const arch = {
 function getOs(client) {
     const os2 = {
         win32: `${client.emojis.cache.find(x => x.name == 'windows_logo')} Windows`,
-        linux: `${client.emojis.cache.find(x => x.name == 'linux')} Linux`
+        linux: `${client.emojis.cache.find(x => x.name == 'linux')} Linux`,
+        darwin:`${client.emojis.cache.find(x => x.name == 'mac')} Mac`
     }
     return os2[process.platform];
 }
@@ -39,7 +40,7 @@ module.exports = {
             .addField('RAM 사용량', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB`, true)
             .addField('CPU 모델', os.cpus()[0].model)
             .addField('CPU 코어 수', os.cpus().length, true)
-            .addField('개발 언어', `${client.emojis.cache.find(x => x.name == 'js')} Javascript(Node.js)`)
+            .addField('개발 언어', `${client.emojis.cache.find(x => x.name == 'JS')} Javascript(Node.js)`)
             .addField(`Node.js 버전`, `${client.emojis.cache.find(x => x.name == 'node_js')} v.${process.versions.node}`, true)
             .addField('Discord.js 버전', `${client.emojis.cache.find(x => x.name == 'discord_js')} v.${Discord.version}`, true)
             .setFooter(message.author.tag, message.author.avatarURL({

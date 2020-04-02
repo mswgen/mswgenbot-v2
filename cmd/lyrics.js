@@ -20,7 +20,7 @@ module.exports = {
         if (melon.result) {
             console.log(melon);
             const imbed = new Discord.MessageEmbed()
-                .setTitle(`${args.slice(1).join(' ')}의 가사(출처: Melon)`)
+                .setTitle(`${melon.title}의 가사(출처: Melon)`)
                 .setColor(0x00ffff);
             if (melon.result.length > 1900) {
                 imbed.setDescription(`노래 링크: ${melon.url}
@@ -37,9 +37,8 @@ ${melon.result}`);
                 .setTimestamp()
             m.edit(imbed);
         } else if (atoz.result) {
-            console.log(atoz);
             const imbed = new Discord.MessageEmbed()
-                .setTitle(`${args.slice(1).join(' ')}의 가사(출처: AtoZLyrics)`)
+                .setTitle(`${atoz.title}의 가사(출처: AtoZLyrics)`)
                 .setColor(0x00ffff);
             if (atoz.result.length > 1900) {
                 imbed.setDescription(`노래 링크: ${atoz.url}

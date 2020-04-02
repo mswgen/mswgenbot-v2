@@ -2,8 +2,8 @@
 const axios = require('axios');
 const fn = require('../functions.js');
 module.exports = {
-    name: 'github_user',
-    alises: ['깃허브유저', '깃허브유저정보', '깃허브', 'github', 'github-user'],
+    name: 'github',
+    alises: ['깃허브', 'github'],
     description: '깃허브 유저의 정보를 불러옵니다.',
     run: async function (client, message, args, option) {
         var toGet = args.slice(1).join(' ');

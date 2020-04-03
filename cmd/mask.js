@@ -5,6 +5,15 @@ module.exports = {
     alises: ['마스크', '공적마스크', '마스크현황', '공적마스크현황', 'mask'],
     description: '입력한 주소지에 있는 약국의 공적 마스크 정보를 보여줍니다.',
     run: async function (client, message, args, option) {
+        var days = {
+            0: '누구나',
+            1: '태어난 연도 끝자리가 1 또는 6',
+            2: '태어난 연도 끝자리가 2 또는 7',
+            3: '태어난 연도 끝자리가 3 또는 8',
+            4: '태어난 연도 끝자리가 4 또는 9',
+            5: '태어난 연도 끝자리가 5 또는 0',
+            6: '누구나'
+        };
         var stat = {
             plenty: '🟢많음(100개 이상)',
             some: '🟡보통(30~99개)',
@@ -62,6 +71,7 @@ module.exports = {
                     .addField('현황', stat[sliced[i].remain_stat] || '정보 없음')
                     .addField('입고 시각', sliced[i].stock_at || '정보 없음')
                     .addField('마지막 업데이트', sliced[i].created_at || '정보 없음')
+                    .setDescription(`오늘 마스크 구매 조건: ${days[new Date().getDay()]}`)
                 m.edit(imbed).then(async function () {
                     await m.react('◀');
                     await m.react('▶');
@@ -92,6 +102,7 @@ module.exports = {
                             .addField('현황', stat[sliced[i].remain_stat] || '정보 없음')
                             .addField('입고 시각', sliced[i].stock_at || '정보 없음')
                             .addField('마지막 업데이트', sliced[i].created_at || '정보 없음')
+                            .setDescription(`오늘 마스크 구매 조건: ${days[new Date().getDay()]}`)
                         m.edit(imbed);
                     });
                     collector.on('end', function () {

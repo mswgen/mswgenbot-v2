@@ -111,5 +111,60 @@ module.exports = {
                 });
             }
         });
+    },
+    api: async function (res, query) {
+        try {
+            var days = {
+                0: ['everyone'],
+                1: [1, 6],
+                2: [2, 7],
+                3: [3, 8],
+                4: [4, 9],
+                5: [5, 0],
+                6: ['everyone']
+            };
+            if (!query.region) return res.writeHead(422, {
+                'Content-Type': 'application/json; type=utf-8'
+            }).end(JSON.stringify({
+                message: 'Missing region',
+                usage: '/api?type=mask&region=<region to search>'
+            }));
+            axios.get(`https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByAddr/json?address=${encodeURIComponent(query.region)}`).then(function (response) {
+                var sliced = response.data.stores;
+                if (sliced.length == 0) {
+                    res.writeHead(422, {
+                        'Content-Type': 'application/json; type=utf-8'
+                    }).end(JSON.stringify({
+                        message: 'Invaild region'
+                    }));
+                } else {
+                    var result = new Array();
+                    for (var x of response.data.stores) {
+                        result.push({
+                            address: x.addr,
+                            name: x.name,
+                            stat: x.remain_stat,
+                            update: x.created_at,
+                            stock: x.stock_at
+                        });
+                    }
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json; type=utf-8'
+                    }).end(JSON.stringify({
+                        region: response.data.address,
+                        availableToBuy: days[new Date().getDay()],
+                        count: response.data.count,
+                        stat: result
+                    }));
+                }
+            });
+        } catch (e) {
+            res.writeHead(500, {
+                'Content-Type': 'application/json; type=utf-8'
+            }).end(JSON.stringify({
+                message: 'Internal server error',
+                content: e
+            }));
+        }
     }
 }

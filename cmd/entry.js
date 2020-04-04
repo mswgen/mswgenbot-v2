@@ -83,5 +83,93 @@ module.exports = {
                 });
             });
         });
+    },
+    api: async function (res, query) {
+        try {
+            var roles = {
+                member: 'Student',
+                teacher: 'Teacher',
+                admin: 'Administrator'
+            }
+            if (!query.nick) return await res.writeHead(422).end(JSON.stringify({
+                message: 'Please enter a nickname',
+                usage: '/api?type=entry&nick=<nickname to search>'
+            }));
+            var toGet = null;
+            if (query.nick == 'admin' || query.nick == 'administrator') {
+                toGet = 'entry';
+            } else {
+                toGet = query.nick;
+            }
+            axios.get(`https://playentry.org/api/getUserByUsername/${encodeURIComponent(toGet)}`).then(function (response) {
+                if (response.status != 200) return res.writeHead(500).end(JSON.stringify({
+                    message: 'Error getting user info'
+                }));
+                axios.get(`https://playentry.org/api/project/find?option=list&sort=updated&rows=0&type=project&user=${encodeURIComponent(response.data._id)}`).then(function (response2) {
+                    if (response2.status != 200) return res.writeHead(500).end(JSON.stringify({
+                        message: 'Error getting user info'
+                    }));
+                    axios.get(`https://playentry.org/api/discuss/find?username=${response.data.username}`).then(function (response3) {
+                        if (response3.status != 200) return res.writeHead(500).end(JSON.stringify({
+                            message: 'Error getting user info'
+                        }));
+                        var toReturn = {
+                            nick: response.data.username,
+                            id: response.data._id,
+                            type: roles[response.data.role],
+                            stat: response.data.description || null,
+                            img: {
+                                thumbnail: null,
+                                background: null
+                            },
+                            view: 0,
+                            like: 0,
+                            comment: 0,
+                            copy: 0,
+                            community: 0
+                        }
+                        if (response.data.avatarImage) {
+                            toReturn.img.thumbnail = `https://playentry.org/uploads/profile/${response.data._id.substr(0, 2)}/${response.data._id.substr(2, 2)}/avatar_${response.data._id}.png`;
+                        } else {
+                            toReturn.img.thumbnail = `https://playentry.org/img/assets/avatar_img.png`;
+                        }
+                        if (response.data.blogImage) {
+                            toReturn.img.background = `https://playentry.org/uploads/profile/${response.data._id.substr(0, 2)}/${response.data._id.substr(2, 2)}/blog_${response.data._id}.png`;
+                        }
+                        var see = 0;
+                        for (var x of response2.data.data) {
+                            see += x.visit;
+                        }
+                        toReturn.view = see || 0;
+                        var like = 0;
+                        for (var x of response2.data.data) {
+                            like += x.likeCnt;
+                        }
+                        toReturn.like = like || 0;
+                        var comment = 0;
+                        for (var x of response2.data.data) {
+                            comment += x.comment;
+                        }
+                        toReturn.comment = comment || 0;
+                        var child = 0;
+                        for (var x of response2.data.data) {
+                            child += x.childCnt;
+                        }
+                        toReturn.copy = child || 0;
+                        toReturn.community = response3.data.data.length;
+                        res.writeHead(200, {
+                            'Content-Type': 'application/json; type=utf-8'
+                        }).end(JSON.stringify(toReturn));
+                    });
+                });
+            });
+        } catch (e) {
+            res.writeHead(500, {
+                'Content-Type': 'application/json; type=utf-8'
+            }).end(JSON.stringify({
+                message: 'Internal server error',
+                content: e
+            }));
+        }
     }
 }

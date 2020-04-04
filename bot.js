@@ -1,12 +1,13 @@
-﻿var Discord = require('discord.js');
-var client = new Discord.Client();
-var fs = require('fs');
-var restart = require('./assets/restart.json');
-var ascii = require('ascii-table');
-var dotenv = require('dotenv');
+﻿'use strict';
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const fs = require('fs');
+const restart = require('./assets/restart.json');
+const ascii = require('ascii-table');
+const dotenv = require('dotenv');
 const pingpong = require('./cmd/pingpong.js')
-var web = require('./web.js');
-var option = require('./assets/config.json');
+const web = require('./web.js');
+const option = require('./assets/config.json');
 client.commands = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
@@ -109,9 +110,7 @@ client.on('message', function (message) {
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');
         message.channel.startTyping(1);
-        if (args[0] == '핑퐁' || args[0] == 'pingpong') {
-            pingpong.run(message, args);
-        } else if (client.alises.get(args[0].toLowerCase())) {
+        if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;
             client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
         }

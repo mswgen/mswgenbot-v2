@@ -1,4 +1,5 @@
-﻿const http = require('http');
+﻿'use strict';
+const http = require('http');
 const url = require('url');
 const qs = require('querystring');
 module.exports = {
@@ -6,12 +7,27 @@ module.exports = {
         const server = http.createServer(function (req, res) {
             try {
                 if (req.method == 'GET') {
+                    var query = url.parse(req.url, true).query;
                     if (url.parse(req.url, true).pathname == '/') {
-                        res.writeHead(200);
-                        res.end(makeHTML(client).toString());
+                        res.writeHead(200)
+                            .end(makeHTML(client).toString());
+                    } else if (url.parse(req.url, true).pathname == '/api') {
+                        if (query.type == 'mask') {
+                            require('./cmd/mask.js').api(res, query);
+                        } else if (query.type == 'entry') {
+                            require('./cmd/entry.js').api(res, query);
+                        } else {
+                            res.writeHead(200, {
+                                'Content-Type': 'application/json; type=utf-8'
+                            }).end(JSON.stringify({
+                                'mask crawling': "/api?type=mask (In POST, set data 'type' to 'mask'",
+                                'entry user crawling': "/api?type=entry (In POST, set data 'type' to 'entry'",
+                                'bot info': "use POST method (set data 'type' to 'info')"
+                            }))
+                        }
                     } else {
-                        res.writeHead(404);
-                        res.end(`
+                        res.writeHead(404)
+                            .end(`
                     <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
@@ -20,13 +36,21 @@ module.exports = {
                 `);
                     }
                 } else if (req.method == 'POST') {
-                    var post = '';
+                    var _post = '';
                     req.on('data', function (data) {
-                        post += data;
+                        _post += data;
                     });
                     req.on('end', function () {
-                        res.writeHead(200);
-                            res.end(JSON.stringify({
+                        var post = JSON.parse(_post);
+                        if (post.type == 'mask') {
+                            require('./cmd/mask.js').api(res, post);
+                        } else if (post.type == 'entry') {
+                            require('./cmd/entry.js').api(res, post);
+                        } else if (post.type == 'info') {
+                            res.writeHead(200, {
+                                'Content-Type': 'application/json; type=utf-8'
+                            })
+                                .end(JSON.stringify({
                                 ping: client.ws.ping,
                                 displayAvatarURL: client.user.displayAvatarURL({
                                     dynamic: true,
@@ -36,6 +60,15 @@ module.exports = {
                                 uptime: client.uptime,
                                 user: client.user
                             }));
+                        } else {
+                            res.writeHead(200, {
+                                'Content-Type': 'application/json; type=utf-8'
+                            }).end(JSON.stringify({
+                                'mask crawling': "set data 'type' to 'mask'",
+                                'entry user crawling': "set data 'type' to 'entry'",
+                                'bot info': "set data 'type' to 'info'"
+                            }))
+                        }
                     });
                 } else {
                     res.writeHead(405);

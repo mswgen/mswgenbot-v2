@@ -46,7 +46,7 @@ module.exports = {
                     .setTimestamp()
                     .addField('닉네임', data.login, true)
                     .addField('유저 id', data.id, true)
-                    .addField('계정 생성일', fn.parseDate(new Date(data.created_at)), true)
+                    .addField('계정 생성일', fn.parseDate(new Date(data.created_at.replace(/Z/gi, '+09:00'))), true)
                     .addField('유저 페이지 URL', data.html_url, true)
                     .addField('상태 메제지(bio)', data.bio || '없음', true)
                     .addField('유저 위치', data.location || '없음', true)

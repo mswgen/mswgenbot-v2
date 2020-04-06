@@ -5,7 +5,6 @@ const fs = require('fs');
 const restart = require('./assets/restart.json');
 const ascii = require('ascii-table');
 const dotenv = require('dotenv');
-const pingpong = require('./cmd/pingpong.js')
 const web = require('./web.js');
 const option = require('./assets/config.json');
 client.commands = new Discord.Collection();
@@ -37,7 +36,7 @@ fs.readdir('./cmd/', function (err, list) {
     }
     console.log(table.toString());
 });
-client.on('ready', function () {
+client.on('ready', async function () {
     console.log(`Login ${client.user.username}
 -------------------------------`);
     setInterval(function () {
@@ -53,29 +52,22 @@ client.on('ready', function () {
         } else if (r == 1) {
             client.user.setPresence({
                 activity: {
-                    name: '테스트',
+                    name: '/도움 명령어 입력',
                     type: 'PLAYING'
                 }
             });
         } else if (r == 2) {
             client.user.setPresence({
                 activity: {
-                    name: '/도움 명령어 입력',
+                    name: `${client.users.cache.filter(x => !x.bot).size}명의 유저`,
                     type: 'PLAYING'
                 }
             });
         } else if (r == 3) {
             client.user.setPresence({
                 activity: {
-                    name: `${client.users.cache.filter(x => !x.bot).size} users`,
-                    type: 'WATCHING'
-                }
-            });
-        } else if (r == 4) {
-            client.user.setPresence({
-                activity: {
-                    name: `${client.guilds.cache.size} servers`,
-                    type: 'WATCHING'
+                    name: `${client.guilds.cache.size} 개의 서버`,
+                    type: 'PLAYING'
                 }
             });
         }
@@ -100,13 +92,27 @@ client.on('ready', function () {
             if (err) console.log(err);
         });
     }
-});
-client.on('message', function (message) {
+})
+    .on('message', async function (message) {
     if (message.channel.type != 'text') return;
     try {
         message.serverQueue = client.queue.get(message.guild.id);
         if (!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
-        if (message.mentions.users.some(x => x.id == client.user.id)) message.channel.send('엌 멘션...');
+        if (message.mentions.users.some(x => x.id == client.user.id) || message.mentions.everyone) {
+            if (Math.floor(Math.random() * 2) == 0) {
+                await message.channel.send('엌 멘션...');
+            } else {
+                await message.react('😡');
+                await message.react('🤬');
+                await message.react('🇲');
+                await message.react('🇪');
+                await message.react('🇳');
+                await message.react('🇹');
+                await message.react('🇮');
+                await message.react('🇴');
+                await message.react('🇳');
+            }
+        }
         if (!message.content.startsWith('/')) return;
         var args = message.content.substr(1).split(' ');
         message.channel.startTyping(1);
@@ -132,6 +138,68 @@ client.on('message', function (message) {
         client.users.cache.get('647736678815105037').send(embed);
     }
     message.channel.stopTyping(true);
+})
+    .on('guildMemberAdd', async function (member) {
+    if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
+        await member.guild.channels.cache.find(x => x.name.includes('인사')).send(new Discord.MessageEmbed()
+            .setTitle('멤버 입장')
+            .setColor(0x00ffff)
+            .setDescription(`${member.user}님이 ${member.guild.name}에 오셨습니다.`)
+            .setThumbnail(member.user.displayAvatarURL({
+                dynamic: true,
+                type: 'jpg',
+                size: 2048
+            }))
+            .setFooter(member.user.tag, member.user.displayAvatarURL({
+                dynamic: true,
+                type: 'jpg',
+                size: 2048
+            }))
+            .setTimestamp()
+        );
+    }
+    if (member.guild.channels.cache.some(x => x.name == `${member.guild.name}의 유저 수` && x.type == 'category')) {
+        member.guild.channels.cache.filter(x => x.type == 'voice' && x.parent.name == `${member.guild.name}의 유저 수`).forEach(async function (ch) {
+            if (ch.name.startsWith('모든 유저 수: ')) {
+                ch.setName(`모든 유저 수: ${member.guild.memberCount}`);
+            } else if (ch.name.startsWith('유저 수: ')) {
+                ch.setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
+            } else if (ch.name.startsWith('봇 수: ')) {
+                ch.setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
+            }
+        })
+    }
+})
+    .on('guildMemberRemove', async function (member) {
+    if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
+        await member.guild.channels.cache.find(x => x.name.includes('인사')).send(new Discord.MessageEmbed()
+            .setTitle('멤버 퇴장')
+            .setColor(0xffff00)
+            .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔습니다.`)
+            .setThumbnail(member.user.displayAvatarURL({
+                dynamic: true,
+                type: 'jpg',
+                size: 2048
+            }))
+            .setFooter(member.user.tag, member.user.displayAvatarURL({
+                dynamic: true,
+                type: 'jpg',
+                size: 2048
+            }))
+            .setTimestamp()
+        );
+    }
+    if (member.guild.channels.cache.some(x => x.type == 'category' && x.name == `${member.guild.name}의 유저 수` )) {
+        member.guild.channels.cache.filter(x => x.type == 'voice' && x.parent.name == `${member.guild.name}의 유저 수`).forEach(async function (ch) {
+            if (ch.name.startsWith('모든 유저 수: ')) {
+                ch.setName(`모든 유저 수: ${member.guild.memberCount}`);
+            } else if (ch.name.startsWith('유저 수: ')) {
+                ch.setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
+            } else if (ch.name.startsWith('봇 수: ')) {
+                ch.setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
+            }
+        })
+    }
 });
 web.create(client, option);
 client.login(process.env.TOKEN);

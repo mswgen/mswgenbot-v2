@@ -6,8 +6,11 @@ module.exports = {
     description: '자바스크립트 코드를 바로 실행합니다.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
-        const arg = args.slice(1);
-        const input = arg.join(" ");
+        let input = args.slice(1).join(' ');
+        for (var x in process.env) {
+            input = input.replace(x, 'Secret');
+        }
+        input = input.replace(/client.token/gi, '"Secret"').replace(/process.env/gi, '"Secret"')
         const code = `const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');
@@ -28,7 +31,7 @@ ${input}`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)
             .setColor(0xffff00)
-            .addField('Input', '```js\n' + input + '\n```')
+            .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -36,18 +39,25 @@ ${input}`;
         let m = await message.channel.send(embed);
         try {
             let output = eval(code);
+            let type = typeof output;
             if (typeof output !== "string") {
                 output = util.inspect(output);
             }
             if (output.length >= 1020) {
                 output = `${output.substr(0, 1010)}...`;
             }
+            while (true) {
+                if (!output.includes(process.env.TOKEN)) {
+                    break;
+                }
+                output = output.replace(process.env.TOKEN, 'Secret');
+            }
             const embed2 = new Discord.MessageEmbed()
                 .setTitle('Eval result')
                 .setColor(0x00ffff)
-                .addField('Input', '```js\n' + input + '\n```')
+                .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
                 .addField('Output', '```js\n' + output + '\n```')
-                .addField('Type', '```js\n' + typeof output + '\n```')
+                .addField('Type', '```js\n' + type + '\n```')
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))
@@ -57,7 +67,7 @@ ${input}`;
             const embed3 = new Discord.MessageEmbed()
                 .setTitle('Eval error...')
                 .setColor(0xff0000)
-                .addField('Input', '```js\n' + input + '\n```')
+                .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
                 .addField('Error', '```js\n' + err + '\n```')
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true

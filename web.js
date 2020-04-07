@@ -91,8 +91,8 @@ module.exports = {
                     <a href='/'>메인으로 돌아가기</a>
                 `);
             }
-        });
-        server.listen(option.port);
+        })
+            .listen(option.port, 'https://mswgenbot-v2.herokuapp.com');
         function makeHTML(client) {
             return `<!DOCTYPE html>
 <html>

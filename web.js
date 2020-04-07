@@ -52,15 +52,15 @@ module.exports = {
                                 'Content-Type': 'application/json; type=utf-8'
                             })
                                 .end(JSON.stringify({
-                                ping: client.ws.ping,
-                                displayAvatarURL: client.user.displayAvatarURL({
-                                    dynamic: true,
-                                    size: 2048,
-                                    format: 'jpg'
-                                }),
-                                uptime: client.uptime,
-                                user: client.user
-                            }));
+                                    ping: client.ws.ping,
+                                    displayAvatarURL: client.user.displayAvatarURL({
+                                        dynamic: true,
+                                        size: 2048,
+                                        format: 'jpg'
+                                    }),
+                                    uptime: client.uptime,
+                                    user: client.user
+                                }));
                         } else {
                             res.writeHead(200, {
                                 'Content-Type': 'application/json; type=utf-8'
@@ -91,8 +91,8 @@ module.exports = {
                     <a href='/'>메인으로 돌아가기</a>
                 `);
             }
-        })
-            .listen(option.port, 'https://mswgenbot-v2.herokuapp.com');
+        });
+            server.listen(option.port);
         function makeHTML(client) {
             return `<!DOCTYPE html>
 <html>

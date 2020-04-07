@@ -1,5 +1,4 @@
-﻿'use strict';
-const http = require('http');
+﻿const http = require('http');
 const url = require('url');
 const qs = require('querystring');
 module.exports = {

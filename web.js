@@ -8,6 +8,7 @@ module.exports = {
             try {
                 if (req.method == 'GET') {
                     var query = url.parse(req.url, true).query;
+                    console.log(req.url);
                     if (url.parse(req.url, true).pathname == '/') {
                         res.writeHead(200)
                             .end(makeHTML(client).toString());

@@ -30,7 +30,7 @@ module.exports = {
             message.author.send(new Discord.MessageEmbed()
                 .setTitle(cmd.name)
                 .setColor(0x00ffff)
-                .addField('Alises', `/${cmd.alises.join('\n/')}`)
+                .addField('Alises', `${option.prefix}${cmd.alises.join(`\n${option.prefix}`)}`)
                 .addField('Description', cmd.description)
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true

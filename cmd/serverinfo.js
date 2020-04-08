@@ -84,7 +84,7 @@ module.exports = {
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
-        emved.setDescription(message.guild.emojis.cache.map(x => x.toString()).join(' '));
+        emved.setDescription(message.guild.emojis.cache.map(x => x.toString()).join(' ').substr(0, 2000));
         message.channel.send(emved);
     }
 }

@@ -29,8 +29,8 @@ fs.readdir('./cmd/', function (err, list) {
                 table.addRow(file, `❌ -> Error`);
             continue;
             }
-        } catch (err) {
-            table.addRow(file, `❌ -> ${err}`);
+        } catch (e) {
+            table.addRow(file, `❌ -> ${e}`);
             continue;
         }
     }
@@ -66,7 +66,7 @@ client.on('ready', async function () {
         } else if (r == 3) {
             client.user.setPresence({
                 activity: {
-                    name: `${client.guilds.cache.size} 개의 서버`,
+                    name: `${client.guilds.cache.size}개의 서버`,
                     type: 'PLAYING'
                 }
             });
@@ -99,9 +99,10 @@ client.on('ready', async function () {
         message.serverQueue = client.queue.get(message.guild.id);
         if (!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
         if (message.mentions.users.some(x => x.id == client.user.id) || message.mentions.everyone) {
-            if (Math.floor(Math.random() * 2) == 0) {
+            var random = Math.floor(Math.random() * 3);
+            if (random == 0) {
                 await message.channel.send('엌 멘션...');
-            } else {
+            } else if (random == 1) {
                 await message.react('😡');
                 await message.react('🤬');
                 await message.react('🇲');
@@ -111,9 +112,13 @@ client.on('ready', async function () {
                 await message.react('🇮');
                 await message.react('🇴');
                 await message.react('🇳');
+            } else {
+                await message.react('🇼');
+                await message.react('🇭');
+                await message.react('🇾');
             }
         }
-        if (!message.content.startsWith('/')) return;
+        if (!message.content.startsWith(option.prefix)) return;
         var args = message.content.substr(1).split(' ');
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
@@ -141,7 +146,7 @@ client.on('ready', async function () {
 })
     .on('guildMemberAdd', async function (member) {
     if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
-        await member.guild.channels.cache.find(x => x.name.includes('인사')).send(new Discord.MessageEmbed()
+        await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
             .setTitle('멤버 입장')
             .setColor(0x00ffff)
             .setDescription(`${member.user}님이 ${member.guild.name}에 오셨습니다.`)
@@ -172,7 +177,7 @@ client.on('ready', async function () {
 })
     .on('guildMemberRemove', async function (member) {
     if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
-        await member.guild.channels.cache.find(x => x.name.includes('인사')).send(new Discord.MessageEmbed()
+        await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
             .setTitle('멤버 퇴장')
             .setColor(0xffff00)
             .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔습니다.`)

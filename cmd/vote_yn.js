@@ -2,9 +2,9 @@
 module.exports = {
     name: 'vote_yesAndNo',
     alises: ['찬반투표'],
-    description: '찬반 비밀투표를 시작합니다. ',
+    description: '찬반 비밀투표를 시작합니다.',
     run: async function (client, message, args, option) {
-        if (!args[1]) return;
+        if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var pros = new Discord.Collection();
         var cons = new Discord.Collection();
         const embed = new Discord.MessageEmbed()

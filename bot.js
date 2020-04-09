@@ -205,6 +205,22 @@ client.on('ready', async function () {
             }
         })
     }
+    });
+client.on('rateLimit', async function (info) {
+    await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
+        .setTitle('레이트 리밋...')
+        .setColor(0xffff00)
+        .addField('남은 시간', info.timeout)
+        .setTimestamp()
+    );
+});
+client.on('error', async function (err) {
+    await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
+        .setTitle('에러...')
+        .setColor(0xff0000)
+        .addField('에러 원문', err)
+        .setTimestamp()
+    );
 });
 web.create(client, option);
 client.login(process.env.TOKEN);

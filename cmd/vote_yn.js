@@ -7,9 +7,9 @@ module.exports = {
         if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var pros = new Discord.Collection();
         var cons = new Discord.Collection();
-        const embed = new Discord.MessageEmbed()
-            .setTitle(args.slice(1).join(' '))
-            .setColor(0x00ffff)
+        const embed = new Discord.MessageEmbed();
+        embed.setTitle(args.slice(1));
+            embed.setColor(0x00ffff)
             .setDescription(`현재 투표 현황: 찬성 0표, 반대 0표`)
             .setFooter(`${message.author.tag}님의 투표`, message.author.avatarURL({
                 dynamic: true,

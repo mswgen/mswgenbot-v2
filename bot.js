@@ -194,26 +194,18 @@ client.on('ready', async function () {
             .setTimestamp()
         );
     }
-    if (member.guild.channels.cache.some(x => x.type == 'category' && x.name == `${member.guild.name}의 유저 수` )) {
-        member.guild.channels.cache.filter(x => x.type == 'voice' && x.parent.name == `${member.guild.name}의 유저 수`).forEach(async function (ch) {
-            if (ch.name.startsWith('모든 유저 수: ')) {
-                ch.setName(`모든 유저 수: ${member.guild.memberCount}`);
-            } else if (ch.name.startsWith('유저 수: ')) {
-                ch.setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
-            } else if (ch.name.startsWith('봇 수: ')) {
-                ch.setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
-            }
-        })
-    }
+        if (member.guild.channels.cache.some(x => x.type == 'category' && x.name == `${member.guild.name}의 유저 수`)) {
+            member.guild.channels.cache.filter(x => x.type == 'voice' && x.parent.name == `${member.guild.name}의 유저 수`).forEach(async function (ch) {
+                if (ch.name.startsWith('모든 유저 수: ')) {
+                    ch.setName(`모든 유저 수: ${member.guild.memberCount}`);
+                } else if (ch.name.startsWith('유저 수: ')) {
+                    ch.setName(`유저 수: ${member.guild.members.cache.filter(x => !x.user.bot).size}`);
+                } else if (ch.name.startsWith('봇 수: ')) {
+                    ch.setName(`봇 수: ${member.guild.members.cache.filter(x => x.user.bot).size}`);
+                }
+            });
+        }
     });
-client.on('rateLimit', async function (info) {
-    await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
-        .setTitle('레이트 리밋...')
-        .setColor(0xffff00)
-        .addField('남은 시간', info.timeout)
-        .setTimestamp()
-    );
-});
 client.on('error', async function (err) {
     await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
         .setTitle('에러...')
@@ -222,5 +214,6 @@ client.on('error', async function (err) {
         .setTimestamp()
     );
 });
+//require('./chatting.js').create();
 web.create(client, option);
 client.login(process.env.TOKEN);

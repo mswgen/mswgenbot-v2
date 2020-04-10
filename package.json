@@ -26,6 +26,7 @@
     "opusscript": "0.0.7",
     "request": "2.88.2",
     "slyrics": "^0.1.42",
+    "socket.io": "^2.3.0",
     "util": "^0.12.2",
     "yt-search": "^1.1.2",
     "ytdl-core": "^2.0.1"

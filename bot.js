@@ -214,6 +214,5 @@ client.on('error', async function (err) {
         .setTimestamp()
     );
 });
-//require('./chatting.js').create();
 web.create(client, option);
 client.login(process.env.TOKEN);

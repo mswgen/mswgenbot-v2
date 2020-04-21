@@ -13,7 +13,7 @@ client.alises = new Discord.Collection();
 dotenv.config({
     path: __dirname + '/assets/.env'
 });
-fs.readdir('./cmd/', function (err, list) {
+fs.readdir('./cmd/', function (_err, list) {
     var table = new ascii();
     table.setHeading('Command', 'Load status');
     for (let file of list) {

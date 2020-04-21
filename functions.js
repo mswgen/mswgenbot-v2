@@ -153,5 +153,15 @@ module.exports = {
         }
     message.serverQueue.songs = [];
         message.serverQueue.connection.dispatcher.end();
+    },
+    checkLength: function (input) {
+        if (input.toString().length > 1000) {
+            return `${input.substr(0, 1000)}...`;
+        } else {
+            return input.toString();
+        }
+    },
+    codeBlock: function (input, type) {
+        return `\`\`\`${type}\n${input}\n\`\`\``;
     }
 }

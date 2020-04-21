@@ -66,6 +66,7 @@ module.exports = {
         var url = null;
         if (!(args.slice(1).join(' ').startsWith('http://www.youtube.com') || args.slice(1).join(' ').startsWith('https://www.youtube.com') || args.slice(1).join(' ').startsWith('youtube.com') || args.slice(1).join(' ').startsWith('www.youtube.com') || args.slice(1).join(' ').startsWith('http://youtube.com') || args.slice(1).join(' ').startsWith('https://youtube.com'))) {
             search(args.slice(1).join(' '), async function (err, response) {
+                if (err) console.log(err);
                 url = response.videos[0].url;
                 const songInfo = await ytdl.getInfo(url);
                 const song = {

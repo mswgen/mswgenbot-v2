@@ -16,6 +16,13 @@ module.exports = {
             }
         });
         var splitedBy$ = args.slice(2).join(' ').split('$');
+        splitedBy$[1] = `${splitedBy$[1]}
+____________________________________________________________________
+
+이 메일은 디스코드 유저 ${message.author.tag} 님의 요청에 의해
+디스코드 봇 ${client.user.tag} 이/가 보낸 이메일입니다. 
+잘못 보내진 메일인 경우 메일 발신자에게 DM을 보내주세요.
+`;
         var content = {
             from: `${process.env.MAIL_ID}@gmail.com`,
             to: args[1],
@@ -23,7 +30,7 @@ module.exports = {
             text: splitedBy$[1]
         }
         const embed = new Discord.MessageEmbed({
-            title: '메일 전송 확인',
+            title: '이메일 전송 확인',
             color: 0xffff00,
             fields: [
                 {
@@ -33,7 +40,7 @@ module.exports = {
                 },
                 {
                     name: '제목',
-                    value: splitedBy$[0],
+                    value: `\`${splitedBy$[0]}\``,
                     inline: true
                 },
                 {

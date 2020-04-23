@@ -16,6 +16,8 @@ module.exports = {
             }
         });
         var splitedBy$ = args.slice(2).join(' ').split('$');
+        if (!splitedBy$[0]) return await message.channel.send('제목을 써 주세요!');
+        if (!splitedBy$[1]) return await message.channel.send('내용을 써 주세요!');
         splitedBy$[1] = `${splitedBy$[1]}
 ____________________________________________________________________
 

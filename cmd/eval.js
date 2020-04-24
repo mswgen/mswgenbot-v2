@@ -12,7 +12,7 @@ module.exports = {
         for (var x in process.env) {
             input = input.replace(x, 'Secret');
         }
-        input = input.replace(/client.token/gi, '"Secret"').replace(/process.env/gi, '"Secret"')
+        input = input.replace(/process.env/gi, '"Secret"');
         const code = `const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');

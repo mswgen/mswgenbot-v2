@@ -31,7 +31,7 @@ module.exports = {
             .addField('봇 개발 시작일', fn.parseDate(client.user.createdAt), true)
             .addField('서버 추가일', fn.parseDate(message.guild.member(client.user).joinedAt), true)
             .addField('클라이언트 상태', fn.area(client.user), true)
-            .addField('개발자', client.users.cache.get(options.ownerId[0]).tag, true)
+            .addField('개발자', client.users.cache.get(option.ownerId[0]).tag, true)
             .addField('현재 게임, 상태 메세지 목록', fn.stat(client.user))
             .addField('함께하는 서버 개수', `${client.guilds.cache.size}개`, true)
             .addField('함께하는 유저 수', `${client.users.cache.size}명`, true)

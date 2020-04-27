@@ -145,22 +145,22 @@ client.on('ready', async function () {
     message.channel.stopTyping(true);
 })
     .on('guildMemberAdd', async function (member) {
-    if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
-        await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
-            .setTitle('멤버 입장')
-            .setColor(0x00ffff)
-            .setDescription(`${member.user}님이 ${member.guild.name}에 오셨습니다.`)
-            .setThumbnail(member.user.displayAvatarURL({
-                dynamic: true,
-                type: 'jpg',
-                size: 2048
-            }))
-            .setFooter(member.user.tag, member.user.displayAvatarURL({
-                dynamic: true,
-                type: 'jpg',
-                size: 2048
-            }))
-            .setTimestamp()
+        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || x.topic.includes('nogreeting')))) {
+            await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
+                .setTitle('멤버 입장')
+                .setColor(0x00ffff)
+                .setDescription(`${member.user}님이 ${member.guild.name}에 오셨습니다.`)
+                .setThumbnail(member.user.displayAvatarURL({
+                    dynamic: true,
+                    type: 'jpg',
+                    size: 2048
+                }))
+                .setFooter(member.user.tag, member.user.displayAvatarURL({
+                    dynamic: true,
+                    type: 'jpg',
+                    size: 2048
+                }))
+                .setTimestamp()
         );
     }
     if (member.guild.channels.cache.some(x => x.name == `${member.guild.name}의 유저 수` && x.type == 'category')) {
@@ -176,22 +176,22 @@ client.on('ready', async function () {
     }
 })
     .on('guildMemberRemove', async function (member) {
-    if (member.guild.channels.cache.some(x => x.name.includes('인사'))) {
-        await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
-            .setTitle('멤버 퇴장')
-            .setColor(0xffff00)
-            .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔습니다.`)
-            .setThumbnail(member.user.displayAvatarURL({
-                dynamic: true,
-                type: 'jpg',
-                size: 2048
-            }))
-            .setFooter(member.user.tag, member.user.displayAvatarURL({
-                dynamic: true,
-                type: 'jpg',
-                size: 2048
-            }))
-            .setTimestamp()
+        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || x.topic.includes('nogreeting')))) {
+            await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
+                .setTitle('멤버 퇴장')
+                .setColor(0xffff00)
+                .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔습니다.`)
+                .setThumbnail(member.user.displayAvatarURL({
+                    dynamic: true,
+                    type: 'jpg',
+                    size: 2048
+                }))
+                .setFooter(member.user.tag, member.user.displayAvatarURL({
+                    dynamic: true,
+                    type: 'jpg',
+                    size: 2048
+                }))
+                .setTimestamp()
         );
     }
         if (member.guild.channels.cache.some(x => x.type == 'category' && x.name == `${member.guild.name}의 유저 수`)) {

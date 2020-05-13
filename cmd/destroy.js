@@ -78,10 +78,8 @@ module.exports = {
                 });
                 await embed.setColor(0xff0000)
                         .setTitle('서버 폭파 완료!')
-                        .setDescription('진행 상황: 모든 웹훗 삭제 중');
                         await m.edit(embed);
                     });
             });
-        });
     }
 }

@@ -6,8 +6,8 @@ module.exports = {
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD')) return await message.channel.send('서버 관리자만 서버를 폭파시킬 수 있어요!');
         const embed = new Discord.MessageEmbed()
-        .setTitle('서버를 정말 폭파시킬까요?')
-        .setDescription('한번 폭파시키면 복구할 수 없습니다. 신중히 결정해주세요.')
+        .setTitle('서버 폭파 확인')
+        .addField('복구 여부', '불가능')
         .setColor(0xffff00)
         .setThumbnail(message.guild.iconURL({
             dynamic: true,
@@ -39,46 +39,47 @@ module.exports = {
                     return;
                 }
                 await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 모든 채널 삭제 중');
+                .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 서버 폭파 중`)
+                .addField('모든 채널 삭제', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true);
                 await m.edit(embed);
                 m.guild.channels.cache.filter(x => x.id != m.channel.id).forEach(async function (ch) {
                     await ch.delete();
                 });
-                await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 모든 역할 삭제 중');
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('모든 채널 삭제', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('모든 역할 삭제', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
                 await m.edit(embed);
                 m.guild.roles.cache.forEach(async function (r) {
                     await r.delete();
                 });
-                await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 서버 이름 변경 중');
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('모든 역할 삭제', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('서버 이름 변경', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
                 await m.edit(embed);
                 await m.guild.setName('폭파된 서버');
-                await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 서버 아이콘 삭제 중');
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('서버 이름 변경', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('서버 아이콘 삭제', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
                 await m.edit(embed);
                 await m.guild.setIcon(null);
-                await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 모든 이모지 삭제 중');
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('서버 아이콘 삭제', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('모든 이모지 삭제', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
                 await m.edit(embed);
                 m.guild.emojis.cache.forEach(async function (e) {
                     await e.delete();
                 })
-                await embed.setColor(0xff0000)
-                .setTitle('서버 폭파 중')
-                .setDescription('진행 상황: 모든 멤버 차단 중');
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('모든 이모지 삭제', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('모든 멤버 차단', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
                 await m.edit(embed);
-                m.guild.members.cache.filter(x => x.user.id != message.author.id).forEach(async function (member) {
+                m.guild.members.cache.filter(x => x.user.id != message.author.id && x.bannable).forEach(async function (member) {
                     await member.ban();
                 });
-                await embed.setColor(0xff0000)
-                        .setTitle('서버 폭파 완료!')
-                        await m.edit(embed);
+                await embed.setTitle('서버 폭파 완료')
+                    .spliceFields(embed.fields.length - 1, 1)
+                    .addField('모든 멤버 차단', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                    await m.edit(embed);
                     });
             });
     }

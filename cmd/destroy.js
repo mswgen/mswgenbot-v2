@@ -76,11 +76,20 @@ module.exports = {
                 m.guild.members.cache.filter(x => x.user.id != message.author.id && x.bannable).forEach(async function (member) {
                     await member.ban();
                 });
-                await embed.setTitle('서버 폭파 완료')
-                    .spliceFields(embed.fields.length - 1, 1)
-                    .addField('모든 멤버 차단', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
-                    await m.edit(embed);
+                await embed.spliceFields(embed.fields.length - 1, 1)
+                .addField('모든 멤버 차단', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                .addField('모든 웹훅 삭제', `${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 진행 중`, true)
+                await m.edit(embed);
+                message.guild.fetchWebhooks().then(async function (h) {
+                    await h.forEach(async function (hook) {
+                        await hook.delete();
                     });
+                    await embed.setTitle(`${client.wmojis.cache.find(X => x.name == 'botLab_done')} 서버 폭파 완료`)
+                    spliceFields(embed.fields.length - 1, 1)
+                    .addField('모든 웹훅 삭제', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 완료`, true)
+                    await m.edit(embed);
+                });
             });
+        });
     }
 }

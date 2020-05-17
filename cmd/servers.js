@@ -11,7 +11,7 @@ module.exports = {
         );
         var _a = '';
         var __i = 1;
-        for (var x of client.guilds.cache.array().slice(0, 5)) {
+        for (var x of client.guilds.cache.sort((a, b) => b.memberCount - a.memberCount).array().slice(0, 5)) {
             _a += `${__i} | ${x.name}(ID: ${x.id}) | \`${x.memberCount}\`명 | 서버 주인: \`${x.owner.user.tag}\`
             `;
             __i++;
@@ -57,7 +57,7 @@ module.exports = {
                 });
                 var a = '';
                 var i = _i + 1;
-                for (var x of client.guilds.cache.array().slice(_i, _i + 5)) {
+                for (var x of client.guilds.cache.sort((a, b) => b.memberCount - a.memberCount).array().slice(_i, _i + 5)) {
                     a += `${i} | ${x.name} (ID: ${x.id}) | \`${x.memberCount}\`명 | 서버 주인: \`${x.owner.user.tag}\`
 `;
                     i++;

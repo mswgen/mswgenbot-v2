@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'mask',
     alises: ['마스크', '공적마스크', '마스크현황', '공적마스크현황', 'mask'],
-    description: '입력한 주소지에 있는 약국의 공적 마스크 정보를 보여줍니다.',
+    description: '입력한 주소지에 있는 약국의 공적 마스크 정보를 보여줘요.',
     run: async function (client, message, args, option) {
         var days = {
             0: '누구나',
@@ -39,7 +39,7 @@ module.exports = {
                 m.edit(new Discord.MessageEmbed()
                     .setTitle('공적마스크 현황 검색 실패...')
                     .setColor(0xff0000)
-                    .setDescription(`${args.slice(1).join(' ')}의 마스크 현황을 찾을 수 없습니다.
+                    .setDescription(`${args.slice(1).join(' ')}의 마스크 현황을 찾을 수 없어요.
 다음을 시도해 보세요: 
 1. 주소를 정확히 입력했는지 확인
 2. 더 자세히 주소를 입력(예: 경기도 성남시 -> 경기도 성남시 분당구)

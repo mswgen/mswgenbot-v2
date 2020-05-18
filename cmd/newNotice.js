@@ -3,9 +3,9 @@ const fs = require('fs');
 module.exports = {
     name: 'noticechannel',
     alises: ['공지설정', '공지채널설정', 'noticechannel', '공지채널'],
-    description: "멘션한 채널을 봇의 공지 채널로 설정합니다.(서버 관리 권한 필요)",
+    description: "멘션한 채널을 봇의 공지 채널로 설정해요.(서버 관리 권한 필요)",
     run: async function (client, message, args, option) {
-        if (!message.member.hasPermission('MANAGE_GUILD') && !option.ownerId.includes(message.author.id)) return message.channel.send('서버 관리 권한이 필요합니다.');
+        if (!message.member.hasPermission('MANAGE_GUILD') && !option.ownerId.includes(message.author.id)) return message.channel.send('서버 관리 권한이 필요해요.');
         var ch;
         if (message.mentions.channels.first()) {
             ch = message.mentions.channels.first();
@@ -52,7 +52,7 @@ module.exports = {
         fs.writeFile('./assets/notice.json', JSON.stringify(notice), function (err) {
             if (err) console.log(err);
             const ymbed = new Discord.MessageEmbed()
-                .setTitle(`공지채널 등록 완료`)
+                .setTitle(`공지채널을 등록했어요.`)
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true
                 }))

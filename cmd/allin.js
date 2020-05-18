@@ -3,16 +3,16 @@ const fs = require('fs');
 module.exports = {
     name: 'allin',
     alises: ['올인', 'allin', 'all-in'],
-    description: '가지고 있는 돈을 모두 배팅합니다.',
+    description: '가지고 있는 돈을 모두 배팅해요.',
     run: async function (client, message, args, option) {
         const money = require('../assets/money.json');
         if (!money[message.author.id] || money[message.author.id] == 0) {
-            message.channel.send('현재 돈이 없습니다. 먼저 돈을 받아주세요.')
+            message.channel.send('현재 돈이 없어요. 먼저 돈을 받아주세요.')
             return;
         }
         const filter = (reaction, user) => (reaction.emoji.name == '✅' || reaction.emoji.name == '❌') && user.id == message.author.id;
         let prompt = await message.channel.send(new Discord.MessageEmbed()
-            .setTitle('올인 확인')
+            .setTitle('올인할까요?')
             .setThumbnail(message.author.avatarURL({
                 dynamic: true
             }))
@@ -40,7 +40,7 @@ module.exports = {
                         money[message.author.id] *= 2;
                         fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
                             const embed = new Discord.MessageEmbed()
-                                .setTitle('올인 성공!')
+                                .setTitle('올인에 성공했어요!')
                                 .setColor(0x00ffff)
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
@@ -56,7 +56,7 @@ module.exports = {
                         money[message.author.id] = 0;
                         fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
                             const embed = new Discord.MessageEmbed()
-                                .setTitle('올인 실패...')
+                                .setTitle('올인에 실패했어요...')
                                 .setColor(0xff0000)
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
@@ -72,7 +72,7 @@ module.exports = {
                 }, 5000)
             } else {
                 prompt.edit(new Discord.MessageEmbed()
-                    .setTitle('올인 포기')
+                    .setTitle('올인을 포기했어요')
                     .addField('가진 돈', money[message.author.id], true)
                     .setColor(0xffff00)
                     .setThumbnail(message.author.avatarURL({

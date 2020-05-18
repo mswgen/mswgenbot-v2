@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'shorten', 
     alises: ['단축', 'shorten'],
-    description: 'URL을 단축합니다.',
+    description: 'URL을 단축해요.',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('단축할 URL을 입력해주세요.');
         const embed = new Discord.MessageEmbed()
@@ -26,13 +26,13 @@ module.exports = {
         }).then(async function (response) {
             console.log(response);
             if (response.data.message == 'ok') {
-                embed.setTitle(`${client.emojis.cache.find(x => x.name == 'botLab_done')} URL 단축 완료`)
+                embed.setTitle(`${client.emojis.cache.find(x => x.name == 'botLab_done')} URL 단축이 완료되었어요`)
                     .addField('단축된 URL', response.data.result.url, true)
                     .setColor(0x00ffff)
                     .setImage(`${response.data.result.url}.qr`);
                 await m.edit(embed);
             } else {
-                embed.setTitle(`${client.emojis.cache.find(x => x.name == 'botLab_x')} URL 단축 오류`)
+                embed.setTitle(`${client.emojis.cache.find(x => x.name == 'botLab_x')} URL을 단축하는 동안 오류가 발생했어요`)
                     .addField('오류 내용', response.data.message, true)
                     .setColor(0xff0000)
                 await m.edit(embed);

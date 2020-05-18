@@ -2,7 +2,7 @@
 module.exports = {
     name: 'username',
     alises: ['이름변경', '닉네임변경', 'username', 'nickname', 'ㅕㄴㄷ구믇', 'ㅜㅑ차ㅜ믇', '닉네임', 'slrspdla', 'dlfmaqusrud', 'slrspdlaqusrud'],
-    description: '봇의 닉네임을 변경합니다.(봇 제작자만 가능)',
+    description: '봇의 닉네임을 변경해요.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         var arg = args.slice(1).join(' ');
@@ -22,7 +22,7 @@ module.exports = {
         let m = await message.channel.send(embed);
         client.user.setUsername(arg).then(function () {
             const imbed = new Discord.MessageEmbed()
-                .setTitle(`닉네임 변경됨`)
+                .setTitle(`닉네임이 변경되었어요`)
                 .setColor(0x00ffff)
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true

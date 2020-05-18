@@ -2,12 +2,12 @@
 module.exports = {
     name: 'notice',
     alises: ['공지', 'notice', 'ㅜㅐ샻ㄷ'],
-    description: '공지 채널로 등록된 모든 채널에 공지를 보냅니다.(봇 제작자만 가능)',
+    description: '공지 채널로 등록된 모든 채널에 공지를 보내요.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         var toSend = args.slice(1).join(' ');
         if (!option.ownerId.includes(message.author.id)) return message.channel.send('공지 내용을 써 주세요.');
         const prompt = new Discord.MessageEmbed()
-            .setTitle('공지 전송 확인')
+            .setTitle('공지를 전송할까요?')
             .setThumbnail(client.user.displayAvatarURL({
                 dynamic: true
             }))
@@ -78,7 +78,7 @@ module.exports = {
                     p.edit(imbed);
                 }
                 const ymbed = new Discord.MessageEmbed()
-                    .setTitle(`공지 전송 완료`)
+                    .setTitle(`공지를 전송했어요.`)
                     .setColor(0x00ffff)
                     .setThumbnail(client.user.displayAvatarURL({
                         dynamic: true
@@ -92,7 +92,7 @@ module.exports = {
                 p.edit(ymbed);
             } else {
                 const cancled = new Discord.MessageEmbed()
-                    .setTitle('공지 전송 취소됨')
+                    .setTitle('공지 전송이 취소되었어요.')
                     .setColor(0xff0000)
                     .setThumbnail(client.user.displayAvatarURL({
                         dynamic: true

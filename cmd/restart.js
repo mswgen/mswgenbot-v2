@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     name: 'restart',
     alises: ['재시작', 'restart', 'ㅈㅅㅈ', 'ㄱㄷㄴㅅㅁㄳ', 'wotlwkr'],
-    description: '봇을 재시작합니다.(샤딩 없이 디버깅 중일 경우 종료됨, 봇 제작자만 가능)',
+    description: '봇을 재시작해요.(샤딩 없이 디버깅 중일 경우 종료됨, 봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()
@@ -65,7 +65,7 @@ module.exports = {
                 .setTimestamp()
             m.edit(imbed);
             const ymbed = new Discord.MessageEmbed()
-                .setTitle('종료됨')
+                .setTitle('봇이 종료되었어요.')
                 .setColor(0x00ffff)
                 .setThumbnail(client.user.displayAvatarURL({
                     dynamic: true

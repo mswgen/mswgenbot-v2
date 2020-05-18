@@ -4,7 +4,7 @@ const fn = require('../functions.js');
 module.exports = {
     name: 'console',
     alises: ['console', 'eval_console', '콘솔', '채ㅜ내ㅣㄷ_ㄷㅍ미', '채ㅜ내ㅣㄷ', 'cmd', '층'],
-    description: '콘솔에서 명령어를 실행합니다. (봇 제작자만 가능)',
+    description: '콘솔에서 명령어를 실행해요. (봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()

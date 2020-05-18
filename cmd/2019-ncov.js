@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = {
     name: '2019-ncov',
     alises: ['코로나', '우한폐렴', '신종코로나', '코로나19', 'covid-19', 'covid19', '2019-ncov'],
-    description: '코로나19 현황을 보여줍니다.',
+    description: '코로나19 현황을 보여줘요.',
     run: async function (client, message, args, option) {
         const loadingEmbed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 코로나19 현황 로딩 중`)

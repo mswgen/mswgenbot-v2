@@ -4,7 +4,7 @@ const fn = require('../functions.js');
 module.exports = {
     name: 'github',
     alises: ['깃허브', 'github'],
-    description: '깃허브 유저의 정보를 불러옵니다.',
+    description: '깃허브 유저의 정보를 불러와요.',
     run: async function (client, message, args, option) {
         var toGet = args.slice(1).join(' ');
         if (!toGet) return message.channel.send('정보를 가져올 유저의 닉네임을 입력해주세요.');
@@ -23,7 +23,7 @@ module.exports = {
                 m.edit(new Discord.MessageEmbed()
                     .setTitle('유저 검색 실패...')
                     .setColor(0xff0000)
-                    .setDescription(`${toGet}의 정보를 찾을 수 없습니다.`)
+                    .setDescription(`${toGet}의 정보를 찾을 수 없어요.`)
                     .setThumbnail('https://cdn.discordapp.com/emojis/690156550056181788.png?v=1')
                     .setFooter(message.author.tag, message.author.avatarURL({
                         dynamic: true,

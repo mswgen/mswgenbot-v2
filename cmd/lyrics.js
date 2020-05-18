@@ -4,7 +4,7 @@ const lyrics = new Lyrics();
 module.exports = {
     name: 'lyrics',
     alises: ['가사', '가사검색', 'lyrics', '리릭스'],
-    description: 'Melon이나 AtoZLyrics에서 노래의 가사를 검색합니다.',
+    description: 'Melon이나 AtoZLyrics에서 노래의 가사를 검색해요.',
     run: async function (client, message, args, option) {
         if (!args[1]) return;
         const embed = new Discord.MessageEmbed()
@@ -58,7 +58,7 @@ ${atoz.result}`)
             const imbed = new Discord.MessageEmbed()
                 .setTitle('가사 검색 실패...')
                 .setColor(0xff0000)
-                .setDescription(`${args.slice(1).join(' ')}의 가사를 찾을 수 없습니다.`)
+                .setDescription(`${args.slice(1).join(' ')}의 가사를 찾을 수 없어요.`)
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))

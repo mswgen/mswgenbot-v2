@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'hangang_temp',
     alises: ['한강', '한강온도', '한강수온', 'hangang', 'hangang-temperture', 'hangang-temp'],
-    description: '한강의 수온을 보여줍니다.',
+    description: '한강의 수온을 보여줘요.',
     run: async function (client, message, args, option) {
         axios.post('http://hangang.dkserver.wo.tc/').then(function (x) {
             message.channel.send(

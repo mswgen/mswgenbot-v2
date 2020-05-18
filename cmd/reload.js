@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     name: 'reload',
     alises: ['reload', '리로드', 'ㄱ디ㅐㅁㅇ', 'ㄹㄹㄷ', 'ffe', 'flfhem'],
-    description: '봇의 모든 커멘드 파일을 리로드합니다.(봇 제작자만 가능)',
+    description: '봇의 모든 커멘드 파일을 리로드해요.(봇 제작자만 가능)',
     run: async function (client, message, _args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()
@@ -37,7 +37,7 @@ module.exports = {
             }
                 embed.spliceFields(0, 1)
                     .addField('커멘드 파일 로드 상태', `${client.emojis.cache.find(x => x.name == 'botLab_done')} 리로드 완료(${list.length}개)`)
-                    .setTitle('리로드 완료')
+                    .setTitle('리로드가 완료되었어요.')
                     .setColor(0x00ffff)
                 await m.edit(embed);
         });

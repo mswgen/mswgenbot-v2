@@ -3,10 +3,10 @@ const util = require('util');
 module.exports = {
     name: 'eval', 
     alises: ['eval', '실행', 'compile', '컴파일', 'evaluate', 'ㄷㅍ미', '채ㅡㅔㅑㅣㄷ', 'ㄷㅍ미ㅕㅁㅅㄷ'],
-    description: '자바스크립트 코드를 바로 실행합니다.(봇 제작자만 가능)',
+    description: '자바스크립트 코드를 바로 실행해요.(봇 제작자만 가능)',
     run: async function (client, message, args, option) {
         message.delete();
-        if (!option.ownerId.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 가능합니다.`);
+        if (!option.ownerId.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 가능해요.`);
         let input = args.slice(1).join(' ');
         if (!input) return message.channel.send('내용을 써 주세요.');
         for (var x in process.env) {

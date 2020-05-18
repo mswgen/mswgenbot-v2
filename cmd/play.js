@@ -12,7 +12,7 @@ function play (client, guild, song, info, m, message) {
     }
     const dispatcher = serverQueue.connection.play(ytdl(song.song.url));
     const imbed = new Discord.MessageEmbed()
-        .setTitle('노래 재생 시작')
+        .setTitle('노래를 재생하기 시작했어요.')
         .setDescription('노래가 들리지 않으면 봇의 마이크가 음소거되어있는지 확인해주세요.')
         .setColor(0x00ffff)
         .setThumbnail(info.author.avatar)
@@ -40,18 +40,18 @@ function play (client, guild, song, info, m, message) {
 module.exports = {
     name: 'play', 
     alises: ['재생', 'play'],
-    description: '유튜브에서 노래를 검색해 재생합니다. (url, 유튜브 검색어 둘 다 가능)',
+    description: '유튜브에서 노래를 검색해 재생해요. (url, 유튜브 검색어 둘 다 가능)',
     run: async function (client, message, args, option) {
         message.delete();
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel)
             return message.channel.send(
-                "음악을 재생하려면 음성 채널에 들어가야 합니다."
+                "음악을 재생하려면 음성 채널에 들어가야 해요."
             );
         const permissions = voiceChannel.permissionsFor(message.client.user);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             return message.channel.send(
-                "음성 채널 연결 권한과 말하기 권한이 필요합니다."
+                "음성 채널 연결 권한과 말하기 권한이 필요해요."
             );
         }
         const embed = new Discord.MessageEmbed()

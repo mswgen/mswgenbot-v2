@@ -17,7 +17,7 @@ function getOs(client) {
 module.exports = {
     name: 'botinfo', 
     alises: ['봇정보', 'botinfo', '정보봇', 'bot-info'],
-    description: '이 봇의 정보를 보여줍니다.',
+    description: '이 봇의 정보를 보여줘요.',
     run: async function (client, message, args, option) {
         let m = await message.channel.send(new Discord.MessageEmbed().setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 핑 측정 중...`).setTimestamp());
         const embed2 = new Discord.MessageEmbed()

@@ -2,7 +2,7 @@
 module.exports = {
     name: 'channelinfo',
     alises: ['채널정보', '정보채널', 'channel-info', 'channelinfo'],
-    description: '멘션한 채널의 정보를 보여줍니다. ',
+    description: '멘션한 채널의 정보를 보여줘요. ',
     run: async function (client, message, args, option) {
         var ch = null;
         if (message.mentions.channels.first()) {

@@ -8,9 +8,9 @@ var verify = {
     VERY_HIGH: '매우 높음'
 };
 var filter = {
-    DISABLED: '미디어 콘텐츠를 스캔하지 않음',
-    MEMBERS_WITHOUT_ROLES: '역할 없는 멤버의 미디어 콘텐츠를 스캔함',
-    ALL_MEMBERS: '모든 멤버의 미디어 콘텐츠를 스캔함'
+    DISABLED: '미디어 콘텐츠를 스캔하지 않아요',
+    MEMBERS_WITHOUT_ROLES: '역할 없는 멤버의 미디어 콘텐츠를 스캔해요',
+    ALL_MEMBERS: '모든 멤버의 미디어 콘텐츠를 스캔해요'
 };
 var notify = {
     ALL: '모든 알림',
@@ -23,7 +23,7 @@ var mfa = {
 module.exports = {
     name: 'serverinfo',
     alises: ['서버정보', '정보서버', 'server-info', 'serverinfo'],
-    description: '메세지를 입력한 서버의 정보를 알려줍니다.',
+    description: '메세지를 입력한 서버의 정보를 알려줘요.',
     run: async function (client, message, args, option) {
         const imbed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 서버 정보를 받아오는 중...`)

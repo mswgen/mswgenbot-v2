@@ -2,7 +2,7 @@
 module.exports = {
     name: "ping",
     alises: ['핑', 'ping'],
-    description: '봇의 현재 핑(지연 시간)을 보여줍니다.',
+    description: '봇의 현재 핑(지연 시간)을 보여줘요.',
     run: async function (client, message, args, option) {
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Pinging...`)

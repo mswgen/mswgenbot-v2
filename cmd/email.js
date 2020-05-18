@@ -4,7 +4,7 @@ const fn = require('../functions.js');
 module.exports = {
     name: 'mail',
     alises: ['메일', '이메일', 'email'],
-    description: `봇 계정으로 이메일을 전송합니다.
+    description: `봇 계정으로 이메일을 전송해요.
 메세지 형식: 
 /메일 <받는 사람 이메일> <제목>$<내용>`,
     run: async function (client, message, args, option) {
@@ -22,7 +22,7 @@ module.exports = {
 ____________________________________________________________________
 
 이 메일은 디스코드 유저 ${message.author.tag} 님의 요청에 의해
-디스코드 봇 ${client.user.tag} 이/가 보낸 이메일입니다. 
+디스코드 봇 ${client.user.tag} 이/가 보낸 이메일이에요. 
 잘못 보내진 메일인 경우 메일 발신자에게 DM을 보내주세요.
 `;
         var content = {
@@ -32,7 +32,7 @@ ____________________________________________________________________
             text: splitedBy$[1]
         }
         const embed = new Discord.MessageEmbed({
-            title: '이메일 전송 확인',
+            title: '이메일을 전송할까요?',
             color: 0xffff00,
             fields: [
                 {
@@ -79,12 +79,12 @@ ____________________________________________________________________
                     transporter.sendMail(content, async function (err) {
                         if (err) {
                             embed.setColor(0xff0000)
-                                .setTitle('이메일 전송 에러...')
+                                .setTitle('이메일을 전송하는 동안 에러가 발생했어요.')
                                 .addField('에러 내용', fn.codeBlock(fn.checkLength(err), ''));
                             await m.edit(embed);
                         } else {
                             embed.setColor(0x00ffff)
-                                .setTitle('이메일 전송 완료');
+                                .setTitle('이메일을 전송했어요!');
                             await m.edit(embed);
                         }
                     });

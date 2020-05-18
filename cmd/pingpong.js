@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 module.exports = {
     name: 'pingpong',
     alises: ['핑퐁', 'pingpong', 'vldvhd'],
-    description: '핑퐁 빌더(https://pingpong.us)를 사용한 인공지능과 대화합니다. ',
+    description: '핑퐁 빌더(https://pingpong.us)를 사용한 인공지능과 대화해요. ',
     run: function (client, message, args, option) {
         const body = {
             request: {

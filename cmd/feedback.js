@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'feedback',
     alises: ['건의', 'feedback', '피드백'],
-    description: '봇에 대한 건의를 할 수 있습니다.',
+    description: '봇에 대한 건의를 할 수 있어요.',
     run: async function (client, message, args, option) {
         var arg = args.slice(1).join(' ');
         const embed = new Discord.MessageEmbed()
@@ -32,7 +32,8 @@ module.exports = {
             .setTimestamp()
         client.users.cache.get('647736678815105037').send(imbed);
         const ymbed = new Discord.MessageEmbed()
-            .setTitle('건의 전송 완료')
+            .setTitle('건의를 전송했어요.')
+            .setDescription('건의해주셔서 감사해요!')
             .setColor(0x00ffff)
             .setThumbnail(client.user.displayAvatarURL({
                 dynamic: true

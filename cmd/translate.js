@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'translate',
     alises: ['번역', 'translate'],
-    description: '네이버 파파고를 이용해 문장을 번역합니다.',
+    description: '네이버 파파고를 이용해 문장을 번역해요.',
     run: async function (client, message, args, option) {
         var lang = {
             한국어: 'ko',
@@ -17,7 +17,7 @@ module.exports = {
             'chinese-traditional':'zh-TW'
         }
         if (!args[2]) return;
-        if (!lang[args[1]]) return message.channel.send('현재 한국어, 영어, 중국어간체, 중국어번체, 일본어만 가능합니다.');
+        if (!lang[args[1]]) return message.channel.send('현재 한국어, 영어, 중국어간체, 중국어번체, 일본어만 가능해요.');
         axios.post('https://openapi.naver.com/v1/papago/detectLangs', {
             query: args.slice(2).join(' ')
         },

@@ -2,7 +2,7 @@
 module.exports = {
     name: 'vote',
     alises: ['투표', 'vote', 'poll'],
-    description: '비밀투표를 시작합니다.(항목은 10개까지 추가 가능, 투표명과 첫번째 항목, 각 항목은 $로 구분, 마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료됨)',
+    description: '비밀투표를 시작해요.(항목은 10개까지 추가 가능, 투표명과 첫번째 항목, 각 항목은 $로 구분, 마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료돼요)',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var items = args.slice(1).join(' ').split('%%')[0].split('$');
@@ -82,7 +82,7 @@ module.exports = {
             collector.on('end', async function (collected) {
                 await m.reactions.removeAll();
                 const imbed = new Discord.MessageEmbed()
-                    .setTitle(`투표 ${embed.title} 종료됨`)
+                    .setTitle(`투표 ${embed.title}이/가 종료되었어요`)
                     .setColor(0x00ffff)
                     .addField('투표 메세지 url', m.url);
                 imbed.setFooter(`${message.author.tag}`, message.author.avatarURL({
@@ -105,7 +105,7 @@ module.exports = {
                 sorted.sort(function (a, b) {
                     return b.number - a.number;
                 });
-                imbed.addField('투표 결과(동점이 있을 경우 부정확할 수 있습니다.)', `${sorted[0].content}(${sorted[0].number}표)`);
+                imbed.addField('투표 결과(동점이 있을 경우 부정확할 수 있어요.)', `${sorted[0].content}(${sorted[0].number}표)`);
                 await message.author.send(imbed);
                 embed.setTitle(`${embed.title}(종료됨)`);
                 await m.edit(embed);

@@ -74,7 +74,7 @@ client.on('ready', async function () {
     }, 10000);
     if (restart.bool == true) {
         const embed = new Discord.MessageEmbed()
-            .setTitle('재시작 완료')
+            .setTitle('재시작이 완료되었어요.')
             .setColor(0x00ffff)
             .setThumbnail(client.user.displayAvatarURL({
                 dynamic: true
@@ -119,11 +119,11 @@ client.on('ready', async function () {
             }
         }
         if (!message.content.startsWith(option.prefix)) return;
-        var args = message.content.substr(1).split(' ');
+        var args = message.content.substr(option.prefix.length).split(' ');
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;
-            client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
+            await client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
         }
         
     } catch (err) {
@@ -145,11 +145,11 @@ client.on('ready', async function () {
     message.channel.stopTyping(true);
 })
     .on('guildMemberAdd', async function (member) {
-        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 입장')
                 .setColor(0x00ffff)
-                .setDescription(`${member.user}님이 ${member.guild.name}에 오셨습니다.`)
+                .setDescription(`${member.user}님이 ${member.guild.name}에 오셨어요.`)
                 .setThumbnail(member.user.displayAvatarURL({
                     dynamic: true,
                     type: 'jpg',
@@ -176,11 +176,11 @@ client.on('ready', async function () {
     }
 })
     .on('guildMemberRemove', async function (member) {
-        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 퇴장')
                 .setColor(0xffff00)
-                .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔습니다.`)
+                .setDescription(`${member.user.tag}님이 ${member.guild.name}에서 나갔어요.`)
                 .setThumbnail(member.user.displayAvatarURL({
                     dynamic: true,
                     type: 'jpg',

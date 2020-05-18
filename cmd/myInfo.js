@@ -3,7 +3,7 @@ const fn = require('../functions.js');
 module.exports = {
     name: 'myInfo',
     alises: ['내정보', 'myinfo', 'my-info', 'myinformation', 'my-information'],
-    description: '나의 정보를 보여줍니다.',
+    description: '나의 정보를 보여줘요.',
     run: async function (client, message, args, option) {
         const embed = new Discord.MessageEmbed()
             .setTitle(`${message.author.username} 정보`)

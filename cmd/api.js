@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = {
     name: 'api',
     alises: ['api', '메ㅑ'],
-    description: '봇의 api를 불러와 보여줍니다.',
+    description: '봇의 api를 불러와 보여줘요.',
     run: async function (client, message, args, option) {
         let m = await message.channel.send(new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} ${client.user.username} API 로딩 중`)
@@ -51,7 +51,7 @@ module.exports = {
                     );
                 } else {
                     await m.delete().then(function () {
-                        message.channel.send('api 정보를 받아오는 동안 에러가 발생하였습니다.')
+                        message.channel.send('api 정보를 받아오는 동안 에러가 발생하였어요.')
                     });
                 }
             });

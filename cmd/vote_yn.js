@@ -2,7 +2,7 @@
 module.exports = {
     name: 'vote_yesAndNo',
     alises: ['찬반투표'],
-    description: '찬반 비밀투표를 시작합니다. (마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료됨)',
+    description: '찬반 비밀투표를 시작해요. (마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료돼요)',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var pros = new Discord.Collection();
@@ -53,7 +53,7 @@ module.exports = {
             collector.on('end', async function (collected) {
                 await m.reactions.removeAll();
                 const imbed = new Discord.MessageEmbed()
-                    .setTitle(`투표 ${embed.title} 종료됨`)
+                    .setTitle(`투표 ${embed.title}이/가 종료되었어요`)
                     .setColor(0x00ffff)
                     .addField('투표 메세지 url', m.url, true);
                 imbed.setFooter(`${message.author.tag}`, message.author.avatarURL({

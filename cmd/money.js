@@ -2,7 +2,7 @@
 module.exports = {
     name: 'mymoney',
     alises: ['돈', 'money'],
-    description: '현재 갖고 있는 돈을 보여줍니다.',
+    description: '현재 갖고 있는 돈을 보여줘요.',
     run: async function (client, message, args, option) {
         const money = require('../assets/money.json');
         const embed = new Discord.MessageEmbed()

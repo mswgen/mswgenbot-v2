@@ -4,7 +4,7 @@ const time = new Discord.Collection();
 module.exports = {
     name: 'getmoney',
     alises: ['돈받기', 'getmoney', 'get-money', '돈내놔'],
-    description: '돈을 받습니다.',
+    description: '돈을 받아요.',
     run: async function (client, message, args, option) {
         if (!time.get(message.author.id)) {
             time.set(message.author.id, 0);
@@ -18,7 +18,7 @@ module.exports = {
         money[message.author.id] += add;
         fs.writeFile('../assets/money.json', JSON.stringify(money), function (err) {
             const embed = new Discord.MessageEmbed()
-                .setTitle('돈 받기 완료!')
+                .setTitle('돈을 받았어요!')
                 .addField('받은 돈', `${add}원`, true)
                 .addField('현재 돈', `${money[message.author.id]}원`, true)
                 .setColor(0x00ffff)

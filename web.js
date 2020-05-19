@@ -1,6 +1,16 @@
 ﻿const http = require('http');
 const url = require('url');
 const qs = require('querystring');
+const axios = require('axios');
+const fs = require('fs');
+const Discord = require('discord.js');
+function avatar (user) {
+    if (user.avatar) {
+        return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg?size=2048`;
+    } else {
+        return `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+    }
+}
 module.exports = {
     create: function (client, option) {
         const server = http.createServer(function (req, res) {
@@ -24,6 +34,76 @@ module.exports = {
                                 'bot info': "use POST method (set data 'type' to 'info')"
                             }))
                         }
+                    } else if (url.parse(req.url, true).pathname == '/login') {
+                        res.writeHead(302, {
+                            'Location': `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.CALLBACK)}&scope=identify%20guilds&response_type=code`
+                        });
+                        res.end();
+                    } else if (url.parse(req.url, true).pathname == '/callback') {
+                        axios.post('https://discord.com/api/oauth2/token', qs.stringify({
+                            client_id: process.env.CLIENT_ID,
+                            client_secret: process.env.CLIENT_SECRET,
+                            scope: 'identify guilds',
+                            code: query.code,
+                            redirect_uri: process.env.CALLBACK,
+                            state: process.env.STATE,
+                            grant_type: 'authorization_code'
+                        }), {
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            validateStatus: () => true
+                        }).then(async tokenRes => {
+                            axios.get('https://discord.com/api/users/@me', {
+                                headers: {
+                                    Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
+                                },
+                                validateStatus: () => true
+                            }).then(async userRes => {
+                                axios.get('https://discord.com/api/users/@me/guilds', {
+                                    headers: {
+                                        Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`
+                                    },
+                                    validateStatus: () => true
+                                }).then(async guildRes => {
+                                    var str = '';
+                                    for (var x of guildRes.data) {
+                                        if (new Discord.Permissions(x.permissions).has('MANAGE_GUILD')) {
+                                            str += `<p><strong>${x.name}</strong>에 봇 <a href="https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=8&scope=bot&guild_id=${x.id}&disable_guild_select=true">추가하기</a></p>`;
+                                        }
+                                    }
+                                    fs.readFile('./selectguild.html', 'utf8', (err, data) => {
+                                        res.writeHead(200, {
+                                            'Content-Type': 'text/html; charset=utf-8'
+                                        });
+                                        res.end(data
+                                            .replace(/!!!!!!avatar!!!!!!/gi, avatar(userRes.data))
+                                            .replace(/!!!!!!nick!!!!!!/gi, `${userRes.data.username}#${userRes.data.discriminator}`)
+                                            .replace(/!!!!!!guilds!!!!!!/gi, str)
+                                        );
+                                    });
+                                });
+                            });
+                        });
+                    } else if (url.parse(req.url, true).pathname == '/logined_css.css') {
+                        fs.readFile('./logined_css.css', 'utf8', (err, data) => {
+                            if (err) {
+                                res.writeHead(404);
+                                res.end();
+                            } else {
+                                res.writeHead(200, {
+                                    'Content-Type': 'text/css; charset=utf-8'
+                                });
+                                res.end(data);
+                            }
+                        });
+                    } else if (url.parse(req.url, true).pathname == '/boticon.webp') {
+                        res.writeHead(200);
+                        res.end(client.user.displayAvatarURL({
+                            dynamic: false,
+                            format: 'webp',
+                            size: 2048
+                        }));
                     } else {
                         res.writeHead(404)
                             .end(`
@@ -80,7 +160,10 @@ module.exports = {
                 `);
                 }
             } catch (err) {
-                res.writeHead(500);
+                res.writeHead(500, {
+                    'Content-Type': 'text/html; charset=utf-8',
+                    err: err
+                });
                 res.end(`
                     <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
@@ -95,9 +178,9 @@ module.exports = {
             return `<!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8'>
-<meta name='keywords' content='${client.user.username}'>
-<meta name='description' content='봇 테스트 페이지'>
+<meta charset="utf-8">
+<meta name="keywords" content="${client.user.username}">
+<meta name="description" content="mswgen봇 v2 사이트">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <style>
@@ -119,10 +202,11 @@ ${client.user.username}
 <p>
 API 지연 시간: ${client.ws.ping}
 </p>
-<h2>초대 링크</h2>
+<h2>초대하기</h2>
 <p>
-<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=8&scope=bot'>관리자 권한</a>
-<a href='https://discordapp.com/api/oauth2/authorize?client_id=688672545184022579&permissions=37214528&scope=bot'>기본 권한</a>
+<form action="/login">
+<input type="submit" value="로그인">
+</form>
 </p>
 <img src=${client.user.displayAvatarURL({
                 dynamic: true

@@ -1,0 +1,19 @@
+html {
+    font-family: "맑은 고딕", "Malgun Gothic", sans-serif;
+}
+a {
+    text-decoration-line: none;
+}
+#grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    width: 100%;
+}
+#avatar {
+    height: 20px;
+}
+#nick {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}

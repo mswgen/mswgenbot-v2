@@ -99,18 +99,21 @@ module.exports = {
                         });
                     } else if (url.parse(req.url, true).pathname == '/boticon.webp') {
                         res.writeHead(200);
-                        res.end(client.user.displayAvatarURL({
-                            dynamic: false,
-                            format: 'webp',
-                            size: 2048
+                        res.end(client.user.avatarURL({
+                            dynamic: false
                         }));
                     } else {
                         res.writeHead(404)
                             .end(`
-                    <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
+                    <head>
+                    <meta charset='utf-8'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                    <meta name="keywords" content="${client.user.username}">
+                    <meta name="description" content="${client.user.username} 사이트">
+                    </head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
-                    <p>404: 페이지를 찾을 수 없습니다.</p>
+                    <p>404: 페이지를 찾을 수 없어요.</p>
                     <a href='/'>메인으로 돌아가기</a>
                 `);
                     }
@@ -155,7 +158,7 @@ module.exports = {
                     <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
-                    <p>405: 허용되지 않은 메서드입니다. (허용된 메서드:GET, POST)</p>
+                    <p>405: 허용되지 않은 메서드에요. (허용된 메서드:GET, POST)</p>
                     <a href='/'>메인으로 돌아가기</a>
                 `);
                 }
@@ -168,7 +171,7 @@ module.exports = {
                     <head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>
                     <h1>에러...</h1>
                     <h2>에러 내용</h2>
-                    <p>500: 서버 코드에 오류가 있습니다.(오류 내용: ${err})</p>
+                    <p>500: 서버 코드에 오류가 있어요.(오류 내용: ${err})</p>
                     <a href='/'>메인으로 돌아가기</a>
                 `);
             }

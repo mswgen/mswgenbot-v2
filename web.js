@@ -69,7 +69,7 @@ module.exports = {
                                     var str = '';
                                     for (var x of guildRes.data) {
                                         if (new Discord.Permissions(x.permissions).has('MANAGE_GUILD')) {
-                                            str += `<p><strong>${x.name}</strong>에 봇 <a href="https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=8&scope=bot&guild_id=${x.id}&disable_guild_select=true">추가하기</a></p>`;
+                                            str += `<p><strong>${x.name}</strong>에 봇 <a href="https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&permissions=${x.permissions}&scope=bot&guild_id=${x.id}&disable_guild_select=true">추가하기</a></p>`;
                                         }
                                     }
                                     fs.readFile('./selectguild.html', 'utf8', (err, data) => {

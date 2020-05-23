@@ -15,9 +15,9 @@
     "slyrics": "^0.1.42",
     "socket.io": "^2.3.0",
     "util": "^0.12.3",
-    "ytdl-core": "^2.1.2",
+    "weather-js": "^2.0.0",
     "yt-search": "^1.1.2",
-    "weather-js": "^2.0.0"
+    "ytdl-core": "^2.1.2"
   },
   "description": "discord bot",
   "engines": {

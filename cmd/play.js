@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 const opus = require('@discordjs/opus');
 const opusscript = require('opusscript');
 const search = require('yt-search');
-function play (client, guild, song, info, m, message) {
+async function play (client, guild, song, info, m, message) {
 	const serverQueue = client.queue.get(guild.id);
 	if (!song) {
 		serverQueue.voiceChannel.leave();
@@ -11,6 +11,10 @@ function play (client, guild, song, info, m, message) {
 		return;
     }
     const dispatcher = serverQueue.connection.play(ytdl(song.song.url));
+    var _m = await message.channel.send(`${song.song.title} 재생 중\n🔘--------------------`);
+    var intvl = setInterval(() => {
+        _m.edit(_m.content.replace('🔘--', '--🔘'));
+    }, info.length_seconds * 1000 / 10);
     const imbed = new Discord.MessageEmbed()
         .setTitle('노래를 재생하기 시작했어요.')
         .setDescription('노래가 들리지 않으면 봇의 마이크가 음소거되어있는지 확인해주세요.')
@@ -29,7 +33,11 @@ function play (client, guild, song, info, m, message) {
     .setTimestamp()
     m.edit(imbed);
     dispatcher.on('finish', function () {
-			serverQueue.songs.shift();
+            serverQueue.songs.shift();
+            _m.delete();
+            clearInterval(intvl);
+            delete intvl;
+            delete _m;
 			play(client, guild, serverQueue.songs[0], info, m, message);
 		});
     dispatcher.on('error', function (error) {

@@ -5,6 +5,7 @@ module.exports = {
     alises: ['내정보', 'myinfo', 'my-info', 'myinformation', 'my-information'],
     description: '나의 정보를 보여줘요.',
     run: async function (client, message, args, option) {
+        let userFlag = await message.author.fetchFlags();
         const embed = new Discord.MessageEmbed()
             .setTitle(`${message.author.username} 정보`)
             .setThumbnail(message.author.displayAvatarURL({
@@ -16,6 +17,7 @@ module.exports = {
             .addField('유저 id', message.author.id, true)
             .addField('서버 내 별명', message.member.nickname || message.author.username, true)
             .addField('디스코드 가입일', fn.parseDate(message.author.createdAt), true)
+            .addField('HypeSquad', fn.hype(client, userFlag), true)
             .addField('서버 참가일', fn.parseDate(message.member.joinedAt), true)
             .addField('봇 여부', message.author.bot, true)
             .addField('디스코드 클라이언트 상태', fn.area(message.author), true)

@@ -1,5 +1,16 @@
 ﻿const Discord = require('discord.js');
 const fn = require('../functions.js');
+function hype (client, flag) {
+    if (flag.has('HOUSE_BRILLIANCE')) {
+        return `${client.emojis.cache.find(x => x.name == 'hypesqaud_brilliance')} House of Brilliance`;
+    } else if (flag.has('HOUSE_BRAVERY')) {
+        return `${client.emojis.cache.find(x => x.name == 'hypesqaud_bravery')} House of Bravery`;
+    } else if (flag.has('HOUSE_BALANCE')) {
+        return `${client.emojis.cache.find(x => x.name == 'hypesqaud_balance')} House of Balance`;
+    } else {
+        return '없음';
+    }
+}
 module.exports = {
     name: 'userInfo',
     alises: ['유저정보', 'userinfo', 'user-info', 'userinformation', 'user-information', '정보유저', '사용자정보', '정보사용자'],
@@ -9,6 +20,7 @@ module.exports = {
         if (mention) {
             const member = message.guild.member(mention);
             if (!member) return;
+            let userFlag = await mention.fetchFlags();
             const embed = new Discord.MessageEmbed()
                 .setTitle(`${mention.username} 정보`)
                 .setThumbnail(mention.displayAvatarURL({
@@ -20,6 +32,7 @@ module.exports = {
                 .addField('유저 id', mention.id, true)
                 .addField('서버 내 별명', member.nickname || mention.username, true)
                 .addField('디스코드 가입일', fn.parseDate(mention.createdAt), true)
+                .addField('HypeSquad', fn.hype(client, userFlag), true)
                 .addField('서버 참가일', fn.parseDate(member.joinedAt), true)
                 .addField('봇 여부', mention.bot, true)
                 .addField('디스코드 클라이언트 상태', fn.area(mention) || '없음', true)
@@ -33,7 +46,7 @@ module.exports = {
             embed.setFooter(mention.tag, mention.displayAvatarURL({
                 dynamic: true
             }))
-                .setTimestamp()
+                .setTimestamp();
             message.channel.send(embed);
         } else {
             let member = message.guild.members.cache.get(args[1]);
@@ -41,6 +54,7 @@ module.exports = {
                 member = message.guild.members.cache.find(x => x.user.username.startsWith(args.slice(1).join(' ')) || x.user.username.endsWith(args.slice(1).join(' ')) || (x.nickname && x.nickname.startsWith(args.slice(1).join(' '))) || (x.nickname && x.nickname.endsWith(args.slice(1).join(' '))));
             }
             if (!member) return;
+            let userFlag = await member.user.fetchFlags();
             const embed = new Discord.MessageEmbed()
                 .setTitle(`${member.user.username} 정보`)
                 .setThumbnail(member.user.displayAvatarURL({
@@ -52,6 +66,7 @@ module.exports = {
                 .addField('유저 id', member.user.id, true)
                 .addField('서버 내 별명', member.nickname || member.user.username, true)
                 .addField('디스코드 가입일', fn.parseDate(member.user.createdAt), true)
+                .addField('HypeSquad', hype(client, userFlag), true)
                 .addField('서버 참가일', fn.parseDate(member.joinedAt), true)
                 .addField('봇 여부', member.user.bot, true)
                 .addField('디스코드 클라이언트 상태', fn.area(member.user) || '없음', true)

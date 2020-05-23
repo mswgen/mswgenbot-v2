@@ -137,18 +137,18 @@ module.exports = {
     skip: function (message) {
     if (!message.member.voice.channel)
         return message.channel.send(
-            "음악을 스킵하려면 음성 채널에 들어가야 합니다."
+            "음악을 스킵하려면 음성 채널에 들어가야 해요."
         );
-        if (!message.serverQueue) return message.channel.send("현재 재생 중인 노래가 없습니다.");
-        if (message.serverQueue.songs[0].author.id != message.author.id) return message.channel.send('음악을 재생한 유저만 음악을 스킵할 수 있습니다.');
-        message.channel.send(`${message.serverQueue.songs[0].song.title}을/를 스킵했습니다. `).then(function () {
+        if (!message.serverQueue) return message.channel.send("현재 재생 중인 노래가 없어요.");
+        if (message.serverQueue.songs[0].author.id != message.author.id) return message.channel.send('음악을 재생한 유저만 음악을 스킵할 수 있어요.');
+        message.channel.send(`${message.serverQueue.songs[0].song.title}을/를 스킵했어요. `).then(function () {
             message.serverQueue.connection.dispatcher.end();
         });
     },
     stop: function (message) {
         if (!message.member.voice.channel) {
             return message.channel.send(
-                "음악을 멈추려면 음성 채널에 들어가야 합니다."
+                "음악을 멈추려면 음성 채널에 들어가야 해요."
             );
         }
     message.serverQueue.songs = [];
@@ -163,5 +163,16 @@ module.exports = {
     },
     codeBlock: function (input, type) {
         return `\`\`\`${type}\n${input}\n\`\`\``;
+    },
+    hype: function (client, flag) {
+        if (flag.has('HOUSE_BRILLIANCE')) {
+            return `${client.emojis.cache.find(x => x.name == 'hypesqaud_brilliance')} House of Brilliance`;
+        } else if (flag.has('HOUSE_BRAVERY')) {
+            return `${client.emojis.cache.find(x => x.name == 'hypesqaud_bravery')} House of Bravery`;
+        } else if (flag.has('HOUSE_BALANCE')) {
+            return `${client.emojis.cache.find(x => x.name == 'hypesqaud_balance')} House of Balance`;
+        } else {
+            return '없음';
+        }
     }
 }

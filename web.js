@@ -182,14 +182,13 @@ module.exports = {
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="keywords" content="${client.user.username}">
+<meta name="keywords" content=${client.user.username}>
 <meta name="description" content="mswgen봇 v2 사이트">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
 <style>
 body {
-font - family:'맑은 고딕', 'Malgun Gothic', sans-serif;
-text-color:black;
+font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
+color: black;
 }
 </style>
 <title>

@@ -95,13 +95,17 @@ client.on('ready', async function () {
 })
     .on('message', async function (message) {
     if (message.channel.type != 'text') return;
+    if (message.author.bot) return;
     try {
         message.serverQueue = client.queue.get(message.guild.id);
         if (!message.author.bot) console.log(`${message.author.username}: ${message.content} | ${message.guild.name} (ID: ${message.guild.id}) (CHANNEL: ${message.channel.name}, ID: ${message.channel.id}) | ${message.author.id}`)
         if (message.mentions.users.some(x => x.id == client.user.id) || message.mentions.everyone) {
             var random = Math.floor(Math.random() * 3);
             if (random == 0) {
-                await message.channel.send('엌 멘션...');
+                let m = await message.channel.send('엌 멘션...');
+                setTimeout(async () => {
+                    await m.delete();
+                }, 5000);
             } else if (random == 1) {
                 await message.react('😡');
                 await message.react('🤬');
@@ -118,8 +122,8 @@ client.on('ready', async function () {
                 await message.react('🇾');
             }
         }
-        if (!message.content.startsWith(option.prefix)) return;
-        var args = message.content.substr(option.prefix.length).split(' ');
+        if (!message.content.startsWith(option.prefix[message.guild.id])) return;
+        var args = message.content.substr(option.prefix[message.guild.id].length).split(' ');
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;
@@ -145,7 +149,7 @@ client.on('ready', async function () {
     message.channel.stopTyping(true);
 })
     .on('guildMemberAdd', async function (member) {
-        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || !x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some((x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 입장')
                 .setColor(0x00ffff)
@@ -176,7 +180,7 @@ client.on('ready', async function () {
     }
 })
     .on('guildMemberRemove', async function (member) {
-        if (member.guild.channels.cache.some(x => x.name.includes('인사') && (!x.topic || !x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some((x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 퇴장')
                 .setColor(0xffff00)
@@ -205,14 +209,23 @@ client.on('ready', async function () {
                 }
             });
         }
+    })
+    .on('error', async function (err) {
+        await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
+            .setTitle('에러...')
+            .setColor(0xff0000)
+            .addField('에러 원문', err)
+            .setTimestamp()
+        );
+    })
+    .on('guildCreate', guild => {
+        option.prefix[guild.id] = '/';
+        fs.writeFile('./assets/config.json', JSON.stringify(option), () => {});
+        guild.owner.send(`${guild.name}에 ${client.user.username}을/를 초대해 주셔서 감사해요! 이 서버의 현재 프리픽스는 \`/\`에요. \`/접두사\`를 이용해 서버의 접두사를 바꿀 수 있어요.`);
+    })
+    .on('guildDelete', guild => {
+        delete option.prefix[guild.id];
+        fs.writeFile('./assets/config.json', JSON.stringify(option), () => {});
     });
-client.on('error', async function (err) {
-    await client.users.cache.get('647736678815105037').send(new Discord.MessageEmbed()
-        .setTitle('에러...')
-        .setColor(0xff0000)
-        .addField('에러 원문', err)
-        .setTimestamp()
-    );
-});
 web.create(client, option);
 client.login(process.env.TOKEN);

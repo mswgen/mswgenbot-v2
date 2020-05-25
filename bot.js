@@ -123,13 +123,12 @@ client.on('ready', async function () {
             }
         }
         if (!message.content.startsWith(option.prefix[message.guild.id])) return;
-        var args = message.content.substr(option.prefix[message.guild.id].length).split(' ');
+        var args = message.content.substr(option.prefix[message.guild.id].length).trim().split(' ');
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;
             await client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
         }
-        
     } catch (err) {
         const embed = new Discord.MessageEmbed()
             .setTitle('❌에러...')

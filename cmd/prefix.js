@@ -6,6 +6,7 @@ module.exports = {
     description: '서버의 접두사를 바꿔요. (서버 관리 권한 필요)',
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD')) return await message.channel.send('서버 관리 권한이 필요해요.');
+        if (!args[1]) return message.channel.send('새로운 접두사를 입력해주세요.');
         option.prefix[message.guild.id] = args[1];
         fs.writeFile('./assets/config.json', JSON.stringify(option), async () => {
             const embed = new Discord.MessageEmbed()

@@ -5,6 +5,8 @@ module.exports = {
     name: 'getmoney',
     alises: ['돈받기', 'getmoney', 'get-money', '돈내놔'],
     description: '돈을 받아요.',
+    category: 'play',
+    usage: '/돈받기',
     run: async function (client, message, args, option) {
         if (!time.get(message.author.id)) {
             time.set(message.author.id, 0);

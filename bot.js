@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const web = require('./web.js');
 const option = require('./assets/config.json');
 client.commands = new Discord.Collection();
+client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
 dotenv.config({
@@ -19,11 +20,12 @@ fs.readdir('./cmd/', function (_err, list) {
     for (let file of list) {
         try {
             let pull = require(`./cmd/${file}`);
-            if (pull.name) {
+            if (pull.name && pull.alises && pull.category) {
                 for (let alises of pull.alises) {
                     client.alises.set(alises, pull.name);
                 }
                 client.commands.set(pull.name, pull);
+                client.categories.set(pull.category, pull.category);
                 table.addRow(file, '✅');
             } else {
                 table.addRow(file, `❌ -> Error`);

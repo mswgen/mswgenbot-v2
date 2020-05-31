@@ -4,6 +4,8 @@ module.exports = {
     name: 'mask',
     alises: ['마스크', '공적마스크', '마스크현황', '공적마스크현황', 'mask'],
     description: '입력한 주소지에 있는 약국의 공적 마스크 정보를 보여줘요.',
+    category: 'crawling',
+    usage: '/마스크 <지역 이름>',
     run: async function (client, message, args, option) {
         var days = {
             0: '누구나',

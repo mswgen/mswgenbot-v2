@@ -5,6 +5,8 @@ module.exports = {
     name: 'github',
     alises: ['깃허브', 'github'],
     description: '깃허브 유저의 정보를 불러와요.',
+    category: 'crawling',
+    usage: '/깃허브 <유저 닉네임>',
     run: async function (client, message, args, option) {
         var toGet = args.slice(1).join(' ');
         if (!toGet) return message.channel.send('정보를 가져올 유저의 닉네임을 입력해주세요.');

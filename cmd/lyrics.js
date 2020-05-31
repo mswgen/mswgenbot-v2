@@ -5,6 +5,8 @@ module.exports = {
     name: 'lyrics',
     alises: ['가사', '가사검색', 'lyrics', '리릭스'],
     description: 'Melon이나 AtoZLyrics에서 노래의 가사를 검색해요.',
+    category: 'crawling',
+    usage: '/가사검색 <노래 이름>',
     run: async function (client, message, args, option) {
         if (!args[1]) return;
         const embed = new Discord.MessageEmbed()

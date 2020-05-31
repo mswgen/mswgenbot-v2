@@ -15,6 +15,8 @@ module.exports = {
     name: 'userInfo',
     alises: ['유저정보', 'userinfo', 'user-info', 'userinformation', 'user-information', '정보유저', '사용자정보', '정보사용자'],
     description: '멘션(또는 아이디 입력)한 유저의 정보를 보여줘요.',
+    category: 'info',
+    usage: '/유저정보 <유저 멘션, id, 닉네임, 또는 서버 내 별명>',
     run: async function (client, message, args, option) {
         const mention = message.mentions.users.first();
         if (mention) {

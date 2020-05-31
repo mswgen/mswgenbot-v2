@@ -4,6 +4,8 @@ module.exports = {
     name: 'noticechannel',
     alises: ['공지설정', '공지채널설정', 'noticechannel', '공지채널'],
     description: "멘션한 채널을 봇의 공지 채널로 설정해요.(서버 관리 권한 필요)",
+    category: 'admin',
+    usage: '/공지설정 <채널 멘션 또는 공지채널을 없앨 때는 비워 두기>',
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD') && !option.ownerId.includes(message.author.id)) return message.channel.send('서버 관리 권한이 필요해요.');
         var ch;

@@ -5,6 +5,8 @@ module.exports = {
     name: 'repo',
     alises: ['레포', 'repo', 'repository', '레포지토리'],
     description: '깃허브 레포지토리의 정보를 불러와요.',
+    category: 'crawling',
+    usage: '/레포 <레포지토리 이름>',
     run: async function (client, message, args, option) {
         args = args.slice(1).join('/').split('/');
         if (!args[0]) return message.channel.send('정보를 가져올 레포지토리 주인의 닉네임을 입력해주세요.');

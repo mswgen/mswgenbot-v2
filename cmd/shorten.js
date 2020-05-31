@@ -4,6 +4,8 @@ module.exports = {
     name: 'shorten', 
     alises: ['단축', 'shorten'],
     description: 'URL을 단축해요.',
+    category: 'crawling',
+    usage: '/단축 <단축할 url>',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('단축할 URL을 입력해주세요.');
         const embed = new Discord.MessageEmbed()

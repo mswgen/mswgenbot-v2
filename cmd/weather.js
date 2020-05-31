@@ -4,7 +4,9 @@ const cheerio = require('cheerio');
 module.exports = {
     name: 'weather',
     alises: ['날씨', 'weather'],
-    description: `입력한 지역의 날씨를 보여줘요. (코드 출처: ditto7890#5158y)`,
+    description: `입력한 지역의 날씨를 보여줘요. (코드 출처: ditto7890#5158)`,
+    category: 'crawling',
+    usage: '/날씨 <지역>',
     run: async function (client, message, args, option) {
         if (!args[1]) return await message.channel.send('지역을 입력해주세요');
         await axios.get(`https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=${encodeURI(`${args.join(" ").replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '')} 날씨`)}`).then(async function (res) {

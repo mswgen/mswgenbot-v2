@@ -3,6 +3,8 @@ module.exports = {
     name: 'feedback',
     alises: ['건의', 'feedback', '피드백'],
     description: '봇에 대한 건의를 할 수 있어요.',
+    category: 'other',
+    usage: '/건의 <건의사항>',
     run: async function (client, message, args, option) {
         var arg = args.slice(1).join(' ');
         const embed = new Discord.MessageEmbed()

@@ -4,68 +4,50 @@ module.exports = {
     name: 'help',
     alises: ['도움', '도움말', 'help'],
     description: '봇의 도움말을 보여줘요.',
+    category: 'other',
     run: async function (client, message, args, option) {
-        let m = await message.channel.send(new Discord.MessageEmbed()
-            .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 도움말 전송 중...`)
-            .setColor(0xffff00)
-            .setThumbnail(client.user.displayAvatarURL({
-                dynamic: true
-            }))
-            .setTimestamp()
-            .addField('현재 진행률', `전송 준비 중`)
-        );
-        m.edit(new Discord.MessageEmbed()
-            .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 도움말 전송 중...`)
-            .setColor(0xffff00)
-            .setThumbnail(client.user.displayAvatarURL({
-                dynamic: true
-            }))
-            .setTimestamp()
-            .addField('현재 진행률', `전송할 파일을 읽는 중`)
-        );
-        var i = 0;
-        client.commands.forEach(function (cmd) {
-            i++;
-            if (!cmd.name) return;
-            message.author.send(new Discord.MessageEmbed()
+        if (args[1]) {
+            var cmd = client.commands.get(args[1]);
+            if (!cmd) return message.channel.send(`해당 명령어가 없어요. \n\`${option.prefix[message.guild.id]}도움\` 명령어로 모든 명령어 목록을 볼 수 있어요.`)
+            const embed = new Discord.MessageEmbed()
                 .setTitle(cmd.name)
                 .setColor(0x00ffff)
-                .addField('Aliases', `${option.prefix[message.guild.id]}${cmd.alises.join(`\n${option.prefix[message.guild.id]}`)}`)
+                .addField('Aliases', cmd.alises.map(x => `\`${x}\``).join(', '))
                 .addField('Description', cmd.description)
+                .addField('Category', cmd.category)
+                .addField('Usage', cmd.usage.replace(/\//gi, option.prefix[message.guild.id]))
                 .setThumbnail(client.user.displayAvatarURL({
-                    dynamic: true
+                    dynamic: true,
+                    format: 'jpg',
+                    size: 2048
                 }))
+                .setTimestamp()
+                .setFooter(`Usage에서 <> 부분은 필수, [] 부분은 선택이에요 | ${message.author.tag}`, message.author.avatarURL({
+                    dynamic: true,
+                    format: 'jpg',
+                    size: 2048
+                }))
+            message.channel.send(embed);
+        } else {
+            const embed = new Discord.MessageEmbed()
+                .setTitle(`${client.user.username} 도움말`)
+                .setColor(0x00ffff)
+                .setThumbnail(client.user.displayAvatarURL({
+                    dynamic: true,
+                    format: 'jpg',
+                    size: 2048
+                }))
+                .setTimestamp()
                 .setFooter(message.author.tag, message.author.avatarURL({
-                    dynamic: true
+                    dynamic: true,
+                    format: 'jpg',
+                    size: 2048
                 }))
-                .setTimestamp()
-            );
-            m.edit(new Discord.MessageEmbed()
-                .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 도움말 전송 중...`)
-                .setDescription('봇의 모든 명령어 리스트를 DM으로 보내는 중입니다.\n이 작업은 시간이 오래 걸려요. 전송 완료 메세지가 뜰 때까지 기다려주세요.')
-                .setColor(0xffff00)
-                .setThumbnail(client.user.displayAvatarURL({
-                    dynamic: true
-                }))
-                .setTimestamp()
-                .addField('현재 진행률', `${i}/${client.commands.size}개 도움말 전송 중`)
-                .addField('현재 전송 중인 도움말', `${cmd.name} 전송 중`)
-                .addField('전송 대상 유저', `${message.author}`)
-            );
-        })
-        m.edit(new Discord.MessageEmbed()
-            .setTitle('도움말을 전송했어요!')
-            .setColor(0x00ffff)
-            .setDescription('개인 메세지(DM)을 확인해주세요.')
-            .addField('전송 대상', `${message.author}`)
-            .addField('전송 완료된 도움말 개수', `${client.commands.size}개`)
-            .setThumbnail(client.user.displayAvatarURL({
-                dynamic: true
-            }))
-            .setFooter(message.author.tag, message.author.avatarURL({
-                dynamic: true
-            }))
-            .setTimestamp()
-        );
+                .setDescription(`더 다양한 정보는 \`${option.prefix[message.guild.id]}도움 <커멘드 이름>\`을 입력해보세요!`)
+            for (var x of client.categories.array()) {
+                embed.addField(x, client.commands.filter(a => a.category == x).map(a => `\`${a.name}\``).join(', '));
+            }
+            message.channel.send(embed);
+        }
     }
 }

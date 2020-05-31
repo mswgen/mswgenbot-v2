@@ -4,8 +4,10 @@ module.exports = {
     name: 'hangang_temp',
     alises: ['한강', '한강온도', '한강수온', 'hangang', 'hangang-temperture', 'hangang-temp'],
     description: '한강의 수온을 보여줘요.',
+    category: 'crawling',
+    usage: '/한강',
     run: async function (client, message, args, option) {
-        axios.post('http://hangang.dkserver.wo.tc/').then(function (x) {
+        axios.get('http://hangang.dkserver.wo.tc/').then(function (x) {
             message.channel.send(
                 new Discord.MessageEmbed()
                     .setTitle('한강 수온')

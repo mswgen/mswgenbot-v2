@@ -3,6 +3,8 @@ module.exports = {
     name: 'vote',
     alises: ['투표', 'vote', 'poll'],
     description: '비밀투표를 시작해요.(항목은 10개까지 추가 가능, 투표명과 첫번째 항목, 각 항목은 $로 구분, 마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료돼요)',
+    category: 'other',
+    usage: '/투표 <주제>$<1번째 선택지>$<2번째 선택지>$[3번째 선택지]$...$[10번째 선택지]%%[투표 시간(초 단위)]',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var items = args.slice(1).join(' ').split('%%')[0].split('$');

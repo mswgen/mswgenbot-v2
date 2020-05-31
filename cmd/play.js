@@ -49,6 +49,8 @@ module.exports = {
     name: 'play', 
     alises: ['재생', 'play'],
     description: '유튜브에서 노래를 검색해 재생해요. (url, 유튜브 검색어 둘 다 가능)',
+    category: 'music',
+    usage: '/재생 <노래 제목>',
     run: async function (client, message, args, option) {
         message.delete();
         const voiceChannel = message.member.voice.channel;

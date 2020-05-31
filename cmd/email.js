@@ -7,6 +7,8 @@ module.exports = {
     description: `봇 계정으로 이메일을 전송해요.
 메세지 형식: 
 /메일 <받는 사람 이메일> <제목>$<내용>`,
+    category: 'crawling',
+    usage: '/이메일 <받는 사람 이메일 주소>$<제목>$<내용>',
     run: async function (client, message, args, option) {
         let transporter = mail.createTransport({
             service: 'gmail',

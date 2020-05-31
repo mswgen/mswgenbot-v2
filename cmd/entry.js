@@ -5,6 +5,8 @@ module.exports = {
     name: 'entry',
     alises: ['엔트리', '엔트리유저', 'entry', 'entry-user'],
     description: '엔트리 유저의 정보를 불러와요.',
+    category: 'crawling',
+    usage: '/엔트리 <유저 닉네임>',
     run: async function (client, message, args, option) {
         var roles = {
             member: '학생',

@@ -3,6 +3,8 @@ module.exports = {
     name: 'username',
     alises: ['이름변경', '닉네임변경', 'username', 'nickname', 'ㅕㄴㄷ구믇', 'ㅜㅑ차ㅜ믇', '닉네임', 'slrspdla', 'dlfmaqusrud', 'slrspdlaqusrud'],
     description: '봇의 닉네임을 변경해요.(봇 제작자만 가능)',
+    category: 'owner',
+    usage: '/닉네임 <새로운 닉네임>',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         var arg = args.slice(1).join(' ');

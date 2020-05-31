@@ -17,6 +17,8 @@ module.exports = {
     name: 'servers',
     alises: ['서버현황', 'servers', '서버목록'],
     description: '이 봇이 속해 있는 모든 서버 목록을 출력해요.',
+    category: 'info',
+    usage: '/서버목록',
     run: async function (client, message, args, option) {
         let m = await message.channel.send(new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 서버 목록을 불러오는 중`)

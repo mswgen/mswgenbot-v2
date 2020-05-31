@@ -4,6 +4,8 @@ module.exports = {
     name: 'restart',
     alises: ['재시작', 'restart', 'ㅈㅅㅈ', 'ㄱㄷㄴㅅㅁㄳ', 'wotlwkr'],
     description: '봇을 재시작해요.(샤딩 없이 디버깅 중일 경우 종료됨, 봇 제작자만 가능)',
+    category: 'owner',
+    usage: '/재시작',
     run: async function (client, message, args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()

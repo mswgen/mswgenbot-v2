@@ -3,6 +3,8 @@ module.exports = {
     name: 'counter',
     alises: ['counter', '카운터', '유저수'],
     description: '서버의 유저 수 카운터 음성 채널을 만들어요. (서버 관리 권한 필요)',
+    category: 'admin',
+    usage: '/카운터',
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD') && !option.ownerId.includes(message.author.id)) return message.channel.send('서버 관리 권한이 필요해요.');
         let m = await message.channel.send(new Discord.MessageEmbed()

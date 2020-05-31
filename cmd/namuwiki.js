@@ -5,6 +5,8 @@ module.exports = {
     name: 'namuwiki',
     alises: ['나무위키', 'namuwiki', '꺼무위키'],
     description: '나무위키에서 입력한 제목의 문서를 불러와서 보여줘요.',
+    category: 'crawling',
+    usage: '/나무위키 <문서 제목>',
     run: async function (client, message, args, option) {
         if (!args[1]) return;
         await axios.get(`https://namu.wiki/Search?q=${encodeURIComponent(args.slice(1).join(' '))}`).then(async res => {

@@ -4,6 +4,8 @@ module.exports = {
     name: 'allin',
     alises: ['올인', 'allin', 'all-in'],
     description: '가지고 있는 돈을 모두 배팅해요.',
+    category: 'play',
+    usage: '/올인',
     run: async function (client, message, args, option) {
         const money = require('../assets/money.json');
         if (!money[message.author.id] || money[message.author.id] == 0) {

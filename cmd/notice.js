@@ -3,6 +3,8 @@ module.exports = {
     name: 'notice',
     alises: ['공지', 'notice', 'ㅜㅐ샻ㄷ'],
     description: '공지 채널로 등록된 모든 채널에 공지를 보내요.(봇 제작자만 가능)',
+    category: 'owner',
+    usage: '/공지 <공지사항>',
     run: async function (client, message, args, option) {
         var toSend = args.slice(1).join(' ');
         if (!option.ownerId.includes(message.author.id)) return message.channel.send('공지 내용을 써 주세요.');
@@ -48,6 +50,7 @@ module.exports = {
                     a++;
                 }
                 for (var x in notice.channels) {
+                    if (client.channels.cache.get(notice.channels[x])) {
                     client.channels.cache.get(notice.channels[x]).send(new Discord.MessageEmbed()
                         .setTitle(`${client.user.username} 공지`)
                         .setColor(0x00ffff)
@@ -60,7 +63,9 @@ module.exports = {
                         }))
                         .setTimestamp()
                     );
+                    }
                     i++;
+                    if (client.channels.cache.get(notice.channels[x])) {
                     const imbed = new Discord.MessageEmbed()
                         .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 공지 전송 중`)
                         .setColor(0xffff00)
@@ -76,6 +81,7 @@ module.exports = {
                         }))
                         .setTimestamp()
                     p.edit(imbed);
+                    }
                 }
                 const ymbed = new Discord.MessageEmbed()
                     .setTitle(`공지를 전송했어요.`)

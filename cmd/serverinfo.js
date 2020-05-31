@@ -24,6 +24,8 @@ module.exports = {
     name: 'serverinfo',
     alises: ['서버정보', '정보서버', 'server-info', 'serverinfo'],
     description: '메세지를 입력한 서버의 정보를 알려줘요.',
+    category: 'info',
+    usage: '/서버정보',
     run: async function (client, message, args, option) {
         const imbed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 서버 정보를 받아오는 중...`)

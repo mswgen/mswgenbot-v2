@@ -4,6 +4,8 @@ module.exports = {
     name: 'api',
     alises: ['api', '메ㅑ'],
     description: '봇의 api를 불러와 보여줘요.',
+    category: 'crawling',
+    usage: '/api',
     run: async function (client, message, args, option) {
         let m = await message.channel.send(new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} ${client.user.username} API 로딩 중`)

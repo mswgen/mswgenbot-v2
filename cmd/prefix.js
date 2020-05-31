@@ -4,6 +4,8 @@ module.exports = {
     name: 'prefix',
     alises: ['접두사', '프리픽스', 'prefix'],
     description: '서버의 접두사를 바꿔요. (서버 관리 권한 필요)',
+    category: 'admin',
+    usage: '/접두사 <새로운 접두사>',
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD')) return await message.channel.send('서버 관리 권한이 필요해요.');
         if (!args[1]) return message.channel.send('새로운 접두사를 입력해주세요.');

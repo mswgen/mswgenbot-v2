@@ -4,6 +4,8 @@ module.exports = {
     name: 'reload',
     alises: ['reload', '리로드', 'ㄱ디ㅐㅁㅇ', 'ㄹㄹㄷ', 'ffe', 'flfhem'],
     description: '봇의 모든 커멘드 파일을 리로드해요.(봇 제작자만 가능)',
+    category: 'owner',
+    usage: '/reload',
     run: async function (client, message, _args, option) {
         if (!option.ownerId.includes(message.author.id)) return;
         const embed = new Discord.MessageEmbed()

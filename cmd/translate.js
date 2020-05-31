@@ -4,6 +4,8 @@ module.exports = {
     name: 'translate',
     alises: ['번역', 'translate'],
     description: '네이버 파파고를 이용해 문장을 번역해요.',
+    category: 'crawling',
+    usage: '/번역 <번역되는 언어> <번역할 내용>',
     run: async function (client, message, args, option) {
         var lang = {
             한국어: 'ko',

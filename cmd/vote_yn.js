@@ -3,6 +3,8 @@ module.exports = {
     name: 'vote_yesAndNo',
     alises: ['찬반투표'],
     description: '찬반 비밀투표를 시작해요. (마지막에 `%%<투표 시간을 초 단위로 입력>`을 넣으면 뒤에 입력한 시간(초) 후에 투표가 종료돼요)',
+    category: 'other',
+    usage: '/찬반투표 <주제>%%[투표 시간(초 단위)]',
     run: async function (client, message, args, option) {
         if (!args[1]) return message.channel.send('투표 내용을 써 주세요.');
         var pros = new Discord.Collection();

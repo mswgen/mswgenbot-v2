@@ -3,6 +3,8 @@ module.exports = {
     name: 'destroyServer',
     alises: ['폭파', '서버폭파', 'destroy', 'serverdestroy', 'explode'],
     description: '서버를 폭파시켜요<ㅍㅍㅍㅍㅍㅍ(당연히 서버 관리자만 가능)',
+    category: 'admin',
+    usage: '/폭파',
     run: async function (client, message, args, option) {
         if (!message.member.hasPermission('MANAGE_GUILD')) return await message.channel.send('서버 관리자만 서버를 폭파시킬 수 있어요!');
         const embed = new Discord.MessageEmbed()

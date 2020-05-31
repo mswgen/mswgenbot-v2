@@ -10,11 +10,7 @@ module.exports = {
         message.delete();
         if (!option.ownerId.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 가능해요.`);
         let input = args.slice(1).join(' ');
-        if (!input) return message.channel.send('내용을 써 주세요.');
-        for (var x in process.env) {
-            input = input.replace(x, 'Secret');
-        }
-        input = input.replace(/process.env/gi, '"Secret"');
+        if (!input) return message.channel.send('내용을 써 주세요!');
         const code = `const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');
@@ -30,6 +26,9 @@ const isgd = require('isgd');
 const http = require('http');
 const qs = require('querystring');
 const url = require('url');
+const Pingpong = require('pingpong-builder');
+const builder = new Pingpong.Ai();
+const search = require('yt-search');
 
 ${input}`;
         const embed = new Discord.MessageEmbed()

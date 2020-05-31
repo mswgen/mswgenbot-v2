@@ -8,7 +8,11 @@ module.exports = {
     category: 'play',
     usage: '/핑퐁 <할 말>',
     run: async function (client, message, args, option) {
-        builder.get(process.env.PINGPONG_URL, process.env.PINGPONG_AUTH, message.author.id, args.slice(1).join(' ')).then(res => {
+        builder.get(args.slice(1).join(' '), {
+            id: process.env.PINGPONG_URL,
+            token: process.env.PINGPONG_AUTH,
+            sessionid: message.author.id
+        }).then(res => {
             for (var x of res) {
                 const embed = new Discord.MessageEmbed()
                     .setColor('RANDOM')
@@ -18,10 +22,10 @@ module.exports = {
                         size: 2048
                     }))
                     .setTimestamp();
-                if (x.startsWith('http://') || x.startsWith('https://')) {
-                    embed.setImage(x);
-                } else {
-                    embed.setDescription(x);
+                if (x.type == 'text') {
+                    embed.setDescription(x.content);
+                } else if (x.type == 'image') {
+                    embed.setImage(x.content);
                 }
                 message.channel.send(embed);
             }

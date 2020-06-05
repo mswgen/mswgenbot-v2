@@ -12,7 +12,7 @@ module.exports = {
         if (message.mentions.channels.first()) {
             ch = message.mentions.channels.first();
         } else {
-            ch = null;
+            ch = '';
         }
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} 공지채널 등록 중`)

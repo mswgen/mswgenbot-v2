@@ -150,7 +150,7 @@ client.on('ready', async function () {
     message.channel.stopTyping(true);
 })
     .on('guildMemberAdd', async function (member) {
-        if (member.guild.channels.cache.some((x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some(x => (x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 입장')
                 .setColor(0x00ffff)
@@ -181,7 +181,7 @@ client.on('ready', async function () {
     }
 })
     .on('guildMemberRemove', async function (member) {
-        if (member.guild.channels.cache.some((x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
+        if (member.guild.channels.cache.some(x => (x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')) && (!x.topic || !x.topic.includes('nogreeting')))) {
             await member.guild.channels.cache.find(x => x.name.includes('인사') || x.name.includes('입장') || x.name.includes('퇴장')).send(new Discord.MessageEmbed()
                 .setTitle('멤버 퇴장')
                 .setColor(0xffff00)

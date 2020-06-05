@@ -46,12 +46,14 @@ module.exports = {
             });
             exec.stdout.on('data', function (data) {
                 message.author.send(`stdout: ${data}`, {
-                    code: 'sh'
+                    code: 'sh',
+                    split: true
                 });
             });
             exec.stderr.on('data', function (data) {
                 message.author.send(`stderr: ${data}`, {
-                    code: 'sh'
+                    code: 'sh',
+                    split: true
                 });
             });
         });

@@ -177,6 +177,9 @@ module.exports = {
             }
         });
             server.listen(option.port);
+            setInterval(() => {
+                axios.get('https://bot.mswgen.ga').then();
+            }, 600000);
         function makeHTML(client) {
             return `<!DOCTYPE html>
 <html>

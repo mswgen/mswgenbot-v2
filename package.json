@@ -4,6 +4,7 @@
     "@discordjs/opus": "^0.3.2",
     "ascii-table": "0.0.9",
     "axios": "^0.19.2",
+    "canvas": "^2.6.1",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
@@ -17,8 +18,8 @@
     "socket.io": "^2.3.0",
     "util": "^0.12.3",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^2.1.2",
-    "yt-search": "^1.1.2"
+    "yt-search": "^1.1.2",
+    "ytdl-core": "^2.1.2"
   },
   "description": "discord bot",
   "engines": {

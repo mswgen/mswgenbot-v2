@@ -4,6 +4,7 @@ const client = new Discord.Client();
 const fs = require('fs');
 const restart = require('./assets/restart.json');
 const ascii = require('ascii-table');
+const axios = require('axios').default;
 const dotenv = require('dotenv');
 const web = require('./web.js');
 const option = require('./assets/config.json');
@@ -95,6 +96,16 @@ client.on('ready', async function () {
             if (err) console.log(err);
         });
     }
+    setInterval(() => {
+        axios.post('https://api.koreanbots.dev/bots/servers', {
+            servers: client.guilds.cache.size
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                token: process.env.KOREANBOTS
+            }
+        });
+    }, 120000);
 })
     .on('message', async function (message) {
     if (message.channel.type != 'text') return;

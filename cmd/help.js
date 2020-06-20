@@ -57,13 +57,18 @@ module.exports = {
                     size: 2048
                 }))
                 .setTimestamp();
-            let yn = await client.koreanbots.getVotes(message.author);
-            if (yn == true) {
-                embed2.setTitle('❤를 눌러주셔서 감사합니다!');
-            } else {
-                embed2.setTitle('koreanbots에서 ❤를 눌러주세요!');
-            }
-            message.channel.send(embed2);
+            axios.get(`https://api.koreanbots.dev/bots/voted/${message.author.id}`, {
+                headers: {
+                    token: process.env.KOREANBOTS
+                }
+            }).then(res => {
+                if (res.data.voted == true) {
+                    embed2.setTitle('❤를 눌러주셔서 감사합니다!');
+                } else {
+                    embed2.setTitle('koreanbots에서 ❤를 눌러주세요!');
+                }
+                message.channel.send(embed2);
+            });
         }
     }
 }

@@ -13,7 +13,7 @@ module.exports = {
             token: process.env.PINGPONG_AUTH,
             sessionid: message.author.id
         }).then(res => {
-            for (var x of res) {
+            for (var x of res.contents) {
                 const embed = new Discord.MessageEmbed()
                     .setColor('RANDOM')
                     .setFooter(message.author.tag, message.author.avatarURL({

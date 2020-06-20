@@ -12,7 +12,7 @@ module.exports = {
             });
         }, 120000);
     },
-    getVotes: user => {
+    getVotes: async user => {
         axios.get(`https://api.koreanbots.dev/bots/voted/${user.id}`, {
             headers: {
                 token: process.env.KOREANBOTS

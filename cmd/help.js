@@ -57,7 +57,7 @@ module.exports = {
                     size: 2048
                 }))
                 .setTimestamp();
-            let yn = client.koreanbots.getVotes(message.author);
+            let yn = await client.koreanbots.getVotes(message.author);
             if (yn == true) {
                 embed2.setTitle('❤를 눌러주셔서 감사합니다!');
             } else {

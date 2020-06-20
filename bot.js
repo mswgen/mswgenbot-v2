@@ -11,6 +11,7 @@ client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
+client.koreanbots = require('./koreanbots.js');
 dotenv.config({
     path: __dirname + '/assets/.env'
 });
@@ -230,3 +231,4 @@ client.on('ready', async function () {
     });
 web.create(client, option);
 client.login(process.env.TOKEN);
+client.koreanbots.update(client);

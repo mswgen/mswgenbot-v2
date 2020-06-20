@@ -11,7 +11,6 @@ client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
-client.koreanbots = require('./koreanbots.js');
 dotenv.config({
     path: __dirname + '/assets/.env'
 });
@@ -125,8 +124,13 @@ client.on('ready', async function () {
                 await message.react('🇾');
             }
         }
-        if (!message.content.startsWith(option.prefix[message.guild.id])) return;
-        var args = message.content.substr(option.prefix[message.guild.id].length).trim().split(' ');
+        if (!message.content.startsWith(option.prefix[message.guild.id] || '/')) return;
+        var args = '';
+        if (option.prefix[message.guild.id]) {
+          args = message.content.substr(option.prefix[message.guild.id].length).trim().split(' ');
+        } else {
+          args = message.content.substr(1).trim().split(' ');
+        }
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;

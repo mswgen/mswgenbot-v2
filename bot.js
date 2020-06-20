@@ -11,6 +11,7 @@ client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
+client.koreanbots = require('./koreanbots.js');
 dotenv.config({
     path: __dirname + '/assets/.env'
 });

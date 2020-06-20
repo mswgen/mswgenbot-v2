@@ -59,9 +59,9 @@ module.exports = {
                 .setTimestamp();
             let yn = client.koreanbots.getVotes(message.author);
             if (yn == true) {
-                embed.setTitle('❤를 눌러주셔서 감사합니다!');
+                embed2.setTitle('❤를 눌러주셔서 감사합니다!');
             } else {
-                embed.setTitle('koreanbots에서 ❤를 눌러주세요!');
+                embed2.setTitle('koreanbots에서 ❤를 눌러주세요!');
             }
             message.channel.send(embed2);
         }

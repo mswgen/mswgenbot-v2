@@ -3,11 +3,13 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 const restart = require('./assets/restart.json');
+const fn = require('./functions.js');
 const ascii = require('ascii-table');
 const axios = require('axios').default;
 const dotenv = require('dotenv');
 const web = require('./web.js');
 const option = require('./assets/config.json');
+const logConfig = require('./assets/log.json');
 client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
@@ -94,6 +96,17 @@ client.on('ready', async function () {
         fs.writeFile('./assets/restart.json', JSON.stringify(restart), function (err) {
             if (err) console.log(err);
         });
+        client.channels.cache.get(logConfig.ready).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 재시작됨`)
+            .setColor('RANDOM')
+            .setTimestamp()
+        );
+    } else {
+        client.channels.cache.get(logConfig.ready).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 로그인됨`)
+            .setColor('RANDOM')
+            .setTimestamp()
+        );
     }
     setInterval(() => {
         axios.post('https://api.koreanbots.dev/bots/servers', {
@@ -145,6 +158,15 @@ client.on('ready', async function () {
         message.channel.startTyping(1);
         if (client.alises.get(args[0].toLowerCase())) {
             if (client.commands.get(client.alises.get(args[0].toLowerCase())).noRun) return;
+            client.channels.cache.get(logConfig.chat).send(new Discord.MessageEmbed()
+                .setTitle(`${client.user.username} 채팅`)
+                .setColor('RANDOM')
+                .setTimestamp()
+                .addField('내용', message.content)
+                .addField('작성자', `${message.author.tag}(${message.author.id})`)
+                .addField('채널', `${message.channel.name}(${message.channel.id})`)
+                .addField('서버', `${message.guild.name}(${message.guild.id})`)
+            );
             await client.commands.get(client.alises.get(args[0].toLowerCase())).run(client, message, args, option);
         }
     } catch (err) {
@@ -162,6 +184,16 @@ client.on('ready', async function () {
         embed.addField('에러 발생 채널', `${message.channel.name}(${message.channel.id})`);
         embed.addField('에러 발생 서버', `${message.guild.name}(${message.guild.id})`);
         client.users.cache.get('647736678815105037').send(embed);
+        client.channels.cache.get(logConfig.error).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 에러`)
+            .setColor('RANDOM')
+            .setTimestamp()
+            .addField('내용', message.content)
+            .addField('작성자', `${message.author.tag}(${message.author.id})`)
+            .addField('채널', `${message.channel.name}(${message.channel.id})`)
+            .addField('서버', `${message.guild.name}(${message.guild.id})`)
+            .addField('에러 내용', fn.codeBlock(err, 'js'))
+        );
     }
     message.channel.stopTyping(true);
 })
@@ -239,10 +271,24 @@ client.on('ready', async function () {
         option.prefix[guild.id] = '/';
         fs.writeFile('./assets/config.json', JSON.stringify(option), () => {});
         guild.owner.send(`${guild.name}에 ${client.user.username}을/를 초대해 주셔서 감사해요! 이 서버의 현재 프리픽스는 \`/\`에요. \`/접두사\`를 이용해 서버의 접두사를 바꿀 수 있어요.`);
+        client.channels.cache.get(logConfig.guildAdd).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 서버 추가됨`)
+            .setColor('RANDOM')
+            .setTimestamp()
+            .addField('서버', `${guild.name}(${guild.id})`)
+            .addField('서버 주인', `${guild.owner.user.tag}(${guild.owner.user.id})`)
+        );
     })
     .on('guildDelete', guild => {
         delete option.prefix[guild.id];
         fs.writeFile('./assets/config.json', JSON.stringify(option), () => {});
+        client.channels.cache.get(logConfig.guildDelete).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 서버 삭제됨`)
+            .setColor('RANDOM')
+            .setTimestamp()
+            .addField('서버', `${guild.name}(${guild.id})`)
+            .addField('서버 주인', `${guild.owner.user.tag}(${guild.owner.user.id})`)
+        );
     });
 web.create(client, option);
 client.login(process.env.TOKEN);

@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const logConfig = require('../assets/log.json')
 module.exports = {
     name: 'feedback',
     alises: ['건의', 'feedback', '피드백'],
@@ -33,6 +34,13 @@ module.exports = {
             }))
             .setTimestamp()
         client.users.cache.get('647736678815105037').send(imbed);
+        client.channels.cache.get(logConfig.feedback).send(new Discord.MessageEmbed()
+            .setTitle(`${client.user.username} 건의`)
+            .setColor('RANDOM')
+            .setTimestamp()
+            .addField('건의 내용', args.slice(1).join(' '))
+            .addField('건의한 유저', `${message.author.tag}(${message.author.id})`)
+        );
         const ymbed = new Discord.MessageEmbed()
             .setTitle('건의를 전송했어요.')
             .setDescription('건의해주셔서 감사해요!')

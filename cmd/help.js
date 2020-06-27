@@ -8,7 +8,7 @@ module.exports = {
     run: async function (client, message, args, option) {
         if (args[1]) {
             var cmd = client.commands.get(args[1]);
-            if (!cmd) return message.channel.send(`해당 명령어가 없어요. \n\`${option.prefix[message.guild.id]}도움\` 명령어로 모든 명령어 목록을 볼 수 있어요.`)
+            if (!cmd) return message.channel.send(`해당 명령어가 없어요. \n\`${option.prefix[message.guild.id] || '/'}도움\` 명령어로 모든 명령어 목록을 볼 수 있어요.`)
             const embed = new Discord.MessageEmbed()
                 .setTitle(cmd.name)
                 .setColor(0x00ffff)
@@ -43,7 +43,7 @@ module.exports = {
                     format: 'jpg',
                     size: 2048
                 }))
-                .setDescription(`더 다양한 정보는 \`${option.prefix[message.guild.id]}도움 <커멘드 이름>\`을 입력해보세요!`)
+                .setDescription(`더 다양한 정보는 \`${option.prefix[message.guild.id] || '/'}도움 <커멘드 이름>\`을 입력해보세요!`)
             for (var x of client.categories.array()) {
                 embed.addField(x, client.commands.filter(a => a.category == x).map(a => `\`${a.name}\``).join(', '));
             }

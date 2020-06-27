@@ -6,7 +6,7 @@ module.exports = {
     category: 'admin',
     usage: '/폭파',
     run: async function (client, message, args, option) {
-        if (!message.member.hasPermission('MANAGE_GUILD')) return await message.channel.send('서버 관리자만 서버를 폭파시킬 수 있어요!');
+        if (!message.member.hasPermission('MANAGE_GUILD') && !option.ownerId.includes(message.author.id)) return await message.channel.send('서버 관리자만 서버를 폭파시킬 수 있어요!');
         const embed = new Discord.MessageEmbed()
         .setTitle('정말 서버를 폭파할까요?')
         .addField('복구 여부', '불가능')

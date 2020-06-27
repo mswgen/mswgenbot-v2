@@ -48,10 +48,11 @@ async function play (client, guild, song, info, m, message) {
 module.exports = {
     name: 'play', 
     alises: ['재생', 'play'],
-    description: '유튜브에서 노래를 검색해 재생해요. (url, 유튜브 검색어 둘 다 가능)',
+    description: '~~유튜브에서 노래를 검색해 재생해요. (url, 유튜브 검색어 둘 다 가능)~~ 현제 호스팅 에러로 인해 뮤직 기능을 사용할 수 없습니다. 죄송합니다.',
     category: 'music',
     usage: '/재생 <노래 제목>',
     run: async function (client, message, args, option) {
+        /*
         message.delete();
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel)
@@ -179,5 +180,6 @@ module.exports = {
                 return;
             }
         }
+        */
     }
 }

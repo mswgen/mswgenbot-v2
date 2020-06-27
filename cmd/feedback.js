@@ -21,19 +21,6 @@ module.exports = {
             }))
             .setTimestamp()
         let m = await message.channel.send(embed);
-        const imbed = new Discord.MessageEmbed()
-            .setTitle('건의')
-            .setColor(0x00ffff)
-            .setThumbnail(client.user.displayAvatarURL({
-                dynamic: true
-            }))
-            .addField('건의 내용', arg)
-            .addField('건의 작성자', message.author.tag)
-            .setFooter(message.author.tag, message.author.avatarURL({
-                dynamic: true
-            }))
-            .setTimestamp()
-        client.users.cache.get('647736678815105037').send(imbed);
         client.channels.cache.get(logConfig.feedback).send(new Discord.MessageEmbed()
             .setTitle(`${client.user.username} 건의`)
             .setColor('RANDOM')
@@ -41,6 +28,7 @@ module.exports = {
             .addField('건의 내용', args.slice(1).join(' '))
             .addField('건의한 유저', `${message.author.tag}(${message.author.id})`)
         );
+        client.channels.cache.get(logConfig.feedback).send(option.ownerId.map(x => `<@${x}>`).join(' '));
         const ymbed = new Discord.MessageEmbed()
             .setTitle('건의를 전송했어요.')
             .setDescription('건의해주셔서 감사해요!')

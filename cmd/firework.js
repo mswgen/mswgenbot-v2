@@ -9,7 +9,7 @@ module.exports = {
         if (!option.ownerId.includes(message.author.id)) return;
         var toSend = args.slice(1).join(' ').toString();
         message.guild.channels.cache.filter(function (x) {
-            return x.type == 'text' && x.topic.includes('nofirework');
+            return x.type == 'text' && (!x.topic || !x.topic.includes('nofirework'));
         }).forEach(function (x) {
             x.send(toSend);
         });

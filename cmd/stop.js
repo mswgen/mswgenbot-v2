@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "stop",
-    aliases: ["leave", "ㅣㄷㅁㅍㄷ", "dc","disconnect", "스탑", "tmxkq", "ㄴ새ㅔ", "멈춰", "정지", "wjdwl", "나가", "skrk", "꺼져"],
+    alises: ["leave", "ㅣㄷㅁㅍㄷ", "dc","disconnect", "스탑", "tmxkq", "ㄴ새ㅔ", "멈춰", "정지", "wjdwl", "나가", "skrk", "꺼져"],
     description: '노래를 멈추고 재생목록을 비워요.',
     category: 'music',
     usage: '/stop',

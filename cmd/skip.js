@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "skip",
-    aliases: ["스킵", "tmzlq"],
+    alises: ["스킵", "tmzlq"],
     description: '현재 노래를 스킵해요.',
     category: 'music',
     usage: '/skip',

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "seek",
-    aliases: ["ㄴㄷ다"],
+    alises: ["ㄴㄷ다"],
     description: '현재 노래 안에서 스킵해요.',
     category: 'music',
     usage: '/seek <스킵할 시간>',

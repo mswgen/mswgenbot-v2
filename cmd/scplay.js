@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "scplay",
-    aliases: ["사운드클라우드", "사클", "tkzmf", "sc", "tkdnsemzmffkdnem", "soundcloud", "ㄴ치묘", "내ㅕㅜㅇ치ㅐㅕㅇ", "soundcloudplay", "내ㅕㅜㅇ치ㅐㅕ에ㅣ묘"],
+    alises: ["사운드클라우드", "사클", "tkzmf", "sc", "tkdnsemzmffkdnem", "soundcloud", "ㄴ치묘", "내ㅕㅜㅇ치ㅐㅕㅇ", "soundcloudplay", "내ㅕㅜㅇ치ㅐㅕ에ㅣ묘"],
     description: '사운드클라우드에서 노래를 검색해 재생해요.',
     category: 'music',
     usage: '/scplay <노래 제목>',

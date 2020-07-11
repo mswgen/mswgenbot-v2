@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "queue",
-    aliases: ["que", "재생목록", "wotodahrfhr", "벼뎓", "대기열", "eorlduf"],
+    alises: ["que", "재생목록", "wotodahrfhr", "벼뎓", "대기열", "eorlduf"],
     description: '현재 재생목록을 보여줘요.',
     category: 'music',
     usage: '/queue',

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "volume",
-    aliases: ["vol", "볼륨", "사운드", "소리", "setvolume", "qhffba", "tkdnsem"],
+    alises: ["vol", "볼륨", "사운드", "소리", "setvolume", "qhffba", "tkdnsem"],
     description: '현재 볼륨을 보거나 볼륨을 바꿔요.',
     category: 'music',
     usage: '/volume [볼륨 변경 시 변경할 볼륨]',

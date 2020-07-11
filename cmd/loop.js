@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "loop",
-    aliases: ["루프", "뤂", "ㅣㅐㅐㅔ", "fnvm", "반복", "qksqhr"],
+    alises: ["루프", "뤂", "ㅣㅐㅐㅔ", "fnvm", "반복", "qksqhr"],
     description: '현재 노래 반복을 끄거나 켜요.',
     category: 'music',
     usage: '/loop',

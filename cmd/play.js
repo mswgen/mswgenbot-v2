@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "play",
-    aliases: ["플레이", "재생", "ㅔㅣ묘", "vmffpdl", "wotod", "pla", "pl"],
+    alises: ["플레이", "재생", "ㅔㅣ묘", "vmffpdl", "wotod", "pla", "pl"],
     description: '유튜브에서 노래를 검색해 재생해요.',
     category: 'music',
     usage: '/play <노래 제목>',

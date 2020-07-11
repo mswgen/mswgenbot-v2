@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "nowplaying",
-    aliases: ["np", "ㅞ", "now-playing", "nowplay", "ㅜㅐ제ㅣ묘ㅑㅜㅎ", "현재음악", "현재곡", "guswodmadkr", "gusworhr", "지금곡", "wlrmarhr", "지금음악", "wlrmadmadkr", "지금노래", "wlrmashfo", "현재노래", "guswoshfo"],
+    alises: ["np", "ㅞ", "now-playing", "nowplay", "ㅜㅐ제ㅣ묘ㅑㅜㅎ", "현재음악", "현재곡", "guswodmadkr", "gusworhr", "지금곡", "wlrmarhr", "지금음악", "wlrmadmadkr", "지금노래", "wlrmashfo", "현재노래", "guswoshfo"],
     description: '현재 재생중인 노래를 보여줘요.',
     category: 'music',
     usage: '/nowplaying',

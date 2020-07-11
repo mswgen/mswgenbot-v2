@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "shuffle",
-    aliases: ["노ㅕㄹ릳", "섞어"],
+    alises: ["노ㅕㄹ릳", "섞어"],
     description: '재생 목록에 있는 노래를 섞어요.',
     category: 'music',
     usage: '/shuffle',

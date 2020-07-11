@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "pause",
-    aliases: ["일시정지", "ㅔ면ㄷ", "dlftlwjdwl"],
+    alises: ["일시정지", "ㅔ면ㄷ", "dlftlwjdwl"],
     description: '현재 노래를 일시중지해요.',
     category: 'music',
     usage: '/pause',

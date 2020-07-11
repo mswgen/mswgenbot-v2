@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "resume",
-    aliases: ["ㄱㄷ녀ㅡㄷ", "다시재생", "ektlwotod", "resu", "ㄱㄷ녀"],
+    alises: ["ㄱㄷ녀ㅡㄷ", "다시재생", "ektlwotod", "resu", "ㄱㄷ녀"],
     description: '일시중지한 노래를 다시 재생해요.',
     category: 'music',
     usage: '/resume',

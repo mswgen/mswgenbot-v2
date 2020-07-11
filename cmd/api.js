@@ -12,7 +12,7 @@ module.exports = {
             .setColor(0xffff00)
             .setTimestamp()
         );
-            axios.post('http://localhost:3000').then(async function (res) {
+            axios.post('https://bot.mswgen.ga').then(async function (res) {
                 if (res.status == 200) {
                     console.log(res.data.toString());
                     await m.edit(new Discord.MessageEmbed()

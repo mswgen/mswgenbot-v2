@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "remove",
-    alises ["제거", "wprj", "ㄱ드ㅐㅍㄷ"],
+    alises: ["제거", "wprj", "ㄱ드ㅐㅍㄷ"],
     description: '재생목록에서 노래를 지워요.',
     category: 'music',
     usage: '/remove <대기열에서 지울 음악의 순서>',

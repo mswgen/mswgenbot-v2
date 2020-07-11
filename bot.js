@@ -118,6 +118,7 @@ client.on('ready', async function () {
             }
         });
     }, 120000);
+    client.musicManager = new(require("./structures/MusicManager"))(client);
 })
     .on('message', async function (message) {
     if (message.channel.type != 'text') return;

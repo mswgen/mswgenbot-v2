@@ -1,11 +1,22 @@
-﻿const fn = require('../functions.js');
+const { MessageEmbed } = require("discord.js")
+
 module.exports = {
-    name: 'skip',
-    alises: ['스킵', '건너뛰기', 'skip'],
-    description: '~~재생 중인 노래를 스킵해요.~~현재 호스팅 에러로 인해 뮤직 기능을 사용할 수 없습니다. 죄송합니다.',
+    name: "skip",
+    aliases: ["스킵", "tmzlq"],
+    description: '현재 노래를 스킵해요.',
     category: 'music',
-    usage: '/스킵',
-    run: async function (client, message, args, option) {
-        //fn.skip(message);
+    usage: '/skip',
+    run: async (client, message, args, ops) => {
+        const player = client.musicManager.queue.get(message.guild.id)
+        
+        if (!player) return message.channel.send(ops.embed.musicError1)
+        if (!message.member.voice.channel) return message.channel.send(ops.embed.musicError2)
+        if (player && (message.member.voice.channelID !== player.voiceChannel.id)) return message.channel.send(ops.embed.musicError3(player))
+        
+        if (!player.playing) player.playing = true
+
+        player.skip()
+
+        message.channel.send(new MessageEmbed().setColor(0x00FF00).setTitle("스킵 완료!").setDescription(`✅ **[${player.songs[0].info.title}](${player.songs[0].info.uri})**이(가) 스킵되었어요!`))
     }
 }

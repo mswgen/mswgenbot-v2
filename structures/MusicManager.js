@@ -12,7 +12,7 @@ module.exports = class MusicManager {
  */
 constructor(client) {
     this.client = client
-    this.manager = new Manager(client, [{ id: "default", host: "https://mswgenbot-v2-lavalink.mswgen.repl.co", port: 443, password: process.env.LAVALINK_PASS }],  {
+    this.manager = new Manager(client, [{ id: "default", host: "mswgenbot-v2-lavalink.mswgen.repl.co", port: 443, password: process.env.LAVALINK_PASS }],  {
         user: client.user.id,
         shards: client.shard ? client.shard.count : 0
     })

@@ -13,17 +13,17 @@
     "nodemailer": "^6.4.6",
     "opusscript": "0.0.7",
     "pingpong-builder": "^2.1.5",
+    "puppeteer": "5.2.0",
     "request": "2.88.2",
     "slyrics": "^0.1.42",
     "socket.io": "^2.3.0",
+    "sqlite": "4.0.11",
+    "sqlite3": "^5.0.0",
     "util": "^0.12.3",
+    "vultrex.db": "^1.4.1",
     "weather-js": "^2.0.0",
     "yt-search": "^1.1.2",
-    "ytdl-core": "^2.1.2",
-    "vultrex.db": "1.4.1",
-    "sqlite": "4.0.11",
-    "sqlite3": "5.0.0",
-    "puppeteer": "5.2.0"
+    "ytdl-core": "^2.1.2"
   },
   "description": "discord bot",
   "engines": {

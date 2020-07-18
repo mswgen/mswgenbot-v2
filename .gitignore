@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Env files
 .env
+assets/index.db

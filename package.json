@@ -19,7 +19,11 @@
     "util": "^0.12.3",
     "weather-js": "^2.0.0",
     "yt-search": "^1.1.2",
-    "ytdl-core": "^2.1.2"
+    "ytdl-core": "^2.1.2",
+    "vultrex.db": "1.4.1",
+    "sqlite": "4.0.11",
+    "sqlite3": "5.0.0",
+    "puppeteer": "5.2.0"
   },
   "description": "discord bot",
   "engines": {

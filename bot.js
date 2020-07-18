@@ -8,12 +8,25 @@ const ascii = require('ascii-table');
 const axios = require('axios').default;
 const dotenv = require('dotenv');
 const web = require('./web.js');
+const { VultrexDB } = require('vultrex.db');
 const option = require('./assets/config.json');
 const logConfig = require('./assets/log.json');
 client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
+client.dbs = {
+    diag: new VultrexDB({
+        provider: 'sqlite',
+        table: 'diag',
+        fileName: './assets/index.db'
+    })
+};
+for (let x in client.dbs) {
+    client.dbs[x].connect().then(() => {
+        console.log(`${x} db connected`);
+    });
+}
 dotenv.config({
     path: __dirname + '/assets/.env'
 });

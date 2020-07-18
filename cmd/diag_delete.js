@@ -21,7 +21,7 @@ module.exports = {
             max: 1,
             time: 30000
         });
-        collector.on('end', collected => {
+        collector.on('end', async collected => {
             if (collected.first().emoji.name == '✅') {
                 embed.setTitle('자가진단 정보를 삭제했어요.')
                 .setDescription('')

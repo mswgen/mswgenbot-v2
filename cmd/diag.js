@@ -61,7 +61,7 @@ module.exports = {
                     .setColor("RANDOM")
                     .setTimestamp()
                     await m.edit(embed);
-                    await page.screenshot().then(x => {
+                    await page.screenshot().then(async x => {
                         embed.setTitle('자가진단 스크린샷')
                         .setDescription('')
                         .setImage(x)

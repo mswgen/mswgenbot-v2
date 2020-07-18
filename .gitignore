@@ -352,3 +352,5 @@ MigrationBackup/
 # Env files
 .env
 assets/index.db
+.vscode/launch.json
+.vscode/

@@ -19,7 +19,7 @@ client.dbs = {
     diag: new VultrexDB({
         provider: 'sqlite',
         table: 'diag',
-        fileName: './assets/index.db'
+        fileName: './assets/index'
     })
 };
 for (let x in client.dbs) {

@@ -1,5 +1,6 @@
 ﻿const Discord = require('discord.js');
 const util = require('util');
+const fn = require('../functions.js');
 module.exports = {
     name: 'eval', 
     alises: ['eval', '실행', 'compile', '컴파일', 'evaluate', 'ㄷㅍ미', '채ㅡㅔㅑㅣㄷ', 'ㄷㅍ미ㅕㅁㅅㄷ'],
@@ -36,7 +37,7 @@ const search = require('yt-search');
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)
             .setColor(0xffff00)
-            .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
+            .addField('Input', fn.codeBlock(fn.checkLength(input), 'js'))
             .setFooter(message.author.tag, message.author.avatarURL({
                 dynamic: true
             }))
@@ -60,8 +61,8 @@ const search = require('yt-search');
             const embed2 = new Discord.MessageEmbed()
                 .setTitle('Eval result')
                 .setColor(0x00ffff)
-                .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
-                .addField('Output', '```js\n' + output + '\n```')
+                .addField('Input', fn.codeBlock(fn.checkLength(input), 'js'))
+                .addField('Output', fn.codeBlock(fn.checkLength(output), 'js'))
                 .addField('Type', '```js\n' + type + '\n```')
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
@@ -72,8 +73,8 @@ const search = require('yt-search');
             const embed3 = new Discord.MessageEmbed()
                 .setTitle('Eval error...')
                 .setColor(0xff0000)
-                .addField('Input', '```js\n' + args.slice(1).join(' ') + '\n```')
-                .addField('Error', '```js\n' + err + '\n```')
+                .addField('Input', fn.codeBlock(fn.checkLength(input), 'js'))
+                .addField('Error', fn.codeBlock(fn.checkLength(err), 'js'))
                 .setFooter(message.author.tag, message.author.avatarURL({
                     dynamic: true
                 }))

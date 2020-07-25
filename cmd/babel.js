@@ -22,10 +22,10 @@ module.exports = {
         .setTimestamp()
         let m = await message.channel.send(embed);
         let compiled = babel.transform(args.slice(1).join(' '), {
-            presets: ["@babel/preset-env"],
+            presets: ["@babel/preset-env", "@babel/preset-react"],
             env: {
                 production: {
-                    presets: ["minify", "es2015"]
+                    presets: ["minify", "es2015", "@babel/preset-react"]
                 }
             }
         });

@@ -7,7 +7,7 @@ module.exports = {
     category: 'owner',
     usage: '/eval <실행할 코드>',
     run: async function (client, message, args, option) {
-        message.delete();
+        //message.delete();
         if (!option.ownerId.includes(message.author.id)) return message.channel.send(`${client.user.username} 개발자만 가능해요.`);
         let input = args.slice(1).join(' ');
         if (!input) return message.channel.send('내용을 써 주세요!');
@@ -30,7 +30,9 @@ const Pingpong = require('pingpong-builder');
 const builder = new Pingpong.Ai();
 const search = require('yt-search');
 
-${input}`;
+(async () => {
+    ${input}
+})()`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)
             .setColor(0xffff00)

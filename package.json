@@ -23,7 +23,12 @@
     "vultrex.db": "^1.4.1",
     "weather-js": "^2.0.0",
     "yt-search": "^1.1.2",
-    "ytdl-core": "^2.1.2"
+    "ytdl-core": "^2.1.2",
+    "@babel/core": "7.10.5",
+    "lavacord": "1.1.9",
+    "@lavacord/discord.js": "0.0.7",
+    "time-convert": "0.0.2",
+    "@babel/preset-env": "7.10.4"
   },
   "description": "discord bot",
   "engines": {

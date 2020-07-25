@@ -16,7 +16,7 @@ module.exports = {
             .setColor("RANDOM")
         let m = await message.channel.send(embed);
         puppeteer.launch().then(async browser => {
-            const config = await client.dbs.diag.get(message.author.id).split('$');
+            const config = (await client.dbs.diag.get(message.author.id)).split('$');
             const page = await browser.newPage();
             await page.goto(`https://eduro.${config[0]}.go.kr/hcheck/index.jsp`);
             await page.evaluate(() => {
@@ -64,7 +64,7 @@ module.exports = {
                     await page.screenshot().then(async x => {
                         embed.setTitle('자가진단 스크린샷')
                         .setDescription('')
-                        .setImage(x)
+                        .attachFiles(new Discord.MessageAttachment(x))
                         .setTimestamp()
                         .setColor("RANDOM")
                         await message.author.send(embed);

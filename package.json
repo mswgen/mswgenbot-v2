@@ -29,7 +29,8 @@
     "@lavacord/discord.js": "0.0.7",
     "time-convert": "0.0.2",
     "@babel/preset-env": "7.10.4",
-    "@babel/preset-react": "7.10.4"
+    "@babel/preset-react": "7.10.4",
+    "@babel/preset-typescript": "7.10.4"
   },
   "description": "discord bot",
   "engines": {

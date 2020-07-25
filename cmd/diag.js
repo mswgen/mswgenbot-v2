@@ -15,7 +15,13 @@ module.exports = {
             .setTimestamp()
             .setColor("RANDOM")
         let m = await message.channel.send(embed);
-        puppeteer.launch().then(async browser => {
+        puppeteer.launch({
+            headless: false,
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox'
+            ]
+        }).then(async browser => {
             const config = (await client.dbs.diag.get(message.author.id)).split('$');
             const page = await browser.newPage();
             await page.goto(`https://eduro.${config[0]}.go.kr/hcheck/index.jsp`);

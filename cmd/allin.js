@@ -7,8 +7,7 @@ module.exports = {
     category: 'play',
     usage: '/올인',
     run: async function (client, message, args, option) {
-        const money = require('../assets/money.json');
-        if (!money[message.author.id] || money[message.author.id] == 0) {
+        if (!(await client.dbs.money.get(message.author.id)) || (parseInt(await client.dbs.money.get(message.author.id))) == 0) {
             message.channel.send('현재 돈이 없어요. 먼저 돈을 받아주세요.')
             return;
         }
@@ -36,38 +35,40 @@ module.exports = {
             if (collected && collected.first().emoji.name == '✅') {
                 var random = Math.floor(Math.random() * 2);
                 var ing = await message.channel.send('올인 중...');
-                await setTimeout(function () {
+                setTimeout(async function () {
                     ing.delete();
+                    const money = (await client.dbs.money.getAll()).slice();
                     if (random == 0) {
-                        money[message.author.id] *= 2;
-                        fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
+                        await client.dbs.money.delete(message.guild.id);
+                        client.dbs.money.set(message.author.id, parseInt(money.find(x => x.key == message.author.id).value) * 2).then(async () => {
                             const embed = new Discord.MessageEmbed()
                                 .setTitle('올인에 성공했어요!')
                                 .setColor(0x00ffff)
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .addField('현재 가진 돈', `${money[message.author.id]}원`, true)
+                                .addField('현재 가진 돈', `${await client.dbs.money.get(message.author.id)}원`, true)
                                 .setFooter(message.author.tag, message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .setTimestamp()
+                                .setTimestamp();
                             prompt.edit(embed);
                         });
-                    } else {
-                        money[message.author.id] = 0;
-                        fs.writeFile('../assets.money.json', JSON.stringify(money), function (err) {
+                    }
+                    else {
+                        await client.dbs.money.delete(message.guild.id);
+                        client.dbs.money.set(message.author.id, 0).then(async () => {
                             const embed = new Discord.MessageEmbed()
                                 .setTitle('올인에 실패했어요...')
                                 .setColor(0xff0000)
                                 .setThumbnail(message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .addField('현재 가진 돈', `${money[message.author.id]}원`, true)
+                                .addField('현재 가진 돈', `0원`, true)
                                 .setFooter(message.author.tag, message.author.avatarURL({
                                     dynamic: true
                                 }))
-                                .setTimestamp()
+                                .setTimestamp();
                             prompt.edit(embed);
                         });
                     }
@@ -75,7 +76,7 @@ module.exports = {
             } else {
                 prompt.edit(new Discord.MessageEmbed()
                     .setTitle('올인을 포기했어요')
-                    .addField('가진 돈', money[message.author.id], true)
+                    .addField('가진 돈', `${await client.dbs.money.get(message.author.id)}원`, true)
                     .setColor(0xffff00)
                     .setThumbnail(message.author.avatarURL({
                         dynamic: true

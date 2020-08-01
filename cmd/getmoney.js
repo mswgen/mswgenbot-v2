@@ -11,18 +11,20 @@ module.exports = {
         if (!time.get(message.author.id)) {
             time.set(message.author.id, 0);
         }
-        const money = require('../assets/money.json');
-        if (!money[message.author.id]) {
-            money[message.author.id] = 0;
+        const money = (await client.dbs.money.getAll()).slice();
+        if (!money.find(x => x.key == message.author.id)) {
+            money.push({key: message.author.id, value: 0})
         }
         if (time.get(message.author.id) != 0) return message.channel.send(`${time.get(message.author.id)}초 뒤에 시도해 주세요`);
         var add = Math.floor(Math.random() * 1000) + 1;
-        money[message.author.id] += add;
-        fs.writeFile('../assets/money.json', JSON.stringify(money), function (err) {
+        if (money.find(x => x.key == message.author.id)) {
+            await client.dbs.money.delete(message.author.id);
+        }
+        client.dbs.money.set(message.author.id, parseInt((money.find(x => x.key == message.author.id).value) || 0) + add).then(async () => {
             const embed = new Discord.MessageEmbed()
                 .setTitle('돈을 받았어요!')
                 .addField('받은 돈', `${add}원`, true)
-                .addField('현재 돈', `${money[message.author.id]}원`, true)
+                .addField('현재 돈', `${await client.dbs.money.get(message.author.id)}원`, true)
                 .setColor(0x00ffff)
                 .setThumbnail(message.author.avatarURL({
                     dynamic: true

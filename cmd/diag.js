@@ -20,7 +20,8 @@ module.exports = {
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox'
-            ]
+            ],
+            slowMo: 100
         }).then(async browser => {
             const config = (await client.dbs.diag.get(message.author.id)).split('$');
             const page = await browser.newPage();

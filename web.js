@@ -11,6 +11,13 @@ function avatar (user) {
         return `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
     }
 }
+function rgbToHex (r, g, b) {
+    return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+}
+function componentToHex (c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
 module.exports = {
     create: function (client, option) {
         const server = http.createServer(function (req, res) {
@@ -36,7 +43,7 @@ module.exports = {
                         }
                     } else if (url.parse(req.url, true).pathname == '/login') {
                         res.writeHead(302, {
-                            'Location': `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.CALLBACK)}&scope=identify%20guilds&response_type=code`
+                            'Location': `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(`${process.env.WEBSITE}/callback`)}&scope=identify%20guilds&response_type=code`
                         });
                         res.end();
                     } else if (url.parse(req.url, true).pathname == '/callback') {
@@ -102,6 +109,15 @@ module.exports = {
                         res.end(client.user.avatarURL({
                             dynamic: false
                         }));
+                    } else if (url.parse(req.url, true).pathname == '/draw') {
+                        if (client.drawings.get(query.token)) {
+                            fs.readFile('./draw.html', 'utf8', (err, data) => {
+                                res.writeHead(200, {
+                                    'Content-Type': "text/html; charset=utf-8"
+                                });
+                                res.end(data.replace('{nick}', client.drawings.get(query.token).nick))
+                            });
+                        }
                     } else {
                         res.writeHead(404)
                             .end(`
@@ -122,8 +138,13 @@ module.exports = {
                     req.on('data', function (data) {
                         _post += data;
                     });
-                    req.on('end', function () {
-                        var post = JSON.parse(_post);
+                    req.on('end', async function () {
+                        let post;
+                        if (req.headers['content-type'] == 'application/x-www-form-urlencoded') {
+                            post = qs.parse(_post);
+                        } else {
+                            post = JSON.parse(post);
+                        }
                         if (post.type == 'mask') {
                             require('./cmd/mask.js').api(res, post);
                         } else if (post.type == 'entry') {
@@ -142,6 +163,37 @@ module.exports = {
                                     uptime: client.uptime,
                                     user: client.user
                                 }));
+                        } else if (post.type == 'drawing') {
+                            if (client.drawings.get(post.token)) {
+                                let r = Math.floor(Math.random() * 10000);
+                                fs.writeFileSync(`./tmp/file_${r}.png`, new Buffer.from(post.img.split(',').slice(1).join(','), 'base64'));
+                                await client.channels.cache.get(client.drawings.get(post.token).channel).send({
+                                    files: [new Discord.MessageAttachment(`./tmp/file_${r}.png`, 'file.png')],
+                                    embed: {
+                                        title: `${client.drawings.get(post.token).nick}님의 그림`,
+                                        hexColor: rgbToHex(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)),
+                                        footer: {
+                                            text: client.drawings.get(post.token).nick,
+                                            iconURL: client.users.cache.get(client.drawings.get(post.token).usr).avatarURL()
+                                        },
+                                        timestamp: new Date(),
+                                        image: {
+                                            url: `attachment://file.png`
+                                        }
+                                    }
+                                });
+                                await client.drawings.delete(post.token);
+                                fs.unlinkSync(`./tmp/file_${r}.png`);
+                                res.writeHead(201, {
+                                    'Content-Type': 'text/plain; charset=utf-8'
+                                });
+                                res.end(`완료!`)
+                            } else {
+                                res.writeHead(400, {
+                                    'Content-Type': 'text/plain; charset=utf-8'
+                                });
+                                res.end('토큰이 올바르지 않아요. 올바른 링크로 들어왔는지 확인해주세요.');
+                            }
                         } else {
                             res.writeHead(200, {
                                 'Content-Type': 'application/json; type=utf-8'
@@ -178,7 +230,7 @@ module.exports = {
         });
             server.listen(option.port);
             setInterval(() => {
-                axios.get('https://bot.mswgen.ga').then();
+                axios.get(process.env.WEBSITE).then();
             }, 600000);
         function makeHTML(client) {
             return `<!DOCTYPE html>

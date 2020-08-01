@@ -6,11 +6,10 @@ module.exports = {
     category: 'play',
     usage: '/돈',
     run: async function (client, message, args, option) {
-        const money = require('../assets/money.json');
         const embed = new Discord.MessageEmbed()
             .setTitle(`${message.author.username}님의 돈`)
             .setColor(0x00ffff)
-            .addField('소유 중인 돈', `${money[message.author.id] || 0}원`, true)
+            .addField('소유 중인 돈', `${(await client.dbs.money.get(message.author.id)) || 0}원`, true)
             .setThumbnail(message.author.avatarURL({
                 dynamic: true
             }))

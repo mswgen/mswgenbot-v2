@@ -25,7 +25,7 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
             env: {
                 production: {
-                    presets: ["minify", "es2015", "@babel/preset-react"]
+                    presets: ["minify", "@babel/preset-react"]
                 }
             }
         });

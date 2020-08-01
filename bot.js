@@ -15,13 +15,16 @@ client.commands = new Discord.Collection();
 client.categories = new Discord.Collection();
 client.queue = new Discord.Collection();
 client.alises = new Discord.Collection();
-client.dbs = {
-    diag: new VultrexDB({
+client.drawings = new Discord.Collection();
+client.dbs = {};
+let dbs = ['diag', 'money'];
+for (let x of dbs) {
+    client.dbs[x] = new VultrexDB({
         provider: 'sqlite',
-        table: 'diag',
+        table: x,
         fileName: './assets/index'
-    })
-};
+    });
+}
 for (let x in client.dbs) {
     client.dbs[x].connect().then(() => {
         console.log(`${x} db connected`);

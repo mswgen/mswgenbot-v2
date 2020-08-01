@@ -1,0 +1,169 @@
+<html>
+    <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그림 그리기</title>
+    <script type="text/javascript">
+    var t = 2;
+    var canvas, ctx, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = false;
+
+    var x = "black",
+        y = 2;
+    
+    function init() {
+        canvas = document.getElementById('can');
+        ctx = canvas.getContext("2d");
+        w = canvas.width;
+        h = canvas.height;
+        ctx.fillStyle = '#ffffff'
+        ctx.fillRect(0, 0, w, h);
+    
+        canvas.addEventListener("mousemove", function (e) {
+            findxy('move', e)
+        }, false);
+        canvas.addEventListener("mousedown", function (e) {
+            findxy('down', e)
+        }, false);
+        canvas.addEventListener("mouseup", function (e) {
+            findxy('up', e)
+        }, false);
+        canvas.addEventListener("mouseout", function (e) {
+            findxy('out', e)
+        }, false);
+    }
+    
+    function color(obj) {
+        switch (obj.id) {
+            case "green":
+                x = "green";
+                break;
+            case "blue":
+                x = "blue";
+                break;
+            case "red":
+                x = "red";
+                break;
+            case "yellow":
+                x = "yellow";
+                break;
+            case "orange":
+                x = "orange";
+                break;
+            case "black":
+                x = "black";
+                break;
+            case "white":
+                x = "white";
+                break;
+        }
+        if (x == "white") y = 14;
+        else y = 2;
+    
+    }
+    
+    function draw() {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = x;
+        ctx.lineWidth = t;
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+    function erase() {
+        var m = confirm("캔버스를 모두 지울까요?");
+        if (m) {
+            ctx.clearRect(0, 0, w, h);
+            document.getElementById("canvasimg").style.display = "none";
+        }
+    }
+    
+    function save() {
+        document.getElementById("canvasimg").style.border = "2px solid";
+        var dataURL = canvas.toDataURL();
+        document.getElementById("canvasimg").src = dataURL;
+        document.getElementById("canvasimg").style.display = "inline";
+    }
+    
+    function findxy(res, e) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft;
+            currY = e.clientY - canvas.offsetTop;
+    
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = x;
+                ctx.fillRect(currX, currY, t, t);
+                ctx.closePath();
+                dot_flag = false;
+            }
+        }
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft;
+                currY = e.clientY - canvas.offsetTop;
+                draw();
+            }
+        }
+    }
+    function done (e) {
+        document.querySelector('#token').setAttribute('value', getParam('token'));
+        document.querySelector('#img').setAttribute('value', document.querySelector('#can').toDataURL());
+        return true;
+    }
+    function getParam (sname) {
+        var params = location.search.substr(location.search.indexOf("?") + 1);
+        var sval = "";
+        params = params.split("&");
+        for (var i = 0; i < params.length; i++) {
+            temp = params[i].split("=");
+            if ([temp[0]] == sname) { sval = temp[1]; }
+        }
+        return sval;
+        }
+    </script>
+    </head>
+    <body onload="init()">
+        <h1>{nick}님 환영합니다!</h1>
+        <canvas id="can" width="400" height="400" style="border:2px solid;"></canvas>
+        <div >색</div>
+        <div style="display: grid; grid-template-columns: auto auto auto auto auto auto;width:180px;">
+        <div style="background:green;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="green" onclick="color(this)"></div>
+        <div style="background:blue;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="blue" onclick="color(this)"></div>
+        <div style="background:red;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="red" onclick="color(this)"></div>
+        <div style="background:yellow;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="yellow" onclick="color(this)"></div>
+        <div style="background:orange;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="orange" onclick="color(this)"></div>
+        <div style="background:black;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="black" onclick="color(this)"></div>
+        </div>
+        <div>지우기</div>
+        <div style="background:white;border:2px solid;width:30px;height:30px;" id="white" onclick="color(this)"></div>
+        <div style="display:grid;grid-template-columns: 1fr auto;width:30vw;margin-top:30px;">
+            <input type="number" id="thick" value="2" placeholder="굵기">
+            <input type="button" value="굵기 설정" onclick="t = parseInt(document.querySelector('#thick').value);">
+        </div>
+        <img id="canvasimg" style="display:none;">
+        <form action="/" method="post" onsubmit="done()">
+            <input type="hidden" name="token" id="token" value="">
+            <input type="hidden" name="img" id="img" value="">
+            <input type="hidden" name="type" value="drawing">
+            <input type="hidden" name="isForm" value="y">
+            <input type="submit" value="완료!" id="btn" size="30" style="margin-top: 15px;">
+        </form>
+        <input type="button" value="모두 지우기" id="clr" size="23" onclick="erase()" style="margin-top: 15px;">
+    </body>
+    </html>

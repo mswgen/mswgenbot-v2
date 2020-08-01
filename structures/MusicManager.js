@@ -86,7 +86,12 @@ async play(guild, song) {
         let m = await serverQueue.textChannel.send(embed);
 
         var x = setInterval(() => {
-            m.edit(embed.setDescription(embed.description.replace('🔘️▬', '▬🔘️')))
+            let a = embed.description.split('재생 상황: ').slice()
+            a[1] = client.musicManager.queue.get(message.guild.id).songProgress;
+            m.edit(embed
+                .setDescription(a.join('재생 상황: '))
+            )
+
         }, song.info.length / 19);
     }
 }

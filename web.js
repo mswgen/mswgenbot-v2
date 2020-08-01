@@ -117,9 +117,15 @@ module.exports = {
                                 });
                                 res.end(data
                                     .replace('{nick}', client.drawings.get(query.token).nick)
-                                    .replace('{avatar}', client.user.displayAvatarURL())
+                                    .replace(/{avatar}/gi, client.user.displayAvatarURL())
+                                    .replace('{url}', process.env.WEBSITE)
                                 );
                             });
+                        } else {
+                            res.writeHead(400, {
+                                'Content-Type': 'text/plain; charset=utf-8'
+                            });
+                            res.end('토큰이 올바르지 않아요. 올바른 링크로 들어왔는지 확인해주세요.');
                         }
                     } else {
                         res.writeHead(404)

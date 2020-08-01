@@ -30,10 +30,7 @@ const url = require('url');
 const Pingpong = require('pingpong-builder');
 const builder = new Pingpong.Ai();
 const search = require('yt-search');
-
-(async () => {
-    ${input}
-})()`;
+${input}`;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${client.emojis.cache.find(x => x.name == 'loadingCirclebar')} Evaling...`)
             .setColor(0xffff00)

@@ -92,6 +92,7 @@
         var m = confirm("캔버스를 모두 지울까요?");
         if (m) {
             ctx.clearRect(0, 0, w, h);
+            ctx.fillRect(0, 0, w, h);
             document.getElementById("canvasimg").style.display = "none";
         }
     }
@@ -150,7 +151,7 @@
         }
     </script>
     </head>
-    <body onload="init()">
+    <body onload="init()" style="font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;">
         <h1>{nick}님 환영합니다!</h1>
         <canvas id="can" width="400" height="400" style="border:2px solid;"></canvas>
         <div >색</div>

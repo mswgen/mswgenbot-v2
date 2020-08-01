@@ -52,7 +52,7 @@ module.exports = {
                             client_secret: process.env.CLIENT_SECRET,
                             scope: 'identify guilds',
                             code: query.code,
-                            redirect_uri: process.env.CALLBACK,
+                            redirect_uri: `${process.env.WEBSITE}/callback`,
                             state: process.env.STATE,
                             grant_type: 'authorization_code'
                         }), {
@@ -115,7 +115,10 @@ module.exports = {
                                 res.writeHead(200, {
                                     'Content-Type': "text/html; charset=utf-8"
                                 });
-                                res.end(data.replace('{nick}', client.drawings.get(query.token).nick))
+                                res.end(data
+                                    .replace('{nick}', client.drawings.get(query.token).nick)
+                                    .replace('{avatar}', client.user.displayAvatarURL())
+                                );
                             });
                         }
                     } else {

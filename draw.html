@@ -15,9 +15,13 @@
     <meta name="og:site_name" content="mswgen봇 v2 그림 그리기">
     <meta name="twitter:image" content="{avatar}">
     <meta name="twitter:card" content="summary_image">
+    <!--<script src="/socket.io/socket.io.js"></script>-->
     <script type="text/javascript">
+    //var socket = io();
+    var undos = [];
     var t = 2;
-    var canvas, ctx, flag = false,
+    var color = '#000000';
+    var canvas, ctx, flag, drawing = false,
         prevX = 0,
         currX = 0,
         prevY = 0,
@@ -34,55 +38,34 @@
         h = canvas.height;
         ctx.fillStyle = '#ffffff'
         ctx.fillRect(0, 0, w, h);
-    
+        document.querySelector('#colorPickBtn').addEventListener('click', function () {
+            color = document.querySelector('#colorPick').value;
+        });
         canvas.addEventListener("mousemove", function (e) {
             findxy('move', e)
         }, false);
         canvas.addEventListener("mousedown", function (e) {
+            drawing = true;
             findxy('down', e)
+            document.querySelector('#undo').disabled = false;
         }, false);
         canvas.addEventListener("mouseup", function (e) {
+            drawing = false;
             findxy('up', e)
+            undos.push(canvas.toDataURL());
         }, false);
         canvas.addEventListener("mouseout", function (e) {
             findxy('out', e)
+            if (drawing) undos.push(canvas.toDataURL());
+            drawing = false;
         }, false);
     }
-    
-    function color(obj) {
-        switch (obj.id) {
-            case "green":
-                x = "green";
-                break;
-            case "blue":
-                x = "blue";
-                break;
-            case "red":
-                x = "red";
-                break;
-            case "yellow":
-                x = "yellow";
-                break;
-            case "orange":
-                x = "orange";
-                break;
-            case "black":
-                x = "black";
-                break;
-            case "white":
-                x = "white";
-                break;
-        }
-        if (x == "white") y = 14;
-        else y = 2;
-    
-    }
-    
+
     function draw() {
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(currX, currY);
-        ctx.strokeStyle = x;
+        ctx.strokeStyle = color;
         ctx.lineWidth = t;
         ctx.stroke();
         ctx.closePath();
@@ -92,18 +75,19 @@
         var m = confirm("캔버스를 모두 지울까요?");
         if (m) {
             ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, w, h);
             document.getElementById("canvasimg").style.display = "none";
         }
     }
     
     function save() {
+
         document.getElementById("canvasimg").style.border = "2px solid";
         var dataURL = canvas.toDataURL();
         document.getElementById("canvasimg").src = dataURL;
         document.getElementById("canvasimg").style.display = "inline";
     }
-    
     function findxy(res, e) {
         if (res == 'down') {
             prevX = currX;
@@ -115,7 +99,7 @@
             dot_flag = true;
             if (dot_flag) {
                 ctx.beginPath();
-                ctx.fillStyle = x;
+                ctx.fillStyle = color;
                 ctx.fillRect(currX, currY, t, t);
                 ctx.closePath();
                 dot_flag = false;
@@ -149,23 +133,23 @@
         }
         return sval;
         }
+        function undo () {
+            var img = new Image();
+            img.src = undos[undos.length - 1];
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = '#ffffff'
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0);
+            undos.pop();
+        }
     </script>
     </head>
     <body onload="init()" style="font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;">
         <h1>{nick}님 환영합니다!</h1>
         <canvas id="can" width="400" height="400" style="border:2px solid;"></canvas>
-        <div >색</div>
-        <div style="display: grid; grid-template-columns: auto auto auto auto auto auto;width:180px;">
-        <div style="background:green;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="green" onclick="color(this)"></div>
-        <div style="background:blue;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="blue" onclick="color(this)"></div>
-        <div style="background:red;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="red" onclick="color(this)"></div>
-        <div style="background:yellow;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="yellow" onclick="color(this)"></div>
-        <div style="background:orange;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="orange" onclick="color(this)"></div>
-        <div style="background:black;width:30px;height:30px;padding-right:0;padding-left:0;margin-right:0;margin-left:0;" id="black" onclick="color(this)"></div>
-        </div>
-        <div>지우기</div>
-        <div style="background:white;border:2px solid;width:30px;height:30px;" id="white" onclick="color(this)"></div>
-        <div style="display:grid;grid-template-columns: 1fr auto;width:30vw;margin-top:30px;">
+        <div style="display:grid;grid-template-columns: auto auto auto auto;margin-top:30px;width:20vw;">
+            <input type="color" id="colorPick">
+            <input type="button" value="색 설정" id="colorPickBtn" style="margin-right: 5px;">
             <input type="number" id="thick" value="2" placeholder="굵기">
             <input type="button" value="굵기 설정" onclick="t = parseInt(document.querySelector('#thick').value);">
         </div>
@@ -176,7 +160,21 @@
             <input type="hidden" name="type" value="drawing">
             <input type="hidden" name="isForm" value="y">
             <input type="submit" value="완료!" id="btn" size="30" style="margin-top: 15px;">
+            <input type="button" value="모두 지우기" id="clr" size="23" onclick="erase()" style="margin-top: 15px;">
+            <input type="button" value="되돌리기" id="undo" disabled onclick="
+                var img = new Image();
+                undos.pop();
+                img.src = undos[undos.length - 1];
+                ctx.clearRect(0, 0, w, h);
+                ctx.fillStyle = '#ffffff'
+                ctx.fillRect(0, 0, w, h);
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0);
+                }
+                if (undos.length == 0) {
+                    document.querySelector('#undo').disabled = true;
+                }
+            ">
         </form>
-        <input type="button" value="모두 지우기" id="clr" size="23" onclick="erase()" style="margin-top: 15px;">
     </body>
     </html>

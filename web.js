@@ -123,9 +123,14 @@ module.exports = {
                             });
                         } else {
                             res.writeHead(400, {
-                                'Content-Type': 'text/plain; charset=utf-8'
+                                'Content-Type': 'text/html; charset=utf-8'
                             });
-                            res.end('토큰이 올바르지 않아요. 올바른 링크로 들어왔는지 확인해주세요.');
+                            fs.readFile('./draw_err.html', 'utf8', (err, data) => {
+                                res.end(data
+                                    .replace(/{avatar}/gi, client.user.displayAvatarURL())
+                                    .replace('{url}', process.env.WEBSITE)
+                                );
+                            });
                         }
                     } else {
                         res.writeHead(404)
@@ -194,14 +199,24 @@ module.exports = {
                                 await client.drawings.delete(post.token);
                                 fs.unlinkSync(`./tmp/file_${r}.png`);
                                 res.writeHead(201, {
-                                    'Content-Type': 'text/plain; charset=utf-8'
+                                    'Content-Type': 'text/html; charset=utf-8'
                                 });
-                                res.end(`완료!`)
+                                fs.readFile('./draw_done.html', 'utf8', (err, data) => {
+                                    res.end(data
+                                        .replace(/{avatar}/gi, client.user.displayAvatarURL())
+                                        .replace('{url}', process.env.WEBSITE)
+                                    );
+                                });
                             } else {
                                 res.writeHead(400, {
-                                    'Content-Type': 'text/plain; charset=utf-8'
+                                    'Content-Type': 'text/html; charset=utf-8'
                                 });
-                                res.end('토큰이 올바르지 않아요. 올바른 링크로 들어왔는지 확인해주세요.');
+                                fs.readFile('./draw_err.html', 'utf8', (err, data) => {
+                                    res.end(data
+                                        .replace(/{avatar}/gi, client.user.displayAvatarURL())
+                                        .replace('{url}', process.env.WEBSITE)
+                                    );
+                                });
                             }
                         } else {
                             res.writeHead(200, {

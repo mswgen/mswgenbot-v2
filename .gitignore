@@ -354,5 +354,4 @@ MigrationBackup/
 assets/index.db
 .vscode/launch.json
 .vscode/
-tmp
 tmp/*

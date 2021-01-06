@@ -3,7 +3,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "ascii-table": "0.0.9",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "canvas": "^2.6.1",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.2.0",
